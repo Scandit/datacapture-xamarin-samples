@@ -132,10 +132,11 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="BarcodeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.2.2-beta" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.2.2-beta" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.3.0-rc.2" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.3.0-rc.2" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

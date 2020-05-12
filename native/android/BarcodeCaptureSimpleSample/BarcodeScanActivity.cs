@@ -31,7 +31,7 @@ using Scandit.DataCapture.Core.UI.Viewfinder;
 
 namespace BarcodeCaptureSimpleSample
 {
-    [Activity(MainLauncher = true, Label = "BarcodeScanActivity")]
+    [Activity(MainLauncher = true, Label = "@string/app_name")]
     public class BarcodeScanActivity : CameraPermissionActivity, IBarcodeCaptureListener
     {
         // Enter your Scandit License key here.
@@ -97,7 +97,7 @@ namespace BarcodeCaptureSimpleSample
             // The camera is off by default and must be turned on to start streaming frames to the data
             // capture context for recognition.
             // See resumeFrameSource and pauseFrameSource below.
-            this.camera = Camera.DefaultCamera;
+            this.camera = Camera.GetDefaultCamera();
             if (this.camera != null)
             {
                 // Use the settings recommended by barcode capture.
@@ -152,7 +152,7 @@ namespace BarcodeCaptureSimpleSample
             // barcodes on top of the video preview.
             // This is optional, but recommended for better visual feedback.
             BarcodeCaptureOverlay overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
-            overlay.Viewfinder = new RectangularViewfinder();
+            overlay.Viewfinder = RectangularViewfinder.Create();
 
             SetContentView(this.dataCaptureView);
         }

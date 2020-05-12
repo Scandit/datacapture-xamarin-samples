@@ -28,7 +28,7 @@ using Scandit.DataCapture.Core.UI;
 
 namespace MatrixScanSimpleSample
 {
-    [Activity(MainLauncher = true, Label = "MatrixScan Simple Sample")]
+    [Activity(MainLauncher = true, Label = "@string/app_name")]
     public class BarcodeScanActivity : CameraPermissionActivity, IBarcodeTrackingListener
     {
         // Enter your Scandit License key here.
@@ -110,12 +110,12 @@ namespace MatrixScanSimpleSample
             // The camera is off by default and must be turned on to start
             // streaming frames to the data capture context for recognition.
             // See ResumeFrameSource and OnPause methods.
-            this.camera = Camera.DefaultCamera;
+            this.camera = Camera.GetDefaultCamera();
 
             if (this.camera != null)
             {
                 // Use the recommended camera settings for the BarcodeTracking mode.
-                CameraSettings cameraSettings = BarcodeTracking.RecommendedCameraSettings();
+                CameraSettings cameraSettings = BarcodeTracking.RecommendedCameraSettings;
                 // Adjust camera settings - set Full HD resolution.
                 cameraSettings.PreferredResolution = VideoResolution.FullHd;
                 this.camera.ApplySettingsAsync(cameraSettings);

@@ -116,8 +116,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.3.1-beta" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.3.1-beta" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.3.2-beta" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.3.2-beta" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -36,6 +36,7 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -61,7 +62,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>MatrixScanSimpleSample</string>
+	<string>MSSimple</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Used to scan barcodes.</string>
 	<key>XSAppIconAssets</key>

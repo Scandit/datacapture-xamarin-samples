@@ -13,8 +13,8 @@
  */
 
 using System;
+using BarcodeCaptureSettingsSample.Extensions;
 using Foundation;
-using Scandit.DataCapture.Core.Additions;
 
 namespace BarcodeCaptureSettingsSample.DataSource.Other.Rows
 {

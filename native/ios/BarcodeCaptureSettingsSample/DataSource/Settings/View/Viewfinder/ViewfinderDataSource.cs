@@ -110,20 +110,20 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             {
                 BoolOptionRow.Create(
                     "None",
-                    () => SettingsManager.Instance.Viewfinder == null,
-                    (_) => SettingsManager.Instance.Viewfinder = null,
+                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.None,
+                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.None,
                     this.DataSourceListener
                 ),
                 BoolOptionRow.Create(
                     "Rectangular",
-                    () => SettingsManager.Instance.Viewfinder is RectangularViewfinder,
-                    (_) => SettingsManager.Instance.Viewfinder = RectangularViewfinder.Create(),
+                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Rectangular,
+                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Rectangular,
                     this.DataSourceListener
                 ),
                 BoolOptionRow.Create(
                     "Laserline",
-                    () => SettingsManager.Instance.Viewfinder is LaserlineViewfinder,
-                    (_) => SettingsManager.Instance.Viewfinder = LaserlineViewfinder.Create(),
+                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline,
+                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Laserline,
                     this.DataSourceListener
                 )
             }, "Type");
@@ -135,8 +135,8 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
              {
                  FloatWithUnitRow.Create(
                      "Width",
-                     () => (SettingsManager.Instance.Viewfinder as LaserlineViewfinder).Width,
-                     unit => (SettingsManager.Instance.Viewfinder as LaserlineViewfinder).Width = unit,
+                     () => (SettingsManager.Instance.ViewfinderKind.Viewfinder as LaserlineViewfinder).Width,
+                     unit => (SettingsManager.Instance.ViewfinderKind.Viewfinder as LaserlineViewfinder).Width = unit,
                      this.DataSourceListener
                  ),
                  ChoiceRow<LaserlineViewfinderEnabledColor>.Create(
@@ -163,7 +163,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             get
             {
                 var sections = new List<Section> {this.viewfinderType};
-                if (SettingsManager.Instance.Viewfinder is RectangularViewfinder)
+                if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Rectangular)
                 {
                     var sizeSpec = SettingsManager.Instance.ViewfinderSizeSpecification;
                     sections.AddRange(new List<Section>() {this.rectangularSettings, this.rectangularSizeType});
@@ -180,7 +180,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                         sections.Add(new Section(new Row[]{this.rectangularWidthAspect, this.rectangularHeight}));
                     }
                 }
-                else if (SettingsManager.Instance.Viewfinder is LaserlineViewfinder)
+                else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline)
                 {
                     sections.Add(this.laserlineSettings);
                 }

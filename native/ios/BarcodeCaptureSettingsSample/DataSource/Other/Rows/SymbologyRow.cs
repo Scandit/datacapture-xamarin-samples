@@ -17,7 +17,6 @@ using BarcodeCaptureSettingsSample.Extensions;
 using BarcodeCaptureSettingsSample.Views;
 using Foundation;
 using Scandit.DataCapture.Barcode.Capture;
-using Scandit.DataCapture.Core.Additions;
 using UIKit;
 
 namespace BarcodeCaptureSettingsSample.DataSource.Other.Rows

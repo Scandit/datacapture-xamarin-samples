@@ -148,7 +148,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
         {
             // Switch camera on to start streaming frames.
             // The camera is started asynchronously and will take some time to completely turn on.
-            this.viewModel.StartFrameSourceAsync();
+            this.viewModel.StartFrameSource();
             this.viewModel.ResumeScanning();
         }
 
@@ -161,7 +161,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             // Until it is completely stopped, it is still possible to receive further results, hence
             // it's a good idea to first disable barcode tracking as well.
             this.viewModel.PauseScanning();
-            this.viewModel.StopFrameSourceAsync();
+            this.viewModel.StopFrameSource();
         }
 
         private void ShowDialogForContinuousScanning(string text)

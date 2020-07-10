@@ -8,7 +8,7 @@
         <TemplateGuid>{edc1b0fa-90cd-4038-8fad-98fe74adb368}</TemplateGuid>
         <OutputType>Exe</OutputType>
         <RootNamespace>MatrixScanBubblesSample</RootNamespace>
-        <AssemblyName>MatrixScanBubblesSampleiOS</AssemblyName>
+        <AssemblyName>MatrixScanBubblesSample</AssemblyName>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
@@ -58,7 +58,7 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-        <MtouchArch>ARM64</MtouchArch>
+        <MtouchArch>ARMv7, ARM64</MtouchArch>
         <CodesignKey>iPhone Developer</CodesignKey>
 <LangVersion>latestmajor</LangVersion>
     </PropertyGroup>
@@ -96,8 +96,8 @@
         <Compile Include="Overlay\StockOverlay.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.3.3-beta" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.3.3-beta" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.4.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.4.0" />
     </ItemGroup>
     <ItemGroup>
       <ImageAsset Include="Resources\Assets.xcassets\Contents.json" />

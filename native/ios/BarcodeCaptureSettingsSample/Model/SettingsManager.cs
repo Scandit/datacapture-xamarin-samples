@@ -63,6 +63,8 @@ namespace BarcodeCaptureSettingsSample.Model
 
         private DataCaptureView captureView;
 
+        private ViewfinderKind viewfinderKind = ViewfinderKind.None;
+
         public static SettingsManager Instance => lazy.Value;
 
         public bool ContinuousModeEnabled { get; set; }
@@ -320,13 +322,14 @@ namespace BarcodeCaptureSettingsSample.Model
 
         #region Viewfinder
 
-        public IViewfinder Viewfinder 
+        public ViewfinderKind ViewfinderKind 
         {
-            get => this.Overlay.Viewfinder;
+            get => this.viewfinderKind;
             set
             {
-                this.Overlay.Viewfinder = value;
-                if (!(value is RectangularViewfinder rectangular))
+                this.viewfinderKind = value;
+                this.Overlay.Viewfinder = value.Viewfinder;
+                if (!(value.Viewfinder is RectangularViewfinder rectangular))
                 {
                     return;
                 }
@@ -399,7 +402,7 @@ namespace BarcodeCaptureSettingsSample.Model
             set
             {
                 this.rectangularViewfinderColor = value;
-                (this.Viewfinder as RectangularViewfinder).Color = this.RectangularViewfinderColor.UIColor;
+                (this.ViewfinderKind.Viewfinder as RectangularViewfinder).Color = this.RectangularViewfinderColor.UIColor;
             }
         }
 
@@ -409,7 +412,7 @@ namespace BarcodeCaptureSettingsSample.Model
             set
             {
                 this.laserlineViewfinderEnabledColor = value;
-                (this.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderEnabledColor.UIColor;
+                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderEnabledColor.UIColor;
             }
         }
 
@@ -419,7 +422,7 @@ namespace BarcodeCaptureSettingsSample.Model
             set
             {
                 this.laserlineViewfinderDisabledColor = value;
-                (this.Viewfinder as LaserlineViewfinder).DisabledColor = this.LaserlineViewfinderDisabledColor.UIColor;
+                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).DisabledColor = this.LaserlineViewfinderDisabledColor.UIColor;
             }
         }
 
@@ -427,7 +430,7 @@ namespace BarcodeCaptureSettingsSample.Model
         
         private void UpdateViewfinderSize()
         {
-            if (!(this.Viewfinder is RectangularViewfinder rectangular))
+            if (this.ViewfinderKind != ViewfinderKind.Rectangular)
             {
                 return;
             }
@@ -438,13 +441,13 @@ namespace BarcodeCaptureSettingsSample.Model
                     Width = this.RectangularWidth,
                     Height = this.RectangularHeight
                 };
-                rectangular.SetSize(newSize);
+                (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetSize(newSize);
             } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.WidthAndHeightAspect))
             {
-                rectangular.SetWidthAndAspectRatio(this.RectangularWidth, this.RectangularWidthAspect);
+                (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetWidthAndAspectRatio(this.RectangularWidth, this.RectangularWidthAspect);
             } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.HeightAndWidthAspect))
             {
-                rectangular.SetHeightAndAspectRatio(this.RectangularHeight, this.RectangularHeightAspect);
+                (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetHeightAndAspectRatio(this.RectangularHeight, this.RectangularHeightAspect);
             }
         }
 

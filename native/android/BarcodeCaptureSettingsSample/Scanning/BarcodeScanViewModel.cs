@@ -58,9 +58,9 @@ namespace BarcodeCaptureSettingsSample.Scanning
         { }
         #endregion
 
-        public async void StartFrameSourceAsync() => await this.SettingsManager.CurrentCamera.SwitchToDesiredStateAsync(FrameSourceState.On);
+        public void StartFrameSource() => this.SettingsManager.CurrentCamera?.SwitchToDesiredStateAsync(FrameSourceState.On);
 
-        public async void StopFrameSourceAsync() => await this.SettingsManager.CurrentCamera.SwitchToDesiredStateAsync(FrameSourceState.Off);
+        public void StopFrameSource() => this.SettingsManager.CurrentCamera?.SwitchToDesiredStateAsync(FrameSourceState.Off);
 
         public void ResumeScanning() => this.SettingsManager.BarcodeCapture.Enabled = true;
 

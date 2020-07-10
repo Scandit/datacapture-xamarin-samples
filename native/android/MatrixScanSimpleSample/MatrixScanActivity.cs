@@ -32,7 +32,7 @@ namespace MatrixScanSimpleSample
     public class BarcodeScanActivity : CameraPermissionActivity, IBarcodeTrackingListener
     {
         // Enter your Scandit License key here.
-        public const string SCANDIT_LICENSE_KEY = "-- ENTER YOUR LICENSE KEY --";
+        public const string SCANDIT_LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
         public readonly static int RequestCodeScanResults = 1;
 
@@ -172,11 +172,14 @@ namespace MatrixScanSimpleSample
             {
                 foreach (var trackedBarcode in session.AddedTrackedBarcodes)
                 {
-                    this.scanResults.Add(new ScanResult
+                    using (SymbologyDescription description = SymbologyDescription.Create(trackedBarcode.Barcode.Symbology))
                     {
-                        Data = trackedBarcode.Barcode.Data,
-                        Symbology = SymbologyDescription.Create(trackedBarcode.Barcode.Symbology).ReadableName
-                    });
+                        this.scanResults.Add(new ScanResult
+                        {
+                            Data = trackedBarcode.Barcode.Data,
+                            Symbology = description.ReadableName
+                        });
+                    }
                 }
             }
         }

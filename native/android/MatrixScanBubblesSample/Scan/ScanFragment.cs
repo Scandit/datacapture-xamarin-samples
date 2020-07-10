@@ -78,8 +78,8 @@ namespace MatrixScanBubblesSample.Scan
             // We create an overlay to highlight the barcodes.
             this.highlightOverlay = BarcodeTrackingBasicOverlay.Create(
                 this.viewModel.BarcodeTracking, dataCaptureView);
-            this.highlightOverlay.DefaultBrush = this.viewModel.DefaultBrush;
-            
+            this.highlightOverlay.Brush = this.viewModel.DefaultBrush;
+
             // We create an overlay for the bubbles.
             this.bubblesOverlay = BarcodeTrackingAdvancedOverlay.Create(
                     this.viewModel.BarcodeTracking,

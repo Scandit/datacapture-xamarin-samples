@@ -19,7 +19,7 @@ namespace BarcodeCaptureSettingsSample.Extensions
 {
     public static class ShortSetExtensions
     {
-        public static HashSet<short> NewSetWithMinimum(this HashSet<short> set, short value)
+        public static ICollection<short> NewSetWithMinimum(this ICollection<short> set, short value)
         {
             var minimum = set.Min();
             if (value == minimum)
@@ -31,18 +31,18 @@ namespace BarcodeCaptureSettingsSample.Extensions
             if (value < minimum)
             {
                 var rangeToAdd = Enumerable.Range(value, minimum - value).Select(i => (short)i);
-                set.UnionWith(rangeToAdd);
+                set.ToHashSet().UnionWith(rangeToAdd);
             }
             else
             {
                 var rangeToSubtract = Enumerable.Range(minimum, value - minimum).Select(i => (short)i);
-                set.ExceptWith(rangeToSubtract);
+                set.ToHashSet().ExceptWith(rangeToSubtract);
             }
 
             return set;
         }
 
-        public static HashSet<short> NewSetWithMaximum(this HashSet<short> set, short value)
+        public static ICollection<short> NewSetWithMaximum(this ICollection<short> set, short value)
         {
             var maximum = set.Max();
             if (value == maximum)
@@ -55,12 +55,12 @@ namespace BarcodeCaptureSettingsSample.Extensions
             {
 
                 var rangeToAdd = Enumerable.Range(maximum, value - maximum).Select(i => (short)i);
-                set.UnionWith(rangeToAdd);
+                set.ToHashSet().UnionWith(rangeToAdd);
             }
             else
             {
                 var rangeToSubtract = Enumerable.Range(value + 1, maximum - value).Select(i => (short)i);
-                set.ExceptWith(rangeToSubtract);
+                set.ToHashSet().ExceptWith(rangeToSubtract);
             }
 
             return set;

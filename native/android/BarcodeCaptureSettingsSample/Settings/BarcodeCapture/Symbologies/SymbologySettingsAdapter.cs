@@ -20,7 +20,6 @@ using AndroidX.RecyclerView.Widget;
 using BarcodeCaptureSettingsSample.Base;
 using BarcodeCaptureSettingsSample.Utils;
 using Scandit.DataCapture.Barcode.Data;
-using Scandit.DataCapture.Core.Additions;
 
 namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Symbologies
 {

@@ -14,7 +14,6 @@
 
 using Android.Views;
 using BarcodeCaptureSettingsSample.Utils;
-using Scandit.DataCapture.Core.Additions;
 
 namespace BarcodeCaptureSettingsSample.Base.MeasureUnits
 {

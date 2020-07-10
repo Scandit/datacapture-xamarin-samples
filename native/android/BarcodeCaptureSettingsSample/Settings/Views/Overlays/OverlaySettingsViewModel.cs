@@ -57,7 +57,19 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
 
         private OverlaySettingsBrush GetSettingsBrush(Brush brush)
         {
-            return this.AvailableBrushes.Where(item => item.Brush.Equals(brush)).FirstOrDefault();
+            static bool eq(Brush first, Brush other)
+            {
+                if (first == null || other == null)
+                {
+                    return false;
+                }
+
+                return first.FillColor == other.FillColor &&
+                       first.StrokeColor == other.StrokeColor &&
+                       first.StrokeWidth == other.StrokeWidth;
+            };
+
+            return this.AvailableBrushes.Where(item => eq(item.Brush, brush)).FirstOrDefault();
         }
     }
 }

@@ -8,7 +8,7 @@
     <TemplateGuid>{edc1b0fa-90cd-4038-8fad-98fe74adb368}</TemplateGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MatrixScanSimpleSample</RootNamespace>
-    <AssemblyName>MatrixScanSimpleSample2</AssemblyName>
+    <AssemblyName>MatrixScanSimpleSample</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
@@ -56,7 +56,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <MtouchArch>ARM64</MtouchArch>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <AssemblyName>MatrixScanSimpleSample</AssemblyName>
   </PropertyGroup>
@@ -131,8 +131,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.3.3-beta" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.3.3-beta" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.4.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.4.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

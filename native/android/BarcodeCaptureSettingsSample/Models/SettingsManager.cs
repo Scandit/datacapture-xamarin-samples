@@ -351,7 +351,10 @@ namespace BarcodeCaptureSettingsSample
         public void SetTorchState(TorchState torchState)
         {
             this.TorchState = torchState;
-            this.CurrentCamera.DesiredTorchState = torchState;
+            if (this.CurrentCamera != null)
+            {
+                this.CurrentCamera.DesiredTorchState = torchState;
+            }
         }
 
         public VideoResolution VideoResolution => this.CameraSettings.PreferredResolution;
@@ -411,7 +414,10 @@ namespace BarcodeCaptureSettingsSample
 
         public async Task ApplyCameraSettingsAsync()
         {
-            await this.CurrentCamera?.ApplySettingsAsync(this.CameraSettings);
+            if (this.CurrentCamera != null)
+            {
+                await this.CurrentCamera.ApplySettingsAsync(this.CameraSettings);
+            }
         }
     }
 }

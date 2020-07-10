@@ -15,10 +15,10 @@
 using AndroidX.Lifecycle;
 using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Core.Data;
-using Scandit.DataCapture.Core.Additions;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BarcodeCaptureSettingsSample.Utils;
 
 namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Symbologies.SpecificSymbology
 {

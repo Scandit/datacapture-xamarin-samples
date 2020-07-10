@@ -35,7 +35,7 @@ namespace BarcodeCaptureSimpleSample
     public class BarcodeScanActivity : CameraPermissionActivity, IBarcodeCaptureListener
     {
         // Enter your Scandit License key here.
-        public const string SCANDIT_LICENSE_KEY = "-- ENTER YOUR LICENSE KEY --";
+        public const string SCANDIT_LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
         private DataCaptureContext dataCaptureContext;
         private BarcodeCapture barcodeCapture;
@@ -185,10 +185,12 @@ namespace BarcodeCaptureSimpleSample
             // or even -1 if you do not want codes to be scanned more than once.
 
             // Get the human readable name of the symbology and assemble the result to be shown.
-            string symbology = SymbologyDescription.Create(barcode.Symbology).ReadableName;
-            string result = "Scanned: " + barcode.Data + " (" + symbology + ")";
+            using (SymbologyDescription description = SymbologyDescription.Create(barcode.Symbology))
+            {
+                string result = "Scanned: " + barcode.Data + " (" + description.ReadableName + ")";
 
-            RunOnUiThread(() => ShowResults(result));
+                RunOnUiThread(() => ShowResults(result));
+            }
         }
 
         public void OnObservationStarted(BarcodeCapture barcodeCapture)

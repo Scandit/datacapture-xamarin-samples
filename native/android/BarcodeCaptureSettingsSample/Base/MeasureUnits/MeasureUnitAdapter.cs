@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
-using Scandit.DataCapture.Core.Additions;
+using BarcodeCaptureSettingsSample.Utils;
 
 namespace BarcodeCaptureSettingsSample.Base.MeasureUnits
 {

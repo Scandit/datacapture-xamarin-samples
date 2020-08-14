@@ -167,7 +167,7 @@ namespace MatrixScanBubblesSample
         {
             // If the barcode is wider than the desired percent of the data capture view's width,
             // show it to the user.
-            var width = trackedCode.Barcode.Location.Width(this.captureView);
+            var width = trackedCode.PredictedLocation.Width(this.captureView);
             return (width / captureViewWidth) <= BarcodeToScreenTresholdRatio;
         }
 

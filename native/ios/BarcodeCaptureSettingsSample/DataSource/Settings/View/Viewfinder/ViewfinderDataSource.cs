@@ -31,6 +31,10 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
         private readonly Section rectangularSizeType;
 
         private readonly Section laserlineSettings;
+
+        private readonly Section spotlightSettings;
+
+        private readonly Section spotlightSizeType;
         
         private readonly FloatWithUnitRow rectangularWidth;
 
@@ -39,6 +43,14 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
         private readonly FloatRow rectangularWidthAspect;
 
         private readonly FloatRow rectangularHeightAspect;
+
+        private readonly FloatWithUnitRow spotlightWidth;
+
+        private readonly FloatWithUnitRow spotlightHeight;
+
+        private readonly FloatRow spotlightWidthAspect;
+
+        private readonly FloatRow spotlightHeightAspect;
 
         public ViewfinderDataSource(IDataSourceListener dataSourceListener)
         {
@@ -72,9 +84,39 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 aspect => SettingsManager.Instance.RectangularHeightAspect = aspect 
             );
 
+            this.spotlightWidth = FloatWithUnitRow.Create(
+                "Width",
+                () => SettingsManager.Instance.SpotlightWidth,
+                unit => SettingsManager.Instance.SpotlightWidth = unit,
+                this.DataSourceListener
+            );
+
+            this.spotlightHeight = FloatWithUnitRow.Create(
+                "Height",
+                () => SettingsManager.Instance.SpotlightHeight,
+                unit => SettingsManager.Instance.SpotlightHeight = unit,
+                this.DataSourceListener
+            );
+
+            this.spotlightWidthAspect = FloatRow.Create(
+                "Width Aspect",
+                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.SpotlightWidthAspect),
+                () => SettingsManager.Instance.SpotlightWidthAspect,
+                aspect => SettingsManager.Instance.SpotlightWidthAspect = aspect
+            );
+
+            this.spotlightHeightAspect = FloatRow.Create(
+                "Height Aspect",
+                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.SpotlightHeightAspect),
+                () => SettingsManager.Instance.SpotlightHeightAspect,
+                aspect => SettingsManager.Instance.SpotlightHeightAspect = aspect
+            );
+
             this.rectangularSettings = this.CreateRectangularSettings();
             this.rectangularSizeType = this.CreateRectangularSizeType();
             this.laserlineSettings = this.CreateLaserlineSettings();
+            this.spotlightSettings = this.CreateSpotlightSettings();
+            this.spotlightSizeType = this.CreateSpotlightSizeType();
             this.viewfinderType = this.CreateTypeSection();
         }
 
@@ -93,14 +135,21 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 
         private Section CreateRectangularSettings()
         {
-            return new Section(new[]
+            return new Section(new Row[]
             {
                 ChoiceRow<RectangularViewfinderColor>.Create(
                     "Color",
                     Enumeration.GetAll<RectangularViewfinderColor>().ToArray(),
                     () => SettingsManager.Instance.RectangularViewfinderColor,
                     newColor => SettingsManager.Instance.RectangularViewfinderColor = newColor,
-                    this.DataSourceListener)
+                    this.DataSourceListener),
+                ChoiceRow<RectangularViewfinderDisabledColor>.Create(
+                     "Disabled Color",
+                     Enumeration.GetAll<RectangularViewfinderDisabledColor>().ToArray(),
+                     () => SettingsManager.Instance.RectangularViewfinderDisabledColor,
+                     newColor => SettingsManager.Instance.RectangularViewfinderDisabledColor = newColor,
+                     this.DataSourceListener
+                 )
             }, "Rectangular");
         }
 
@@ -125,7 +174,12 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                     () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline,
                     (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Laserline,
                     this.DataSourceListener
-                )
+                ), 
+                BoolOptionRow.Create(
+                    "Spotlight",
+                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Spotlight,
+                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Spotlight,
+                    this.DataSourceListener)
             }, "Type");
         }
 
@@ -156,6 +210,47 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
              }, "Laserline");
         }
 
+        private Section CreateSpotlightSettings()
+        {
+            return new Section(new Row[]
+            {
+                 ChoiceRow<SpotlightViewfinderBackgroundColor>.Create(
+                     "Background Color",
+                     Enumeration.GetAll<SpotlightViewfinderBackgroundColor>().ToArray(),
+                     () => SettingsManager.Instance.SpotlightViewfinderBackgroundColor,
+                     color => SettingsManager.Instance.SpotlightViewfinderBackgroundColor = color,
+                     this.DataSourceListener
+                 ),
+                 ChoiceRow<SpotlightViewfinderEnabledColor>.Create(
+                     "Enabled Color",
+                     Enumeration.GetAll<SpotlightViewfinderEnabledColor>().ToArray(),
+                     () => SettingsManager.Instance.SpotlightViewfinderEnabledColor,
+                     color => SettingsManager.Instance.SpotlightViewfinderEnabledColor = color,
+                     this.DataSourceListener
+                 ),
+                 ChoiceRow<SpotlightViewfinderDisabledColor>.Create(
+                     "Disabled Color",
+                     Enumeration.GetAll<SpotlightViewfinderDisabledColor>().ToArray(),
+                     () => SettingsManager.Instance.SpotlightViewfinderDisabledColor,
+                     color => SettingsManager.Instance.SpotlightViewfinderDisabledColor = color,
+                     this.DataSourceListener
+                 )
+            }, "Spotlight");
+        }
+
+        private Section CreateSpotlightSizeType()
+        {
+            return new Section(new[]
+            {
+                ChoiceRow<SpotlightSizeSpecification>.Create(
+                    "Size Specification",
+                    Enumeration.GetAll<SpotlightSizeSpecification>().ToArray(),
+                    () => SettingsManager.Instance.SpotlightViewfinderSizeSpecification,
+                    spec => SettingsManager.Instance.SpotlightViewfinderSizeSpecification = spec,
+                    this.DataSourceListener)
+            });
+        }
+
         public IDataSourceListener DataSourceListener { get; }
 
         public Section[] Sections
@@ -183,6 +278,23 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline)
                 {
                     sections.Add(this.laserlineSettings);
+                }
+                else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Spotlight)
+                {
+                    var sizeSpec = SettingsManager.Instance.SpotlightViewfinderSizeSpecification;
+                    sections.AddRange(new List<Section>() { this.spotlightSettings, this.spotlightSizeType });
+                    if (sizeSpec.Equals(SpotlightSizeSpecification.WidthAndHeight))
+                    {
+                        sections.Add(new Section(new Row[] { this.spotlightWidth, this.spotlightHeight }));
+                    }
+                    else if (sizeSpec.Equals(SpotlightSizeSpecification.WidthAndHeightAspect))
+                    {
+                        sections.Add(new Section(new Row[] { this.spotlightWidth, this.spotlightHeightAspect }));
+                    }
+                    else if (sizeSpec.Equals(SpotlightSizeSpecification.HeightAndWidthAspect))
+                    {
+                        sections.Add(new Section(new Row[] { this.spotlightWidthAspect, this.spotlightHeight }));
+                    }
                 }
 
                 return sections.ToArray();

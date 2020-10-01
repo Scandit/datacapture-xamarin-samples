@@ -65,6 +65,7 @@
     <string name="red">Red</string>
     <string name="green">Green</string>
     <string name="rectangular">Rectangular</string>
+    <string name="spotlight">Spotlight</string>
     <string name="width_and_height">Width and Height</string>
     <string name="width_and_height_aspect">Width and Height Aspect</string>
     <string name="height_and_width_aspect">Height and Width Aspect</string>
@@ -89,4 +90,5 @@
     <string name="disable_all">Disable All</string>
     <string name="enable_all">Enable All</string>
     <string name="ok">OK</string>
+    <string name="background_color">Background Color</string>
 </resources>

@@ -33,7 +33,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture.Symbol
                         "Enable All",
                         tuple =>
                         {
-                            SettingsManager.Instance.EnableAllSymbologyies();
+                            SettingsManager.Instance.EnableAllSymbologies();
                             this.DataSourceListener.OnDataChange();
                         }
                     ),

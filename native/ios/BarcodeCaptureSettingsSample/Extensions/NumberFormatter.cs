@@ -14,6 +14,7 @@
 
 using System;
 using System.Globalization;
+using Foundation;
 
 namespace BarcodeCaptureSettingsSample.Extensions
 {
@@ -25,10 +26,8 @@ namespace BarcodeCaptureSettingsSample.Extensions
 
         private NumberFormatter()
         {
-            this.formatInfo = new NumberFormatInfo()
-            {
-                NumberDecimalSeparator = ","
-            };
+            var cultureInfo = CultureInfoExtensions.LocaleAwareCultureInfo;
+            this.formatInfo = cultureInfo.NumberFormat;
         }
 
         public string FormatNFloat(nfloat number, int decimalPlaces = 2)
@@ -38,7 +37,14 @@ namespace BarcodeCaptureSettingsSample.Extensions
 
         public nfloat ParseNFloat(string raw)
         {
-            return nfloat.Parse(raw, this.formatInfo);
+            try
+            {
+                return nfloat.Parse(raw, this.formatInfo);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

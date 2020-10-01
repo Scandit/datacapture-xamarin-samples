@@ -13,6 +13,8 @@
  */
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Android.OS;
 using Android.Views;
@@ -23,8 +25,11 @@ using AndroidX.RecyclerView.Widget;
 using BarcodeCaptureSettingsSample.Base;
 using BarcodeCaptureSettingsSample.Base.UiColors;
 using BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types;
+using BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types.SpotlightHeight;
+using BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types.SpotlightWidth;
 using BarcodeCaptureSettingsSample.Utils;
 using Scandit.DataCapture.Core.Common.Geometry;
+using Scandit.DataCapture.Core.UI.Viewfinder;
 
 namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
 {
@@ -33,13 +38,18 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
         private ViewfinderSettingsViewModel viewModel;
 
         private RecyclerView recyclerViewfinderTypes;
-        private View cardColor, cardSpecifications, cardMeasures, cardLaserline;
+        private View cardColor, cardSpecifications, cardMeasures, cardLaserline, cardSpotlightColor,
+                     cardSpotlightSizeSpecification, cardSpotlightMeasures;
         private View containerHeight, containerWidth, containerSizeSpec, containerHeightAspect,
-                     containerWidthAspect, containerColor, containerEnabledColor, containerDisabledColor,
-                     containerLaserlineWidth;
-        private TextView textType, textColor, textSizeSpecification, textWidth, textHeight,
-                         textEnabledColor, textDisabledColor, textLaserlineWidth;
-        private EditText editHeightAspect, editWidthAspect;
+                     containerWidthAspect, containerColor, containerRectangularDisabledColor, containerEnabledColor, containerDisabledColor,
+                     containerLaserlineWidth, containerSpotlightSizeSpec, containerSpotlightBackgroundColor, containerSpotlightEnabledColor,
+                     containerSpotlightDisabledColor, containerSpotlightWidth, containerSpotlightHeight,
+                     containerSpotlightHeightAspect, containerSpotlightWidthAspect;
+        private TextView textType, textColor, textRectangularDisabledColor, textSizeSpecification, textWidth, textHeight,
+                         textEnabledColor, textDisabledColor, textLaserlineWidth, textSpotlightSizeSpecification,
+                         textSpotlightBackgroundColor, textSpotlightEnabledColor, textSpotlightDisabledColor,
+                         textSpotlightWidth, textSpotlightHeight;
+        private EditText editHeightAspect, editWidthAspect, editSpotlightHeightAspect, editSpotlightWidthAspect;
 
         private ViewfinderTypeAdapter adapter;
 
@@ -70,21 +80,42 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardSpecifications = view.FindViewById<View>(Resource.Id.card_size_specification);
             this.cardMeasures = view.FindViewById<View>(Resource.Id.card_measures);
             this.cardLaserline = view.FindViewById<View>(Resource.Id.card_laserline);
+            this.cardSpotlightColor = view.FindViewById<View>(Resource.Id.card_spotlight_color);
+            this.cardSpotlightMeasures = view.FindViewById<View>(Resource.Id.card_spotlight_measures);
+            this.cardSpotlightSizeSpecification = view.FindViewById<View>(Resource.Id.card_spotlight_size_specification);
 
             this.textType = view.FindViewById<TextView>(Resource.Id.text_viewfinder_type);
             this.textColor = view.FindViewById<TextView>(Resource.Id.text_color);
+            this.textRectangularDisabledColor = view.FindViewById<TextView>(Resource.Id.text_rectangular_disabled_color);
             this.textSizeSpecification = view.FindViewById<TextView>(Resource.Id.text_size_specification);
             this.textWidth = view.FindViewById<TextView>(Resource.Id.text_width);
             this.textHeight = view.FindViewById<TextView>(Resource.Id.text_height);
             this.editHeightAspect = view.FindViewById<EditText>(Resource.Id.edit_height);
             this.editWidthAspect = view.FindViewById<EditText>(Resource.Id.edit_width);
+            this.textSpotlightSizeSpecification = view.FindViewById<TextView>(Resource.Id.text_spotlight_size_specification);
+            this.textSpotlightBackgroundColor = view.FindViewById<TextView>(Resource.Id.text_spotlight_background_color);
+            this.textSpotlightEnabledColor = view.FindViewById<TextView>(Resource.Id.text_spotlight_enabled_color);
+            this.textSpotlightDisabledColor = view.FindViewById<TextView>(Resource.Id.text_spotlight_disabled_color);
+            this.textSpotlightWidth = view.FindViewById<TextView>(Resource.Id.text_spotlight_width);
+            this.textSpotlightHeight = view.FindViewById<TextView>(Resource.Id.text_spotlight_height);
+            this.editSpotlightHeightAspect = view.FindViewById<EditText>(Resource.Id.edit_spotlight_height);
+            this.editSpotlightWidthAspect = view.FindViewById<EditText>(Resource.Id.edit_spotlight_width);
 
             this.containerColor = view.FindViewById(Resource.Id.container_color);
+            this.containerRectangularDisabledColor = view.FindViewById(Resource.Id.container_rectangular_disabled_color);
             this.containerHeight = view.FindViewById(Resource.Id.container_height);
             this.containerWidth = view.FindViewById(Resource.Id.container_width);
             this.containerHeightAspect = view.FindViewById(Resource.Id.container_height_aspect);
             this.containerWidthAspect = view.FindViewById(Resource.Id.container_width_aspect);
             this.containerSizeSpec = view.FindViewById(Resource.Id.container_size_specification);
+            this.containerSpotlightSizeSpec = view.FindViewById(Resource.Id.container_spotlight_size_specification);
+            this.containerSpotlightBackgroundColor = view.FindViewById(Resource.Id.container_spotlight_background_color);
+            this.containerSpotlightEnabledColor = view.FindViewById(Resource.Id.container_spotlight_enabled_color);
+            this.containerSpotlightDisabledColor = view.FindViewById(Resource.Id.container_spotlight_disabled_color);
+            this.containerSpotlightHeight = view.FindViewById(Resource.Id.container_spotlight_height);
+            this.containerSpotlightWidth = view.FindViewById(Resource.Id.container_spotlight_width);
+            this.containerSpotlightHeightAspect = view.FindViewById(Resource.Id.container_spotlight_height_aspect);
+            this.containerSpotlightWidthAspect = view.FindViewById(Resource.Id.container_spotlight_width_aspect);
 
             this.containerLaserlineWidth = view.FindViewById<View>(Resource.Id.container_laserline_width);
             this.textLaserlineWidth = view.FindViewById<TextView>(Resource.Id.text_laserline_width);
@@ -114,6 +145,11 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.containerColor.Click += (object sender, EventArgs args) =>
             {
                 this.BuildAndShowColorMenu();
+            };
+
+            this.containerRectangularDisabledColor.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowRectangularDisabledColorMenu();
             };
 
             this.containerHeight.Click += (object sender, EventArgs args) =>
@@ -165,14 +201,72 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 this.BuildAndShowDisabledColorMenu();
             };
+
+            this.containerSpotlightSizeSpec.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowSpotlightSizeSpecificationMenu();
+            };
+
+            this.containerSpotlightBackgroundColor.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowSpotlightBackgroundColorMenu();
+            };
+            
+            this.containerSpotlightEnabledColor.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowSpotlightEnabledColorMenu();
+            };
+
+            this.containerSpotlightDisabledColor.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowSpotlightDisabledColorMenu();
+            };
+            
+            this.containerSpotlightHeight.Click += (object sender, EventArgs args) =>
+            {
+                this.MoveToFragment(ViewfinderSpotlightHeightMeasureFragment.Create(), true, null);
+            };
+
+            this.containerSpotlightWidth.Click += (object sender, EventArgs args) =>
+            {
+                this.MoveToFragment(ViewfinderSpotlightWidthMeasureFragment.Create(), true, null);
+            };
+
+            this.editSpotlightHeightAspect.EditorAction += (object sender, TextView.EditorActionEventArgs args) =>
+            {
+                if (args.ActionId == ImeAction.Done)
+                {
+                    this.ApplyHeightChange(this.editHeightAspect.Text);
+                    this.DismissKeyboard(this.editHeightAspect);
+                    this.editHeightAspect.ClearFocus();
+                }
+            };
+
+            this.editSpotlightWidthAspect.EditorAction += (object sender, TextView.EditorActionEventArgs args) =>
+            {
+                if (args.ActionId == ImeAction.Done)
+                {
+                    this.ApplyWidthChange(this.editWidthAspect.Text);
+                    this.DismissKeyboard(this.editWidthAspect);
+                    this.editWidthAspect.ClearFocus();
+                }
+            };
         }
 
         private void ApplyHeightChange(string text)
         {
             if (float.TryParse(text, out float result))
             {
+                switch (SettingsManager.Instance.CurrentViewfinder)
+                {
+                    case RectangularViewfinder _:
+                        this.viewModel.SetRectangularViewfinderHeightAspect(result);
+                        break;
+                    case SpotlightViewfinder _:
+                        this.viewModel.SetSpotlightViewfinderHeightAspect(result);
+                        break;
+                }
 
-                this.viewModel.SetRectangularViewfinderHeightAspect(result);
                 this.ShowHideSubSettings();
             }
             else
@@ -185,7 +279,15 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
         {
             if (float.TryParse(text, out float result))
             {
-                this.viewModel.SetRectangularViewfinderWidthAspect(result);
+                switch (SettingsManager.Instance.CurrentViewfinder)
+                {
+                    case RectangularViewfinder _:
+                        this.viewModel.SetRectangularViewfinderWidthAspect(result);
+                        break;
+                    case SpotlightViewfinder _:
+                        this.viewModel.SetSpotlightViewfinderWidthAspect(result);
+                        break;
+                }
                 this.ShowHideSubSettings();
             }
             else
@@ -208,7 +310,22 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
         {
             this.textType.Text = this.Context.GetString(viewfinder.DisplayNameResourceId);
             this.textColor.Text = this.Context.GetString(viewfinder.Color.DisplayNameResourceId);
+            this.textRectangularDisabledColor.Text = this.Context.GetString(viewfinder.DisabledColor.DisplayNameResourceId);
             this.textSizeSpecification.Text = this.Context.GetString((int)viewfinder.SizeSpecification);
+
+            this.RefreshHeight(viewfinder.Height);
+            this.RefreshWidth(viewfinder.Width);
+            this.RefreshHeightAspect(viewfinder.HeightAspect);
+            this.RefreshWidthAspect(viewfinder.WidthAspect);
+        }
+
+        private void RefreshSpotlightViewfinderData(ViewfinderTypeSpotlight viewfinder)
+        {
+            this.textType.Text = this.Context.GetString(viewfinder.DisplayNameResourceId);
+            this.textSpotlightBackgroundColor.Text = this.Context.GetString(viewfinder.BackgroundColor.DisplayNameResourceId);
+            this.textSpotlightEnabledColor.Text = this.Context.GetString(viewfinder.EnabledColor.DisplayNameResourceId);
+            this.textSpotlightDisabledColor.Text = this.Context.GetString(viewfinder.DisabledColor.DisplayNameResourceId);
+            this.textSpotlightSizeSpecification.Text = this.Context.GetString((int)viewfinder.SizeSpecification);
 
             this.RefreshHeight(viewfinder.Height);
             this.RefreshWidth(viewfinder.Width);
@@ -226,24 +343,56 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
 
         private void RefreshHeight(FloatWithUnit height)
         {
-            this.textHeight.Text = height.GetStringWithUnit(this.Context);
+            switch (SettingsManager.Instance.CurrentViewfinder)
+            {
+                case RectangularViewfinder _:
+                    this.textHeight.Text = height.GetStringWithUnit(this.Context);
+                    break;
+                case SpotlightViewfinder _:
+                    this.textSpotlightHeight.Text = height.GetStringWithUnit(this.Context);
+                    break;
+            }
         }
 
         private void RefreshWidth(FloatWithUnit width)
         {
-            this.textWidth.Text = width.GetStringWithUnit(this.Context);
+            switch (SettingsManager.Instance.CurrentViewfinder)
+            {
+                case RectangularViewfinder _:
+                    this.textWidth.Text = width.GetStringWithUnit(this.Context);
+                    break;
+                case SpotlightViewfinder _:
+                    this.textSpotlightWidth.Text = width.GetStringWithUnit(this.Context);
+                    break;
+            }
         }
 
         private void RefreshHeightAspect(float heightAspect)
         {
             string textFormat = this.Context.GetString(Resource.String.size_no_unit);
-            editHeightAspect.Text = string.Format(textFormat, heightAspect);
+            switch (SettingsManager.Instance.CurrentViewfinder)
+            {
+                case RectangularViewfinder _:
+                    this.editHeightAspect.Text = string.Format(textFormat, heightAspect);
+                    break;
+                case SpotlightViewfinder _:
+                    this.editSpotlightHeightAspect.Text = string.Format(textFormat, heightAspect);
+                    break;
+            }
         }
 
         private void RefreshWidthAspect(float widthAspect)
         {
             string textFormat = this.Context.GetString(Resource.String.size_no_unit);
-            editWidthAspect.Text = string.Format(textFormat, widthAspect);
+            switch (SettingsManager.Instance.CurrentViewfinder)
+            {
+                case RectangularViewfinder _:
+                    this.editWidthAspect.Text = string.Format(textFormat, widthAspect);
+                    break;
+                case SpotlightViewfinder _:
+                    this.editSpotlightWidthAspect.Text = string.Format(textFormat, widthAspect);
+                    break;
+            }
         }
 
         private void ShowHideSubSettings()
@@ -253,13 +402,17 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 this.SetupForNoViewfinder();
             }
-            else if (viewfinderType is ViewfinderTypeRectangular)
+            else if (viewfinderType is ViewfinderTypeRectangular rectangular)
             {
-                this.SetupForRectangularViewfinder((ViewfinderTypeRectangular)viewfinderType);
+                this.SetupForRectangularViewfinder(rectangular);
             }
-            else if (viewfinderType is ViewfinderTypeLaserline)
+            else if (viewfinderType is ViewfinderTypeLaserline laserline)
             {
-                this.SetupForLaserlineViewfinder((ViewfinderTypeLaserline)viewfinderType);
+                this.SetupForLaserlineViewfinder(laserline);
+            }
+            else if (viewfinderType is ViewfinderTypeSpotlight spotlight)
+            {
+                this.SetupForSpotlightViewfinder(spotlight);
             }
         }
 
@@ -270,37 +423,43 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardSpecifications.Visibility = ViewStates.Gone;
             this.cardMeasures.Visibility = ViewStates.Gone;
             this.cardLaserline.Visibility = ViewStates.Gone;
+            this.cardSpotlightColor.Visibility = ViewStates.Gone;
+            this.cardSpotlightSizeSpecification.Visibility = ViewStates.Gone;
+            this.cardSpotlightMeasures.Visibility = ViewStates.Gone;
         }
 
         private void SetupForRectangularViewfinder(ViewfinderTypeRectangular viewfinder)
         {
-            textType.Visibility = ViewStates.Visible;
-            cardColor.Visibility = ViewStates.Visible;
-            cardSpecifications.Visibility = ViewStates.Visible;
-            cardMeasures.Visibility = ViewStates.Visible;
-            cardLaserline.Visibility = ViewStates.Gone;
+            this.textType.Visibility = ViewStates.Visible;
+            this.cardColor.Visibility = ViewStates.Visible;
+            this.cardSpecifications.Visibility = ViewStates.Visible;
+            this.cardMeasures.Visibility = ViewStates.Visible;
+            this.cardLaserline.Visibility = ViewStates.Gone;
+            this.cardSpotlightColor.Visibility = ViewStates.Gone;
+            this.cardSpotlightSizeSpecification.Visibility = ViewStates.Gone;
+            this.cardSpotlightMeasures.Visibility = ViewStates.Gone;
 
             SizeSpecification spec = viewfinder.SizeSpecification;
 
             switch (spec)
             {
                 case SizeSpecification.WidthAndHeight:
-                    containerHeight.Visibility = ViewStates.Visible;
-                    containerWidth.Visibility = ViewStates.Visible;
-                    containerHeightAspect.Visibility = ViewStates.Gone;
-                    containerWidthAspect.Visibility = ViewStates.Gone;
+                    this.containerHeight.Visibility = ViewStates.Visible;
+                    this.containerWidth.Visibility = ViewStates.Visible;
+                    this.containerHeightAspect.Visibility = ViewStates.Gone;
+                    this.containerWidthAspect.Visibility = ViewStates.Gone;
                     break;
                 case SizeSpecification.HeightAndWidthAspect:
-                    containerHeight.Visibility = ViewStates.Visible;
-                    containerWidth.Visibility = ViewStates.Gone;
-                    containerHeightAspect.Visibility = ViewStates.Gone;
-                    containerWidthAspect.Visibility = ViewStates.Visible;
+                    this.containerHeight.Visibility = ViewStates.Visible;
+                    this.containerWidth.Visibility = ViewStates.Gone;
+                    this.containerHeightAspect.Visibility = ViewStates.Gone;
+                    this.containerWidthAspect.Visibility = ViewStates.Visible;
                     break;
                 case SizeSpecification.WidthAndHeightAspect:
-                    containerHeight.Visibility = ViewStates.Gone;
-                    containerWidth.Visibility = ViewStates.Visible;
-                    containerHeightAspect.Visibility = ViewStates.Visible;
-                    containerWidthAspect.Visibility = ViewStates.Gone;
+                    this.containerHeight.Visibility = ViewStates.Gone;
+                    this.containerWidth.Visibility = ViewStates.Visible;
+                    this.containerHeightAspect.Visibility = ViewStates.Visible;
+                    this.containerWidthAspect.Visibility = ViewStates.Gone;
                     break;
             }
 
@@ -314,15 +473,56 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardSpecifications.Visibility = ViewStates.Gone;
             this.cardMeasures.Visibility = ViewStates.Gone;
             this.cardLaserline.Visibility = ViewStates.Visible;
+            this.cardSpotlightColor.Visibility = ViewStates.Gone;
+            this.cardSpotlightSizeSpecification.Visibility = ViewStates.Gone;
+            this.cardSpotlightMeasures.Visibility = ViewStates.Gone;
 
             this.RefreshLaserlineViewfinderData(viewfinder);
         }
 
+        private void SetupForSpotlightViewfinder(ViewfinderTypeSpotlight viewfinder)
+        {
+            this.textType.Visibility = ViewStates.Visible;
+            this.cardColor.Visibility = ViewStates.Gone;
+            this.cardSpecifications.Visibility = ViewStates.Gone;
+            this.cardMeasures.Visibility = ViewStates.Gone;
+            this.cardLaserline.Visibility = ViewStates.Gone;
+            this.cardSpotlightColor.Visibility = ViewStates.Visible;
+            this.cardSpotlightSizeSpecification.Visibility = ViewStates.Visible;
+            this.cardSpotlightMeasures.Visibility = ViewStates.Visible;
+
+            SizeSpecification spec = viewfinder.SizeSpecification;
+
+            switch (spec)
+            {
+                case SizeSpecification.WidthAndHeight:
+                    this.containerSpotlightHeight.Visibility = ViewStates.Visible;
+                    this.containerSpotlightWidth.Visibility = ViewStates.Visible;
+                    this.containerSpotlightHeightAspect.Visibility = ViewStates.Gone;
+                    this.containerSpotlightWidthAspect.Visibility = ViewStates.Gone;
+                    break;
+                case SizeSpecification.HeightAndWidthAspect:
+                    this.containerSpotlightHeight.Visibility = ViewStates.Visible;
+                    this.containerSpotlightWidth.Visibility = ViewStates.Gone;
+                    this.containerSpotlightHeightAspect.Visibility = ViewStates.Gone;
+                    this.containerSpotlightWidthAspect.Visibility = ViewStates.Visible;
+                    break;
+                case SizeSpecification.WidthAndHeightAspect:
+                    this.containerSpotlightHeight.Visibility = ViewStates.Gone;
+                    this.containerSpotlightWidth.Visibility = ViewStates.Visible;
+                    this.containerSpotlightHeightAspect.Visibility = ViewStates.Visible;
+                    this.containerSpotlightWidthAspect.Visibility = ViewStates.Gone;
+                    break;
+            }
+
+            this.RefreshSpotlightViewfinderData(viewfinder);
+        }
+
         private void BuildAndShowSizeSpecificationMenu()
         {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), containerSizeSpec, GravityFlags.End);
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerSizeSpec, GravityFlags.End);
             
-            System.Collections.IList sizeSpecificationItems = Enum.GetValues(typeof(SizeSpecification));
+            IList sizeSpecificationItems = Enum.GetValues(typeof(SizeSpecification));
             for (int i = 0; i < sizeSpecificationItems.Count; i++)
             {
                 int itemId = (int)sizeSpecificationItems[i];
@@ -341,7 +541,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
 
         private void BuildAndShowColorMenu()
         {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), containerColor, GravityFlags.End);
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerColor, GravityFlags.End);
 
             for (int i = 0; i < ViewfinderTypeRectangular.Colors.Count; i++)
             {
@@ -359,9 +559,29 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             menu.Show();
         }
 
+        private void BuildAndShowRectangularDisabledColorMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerRectangularDisabledColor, GravityFlags.End);
+
+            for (int i = 0; i < ViewfinderTypeRectangular.DisabledColors.Colors.Count; i++)
+            {
+                UiColor color = ViewfinderTypeRectangular.DisabledColors.Colors[i];
+                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
+            }
+
+            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                int selectedColor = args.Item.ItemId;
+                this.viewModel.SetRectangularViewfinderDisabledColor(ViewfinderTypeRectangular.DisabledColors.Colors[selectedColor]);
+                this.ShowHideSubSettings();
+            };
+
+            menu.Show();
+        }
+
         private void BuildAndShowEnabledColorMenu()
         {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), containerEnabledColor, GravityFlags.End);
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerEnabledColor, GravityFlags.End);
 
             for (int i = 0; i < ViewfinderTypeLaserline.EnabledColors.Colors.Count; i++)
             {
@@ -381,7 +601,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
 
         private void BuildAndShowDisabledColorMenu()
         {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), containerDisabledColor, GravityFlags.End);
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerDisabledColor, GravityFlags.End);
 
             for (int i = 0; i < ViewfinderTypeLaserline.DisabledColors.Colors.Count; i++)
             {
@@ -393,6 +613,87 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 int selectedColor = args.Item.ItemId;
                 this.viewModel.SetLaserlineViewfinderDisabledColor(ViewfinderTypeLaserline.DisabledColors.Colors[selectedColor]);
+                this.ShowHideSubSettings();
+            };
+
+            menu.Show();
+        }
+
+        private void BuildAndShowSpotlightSizeSpecificationMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerSpotlightSizeSpec, GravityFlags.End);
+
+            IList sizeSpecificationItems = Enum.GetValues(typeof(SizeSpecification));
+            for (int i = 0; i < sizeSpecificationItems.Count; i++)
+            {
+                int itemId = (int)sizeSpecificationItems[i];
+                menu.Menu.Add(0, itemId, i, this.Context.GetString(itemId));
+            }
+
+            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                int selectedSizeSpec = args.Item.ItemId;
+                this.viewModel.SetSpotlightViewfinderSizeSpec((SizeSpecification)selectedSizeSpec);
+                this.ShowHideSubSettings();
+            };
+
+            menu.Show();
+        }
+
+        private void BuildAndShowSpotlightBackgroundColorMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerSpotlightBackgroundColor, GravityFlags.End);
+
+            for (int i = 0; i < ViewfinderTypeSpotlight.BackgroundColors.Colors.Count; i++)
+            {
+                UiColor color = ViewfinderTypeSpotlight.BackgroundColors.Colors[i];
+                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
+            }
+
+            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                int selectedColor = args.Item.ItemId;
+                this.viewModel.SetSpotlightViewfinderBackgroundColor(ViewfinderTypeSpotlight.BackgroundColors.Colors[selectedColor]);
+                this.ShowHideSubSettings();
+            };
+
+            menu.Show();
+        }
+
+        private void BuildAndShowSpotlightEnabledColorMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerSpotlightEnabledColor, GravityFlags.End);
+
+            for (int i = 0; i < ViewfinderTypeSpotlight.EnabledColors.Colors.Count; i++)
+            {
+                UiColor color = ViewfinderTypeSpotlight.EnabledColors.Colors[i];
+                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
+            }
+
+            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                int selectedColor = args.Item.ItemId;
+                this.viewModel.SetSpotlightViewfinderEnabledColor(ViewfinderTypeSpotlight.EnabledColors.Colors[selectedColor]);
+                this.ShowHideSubSettings();
+            };
+
+            menu.Show();
+        }
+
+        private void BuildAndShowSpotlightDisabledColorMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerSpotlightDisabledColor, GravityFlags.End);
+
+            for (int i = 0; i < ViewfinderTypeSpotlight.DisabledColors.Colors.Count; i++)
+            {
+                UiColor color = ViewfinderTypeSpotlight.DisabledColors.Colors[i];
+                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
+            }
+
+            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                int selectedColor = args.Item.ItemId;
+                this.viewModel.SetSpotlightViewfinderDisabledColor(ViewfinderTypeSpotlight.DisabledColors.Colors[selectedColor]);
                 this.ShowHideSubSettings();
             };
 

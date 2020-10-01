@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -122,6 +122,11 @@
     <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderDisabledColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderEnabledColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderDisabledColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightSizeSpecification.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderBackgroundColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderDisabledColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderEnabledColor.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Controllers\ScanViewController.cs" />
@@ -241,10 +246,11 @@
     <Compile Include="DataSource\Settings\ResultDataSource.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\ViewfinderKind.cs" />
     <Compile Include="Extensions\ArgumentValidation.cs" />
+    <Compile Include="Extensions\CultureInfoExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.4.2" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.4.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.5.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png" />

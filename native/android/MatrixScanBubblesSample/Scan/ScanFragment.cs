@@ -132,7 +132,7 @@ namespace MatrixScanBubblesSample.Scan
         #region IScanViewModelListener
         public bool ShouldShowBubble(TrackedBarcode barcode)
         {
-            var result = this.dataCaptureView.MapFrameQuadrilateralToView(barcode.PredictedLocation);
+            var result = this.dataCaptureView.MapFrameQuadrilateralToView(barcode.Location);
             return this.bubbleSizeManager.IsBarcodeLargeEnoughForBubble(result);
         }
 

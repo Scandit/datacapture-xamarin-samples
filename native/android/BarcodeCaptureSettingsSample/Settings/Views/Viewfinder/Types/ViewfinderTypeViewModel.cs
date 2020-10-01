@@ -29,6 +29,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
             {
                 RectangularViewfinder _ => ViewfinderTypeRectangular.FromCurrentViewfinderAndSettings(viewfinder, this.settingsManager),
                 LaserlineViewfinder _ => ViewfinderTypeLaserline.FromCurrentViewfinderAndSettings(viewfinder, this.settingsManager),
+                SpotlightViewfinder _  => ViewfinderTypeSpotlight.FromCurrentViewfinderAndSettings(viewfinder, this.settingsManager),
                 _ => ViewfinderTypeNone.FromCurrentViewFinder(viewfinder)
             };
         }

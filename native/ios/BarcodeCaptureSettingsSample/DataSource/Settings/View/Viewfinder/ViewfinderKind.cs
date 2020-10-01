@@ -22,6 +22,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
         public static readonly ViewfinderKind None = new ViewfinderKind(0, "None", null);
         public static readonly ViewfinderKind Rectangular = new ViewfinderKind(1, "Rectangular", RectangularViewfinder.Create());
         public static readonly ViewfinderKind Laserline = new ViewfinderKind(2, "Laserline", LaserlineViewfinder.Create());
+        public static readonly ViewfinderKind Spotlight = new ViewfinderKind(3, "Spotlight", SpotlightViewfinder.Create());
 
         public ViewfinderKind(int key, string value, IViewfinder viewfinder) : base(key, value)
         {

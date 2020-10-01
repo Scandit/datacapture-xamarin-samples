@@ -31,11 +31,11 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View
                 {
                     FloatWithUnitRow.Create("X",
                         () => SettingsManager.Instance.PointOfInterest.X,
-                        unit => SettingsManager.Instance.PointOfInterest.NewWithX(unit),
+                        unit => SettingsManager.Instance.PointOfInterest = SettingsManager.Instance.PointOfInterest.NewWithX(unit),
                         this.DataSourceListener),
                     FloatWithUnitRow.Create("Y",
                         () => SettingsManager.Instance.PointOfInterest.Y,
-                        unit => SettingsManager.Instance.PointOfInterest.NewWithY(unit),
+                        unit => SettingsManager.Instance.PointOfInterest = SettingsManager.Instance.PointOfInterest.NewWithY(unit),
                         this.DataSourceListener)
                 })
             };

@@ -30,11 +30,26 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
             return new UiColor(rectangular.Color, Resource.String._default);
         });
 
+        public static class DisabledColors
+        {
+            private static readonly Lazy<IList<UiColor>> colors = new Lazy<IList<UiColor>>(() => new[] { UiColor.White, UiColor.Black, Default });
+            private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() =>
+            {
+                using SpotlightViewfinder spotlight = SpotlightViewfinder.Create();
+                return new UiColor(spotlight.DisabledBorderColor, Resource.String._default);
+            });
+
+            public static IList<UiColor> Colors { get { return colors.Value; } }
+
+            public static UiColor Default { get { return defaultColor.Value; } }
+        }
+
         public static ViewfinderTypeRectangular FromCurrentViewfinderAndSettings(IViewfinder currentViewFinder, SettingsManager settingsManager)
         {
             return new ViewfinderTypeRectangular(
                     currentViewFinder is RectangularViewfinder,
                     settingsManager.RectangularViewfinderColor,
+                    settingsManager.RectangularViewfinderDisabledColor,
                     settingsManager.RectangularViewfinderSizeSpecification,
                     settingsManager.RectangularViewfinderWidth,
                     settingsManager.RectangularViewfinderHeight,
@@ -48,6 +63,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
         public static UiColor DefaultColor { get { return defaultColor.Value; } }
 
         public UiColor Color { get; set; }
+        public UiColor DisabledColor { get; set; }
         public SizeSpecification SizeSpecification { get; set; }
         public FloatWithUnit Width { get; set; }
         public FloatWithUnit Height { get; set; }
@@ -57,6 +73,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
         private ViewfinderTypeRectangular(
                 bool enabled,
                 UiColor color,
+                UiColor disabledColor,
                 SizeSpecification sizeSpecification,
                 FloatWithUnit width,
                 FloatWithUnit height,
@@ -64,6 +81,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
                 float heightAspect) : base(Resource.String.rectangular, enabled)
         {
             this.Color = color;
+            this.DisabledColor = disabledColor;
             this.SizeSpecification = sizeSpecification;
             this.Width = width;
             this.Height = height;

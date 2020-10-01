@@ -80,7 +80,7 @@ namespace BarcodeCaptureSimpleSample
 
         private void ResumeFrameSource()
         {
-            DismissScannedCodesDialog();
+            this.DismissScannedCodesDialog();
 
             // Switch camera on to start streaming frames.
             // The camera is started asynchronously and will take some time to completely turn on.

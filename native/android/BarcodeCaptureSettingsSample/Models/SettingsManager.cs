@@ -125,10 +125,20 @@ namespace BarcodeCaptureSettingsSample
         public float RectangularViewfinderWidthAspect { get; set; }
         public float RectangularViewfinderHeightAspect { get; set; }
         public UiColor RectangularViewfinderColor { get; set; } = ViewfinderTypeRectangular.DefaultColor;
+        public UiColor RectangularViewfinderDisabledColor { get; set; } = ViewfinderTypeRectangular.DisabledColors.Default;
         public SizeSpecification RectangularViewfinderSizeSpecification { get; set; } = SizeSpecification.WidthAndHeight;
         public FloatWithUnit LaserlineViewfinderWidth { get; set; } = new FloatWithUnit(0.75f, MeasureUnit.Fraction);
         public UiColor LaserlineViewfinderEnabledColor { get; set; } = ViewfinderTypeLaserline.EnabledColors.Default;
         public UiColor LaserlineViewfinderDisabledColor { get; set; } = ViewfinderTypeLaserline.DisabledColors.Default;
+        public UiColor SpotlightViewfinderBackgroundColor { get; set; } = ViewfinderTypeSpotlight.BackgroundColors.Default;
+        public UiColor SpotlightViewfinderEnabledColor { get; set; } = ViewfinderTypeSpotlight.EnabledColors.Default;
+        public UiColor SpotlightViewfinderDisabledColor { get; set; } = ViewfinderTypeSpotlight.DisabledColors.Default;
+        public SizeSpecification SpotlightViewfinderSizeSpecification { get; set; } = SizeSpecification.WidthAndHeight;
+        public FloatWithUnit SpotlightViewfinderWidth { get; set; }
+        public FloatWithUnit SpotlightViewfinderHeight { get; set; }
+        public float SpotlightViewfinderWidthAspect { get; set; }
+        public float SpotlightViewfinderHeightAspect { get; set; }
+
         #endregion
 
         #region Overlay Settings
@@ -405,6 +415,11 @@ namespace BarcodeCaptureSettingsSample
             using RectangularViewfinder tempRectangularViewfinder = RectangularViewfinder.Create();
             this.RectangularViewfinderWidth = tempRectangularViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Width;
             this.RectangularViewfinderHeight = tempRectangularViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Height;
+
+            // Create a temporary SpotlightViewfinder instance to get default values for width and height.
+            using SpotlightViewfinder tempSpotlightViewfinder = SpotlightViewfinder.Create();
+            this.SpotlightViewfinderWidth = tempSpotlightViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Width;
+            this.SpotlightViewfinderHeight = tempSpotlightViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Height;
         }
 
         public async Task ApplyBarcodeCaptureSettingsAsync()

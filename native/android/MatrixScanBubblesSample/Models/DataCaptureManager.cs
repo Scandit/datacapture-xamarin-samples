@@ -43,7 +43,7 @@ namespace MatrixScanBubblesSample.Models
         {
             // The barcode tracking process is configured through barcode tracking settings
             // which are then applied to the barcode tracking instance that manages barcode recognition and tracking.
-            BarcodeTrackingSettings barcodeTrackingSettings = BarcodeTrackingSettings.Create();
+            BarcodeTrackingSettings barcodeTrackingSettings = BarcodeTrackingSettings.Create(BarcodeTrackingScenario.A);
 
             // The settings instance initially has all types of barcodes (symbologies) disabled.
             // For the purpose of this sample we enable a generous set of symbologies.
@@ -61,7 +61,7 @@ namespace MatrixScanBubblesSample.Models
             barcodeTrackingSettings.EnableSymbologies(symbologies);
 
             CameraSettings cameraSettings = BarcodeTracking.RecommendedCameraSettings;
-            cameraSettings.PreferredResolution = VideoResolution.FullHd;
+            cameraSettings.PreferredResolution = VideoResolution.Uhd4k;
             this.Camera?.ApplySettingsAsync(cameraSettings);
 
             // Create data capture context using your license key and set the camera as the frame source.

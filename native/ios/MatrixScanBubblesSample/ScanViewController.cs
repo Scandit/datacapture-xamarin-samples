@@ -103,12 +103,12 @@ namespace MatrixScanBubblesSample
             // The preferred resolution is automatically chosen, which currently defaults to HD on all devices.
             // Setting the preferred resolution to full HD helps to get a better decode range.
             var cameraSettings = BarcodeTracking.RecommendedCameraSettings;
-            cameraSettings.PreferredResolution = VideoResolution.FullHd;
+            cameraSettings.PreferredResolution = VideoResolution.Uhd4k;
             this.camera?.ApplySettingsAsync(cameraSettings);
 
             // The barcode tracking process is configured through barcode tracking settings
             // and are then applied to the barcode tracking instance that manages barcode tracking.
-            var settings = BarcodeTrackingSettings.Create();
+            var settings = BarcodeTrackingSettings.Create(BarcodeTrackingScenario.A);
 
             // The settings instance initially has all types of barcodes (symbologies) disabled. For the purpose of this
             // sample we enable a very generous set of symbologies. In your own app ensure that you only enable the
@@ -167,7 +167,7 @@ namespace MatrixScanBubblesSample
         {
             // If the barcode is wider than the desired percent of the data capture view's width,
             // show it to the user.
-            var width = trackedCode.PredictedLocation.Width(this.captureView);
+            var width = trackedCode.Location.Width(this.captureView);
             return (width / captureViewWidth) <= BarcodeToScreenTresholdRatio;
         }
 

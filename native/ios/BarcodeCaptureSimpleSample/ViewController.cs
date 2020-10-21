@@ -161,7 +161,7 @@ namespace BarcodeCaptureSimpleSample_iOS_
         {
             var barcode = session?.NewlyRecognizedBarcodes.FirstOrDefault();
             
-            if (barcode == null || string.IsNullOrEmpty(barcode.Data))
+            if (barcode == null)
             {
                 return;
             }

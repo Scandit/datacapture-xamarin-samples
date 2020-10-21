@@ -564,10 +564,10 @@ namespace BarcodeCaptureSettingsSample.Model
                     (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetSize(newSize);
                 } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.WidthAndHeightAspect))
                 {
-                    (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetWidthAndAspectRatio(this.RectangularWidth, this.RectangularWidthAspect);
+                    (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetWidthAndAspectRatio(this.RectangularWidth, this.RectangularHeightAspect);
                 } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.HeightAndWidthAspect))
                 {
-                    (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetHeightAndAspectRatio(this.RectangularHeight, this.RectangularHeightAspect);
+                    (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetHeightAndAspectRatio(this.RectangularHeight, this.RectangularWidthAspect);
                 }
             }
             else if (this.ViewfinderKind == ViewfinderKind.Spotlight)
@@ -581,13 +581,13 @@ namespace BarcodeCaptureSettingsSample.Model
                     };
                     (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetSize(newSize);
                 }
-                else if (this.ViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.WidthAndHeightAspect))
+                else if (this.SpotlightViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.WidthAndHeightAspect))
                 {
-                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetWidthAndAspectRatio(this.SpotlightWidth, this.SpotlightWidthAspect);
+                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetWidthAndAspectRatio(this.SpotlightWidth, this.SpotlightHeightAspect);
                 }
-                else if (this.ViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.HeightAndWidthAspect))
+                else if (this.SpotlightViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.HeightAndWidthAspect))
                 {
-                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetHeightAndAspectRatio(this.SpotlightHeight, this.SpotlightHeightAspect);
+                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetHeightAndAspectRatio(this.SpotlightHeight, this.SpotlightWidthAspect);
                 }
             }
         }

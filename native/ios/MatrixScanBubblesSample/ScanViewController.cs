@@ -204,7 +204,7 @@ namespace MatrixScanBubblesSample
                 {
                     this.overlays.Remove(identifier);
                 }
-                var filteredTrackedCodes = session.TrackedBarcodes.Values.Where(code => code != null && code.Barcode != null && !string.IsNullOrEmpty(code.Barcode.Data));
+                var filteredTrackedCodes = session.TrackedBarcodes.Values.Where(code => code != null && code.Barcode != null);
                 foreach (var trackedCode in filteredTrackedCodes)
                 {
                     var success = this.overlays.TryGetValue(trackedCode.Identifier, out UIView overlay);

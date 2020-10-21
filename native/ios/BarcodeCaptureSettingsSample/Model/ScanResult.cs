@@ -35,11 +35,7 @@ namespace BarcodeCaptureSettingsSample.Model
                 return this.Barcodes?.Aggregate("", (result, barcode) =>
                 {
                     result += $"Symbology: {barcode.Symbology.ReadableName()}";
-
-                    if (barcode.Data != null)
-                    {
-                        result += $" {barcode.Data}";
-                    }
+                    result += " " + barcode.Data + " ";
 
                     if (barcode.SymbolCount != -1)
                     {

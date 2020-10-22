@@ -249,8 +249,8 @@
     <Compile Include="Extensions\CultureInfoExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.5.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.5.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.5.2" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.5.2" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png" />

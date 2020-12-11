@@ -249,21 +249,43 @@
     <Compile Include="Extensions\CultureInfoExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.5.3" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.5.3" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.6.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.6.0" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-76.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-152.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-180.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-81.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-167.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-1024.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-81.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>MatrixScanSimpleSample</string>
+	<string>MSSimple</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.scandit.MatrixScanSimpleSample</string>
+	<string>com.scandit.xamarin.MatrixScanSimpleSample</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

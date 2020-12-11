@@ -188,7 +188,7 @@ namespace BarcodeCaptureSettingsSample.Model
 
         public ILocationSelection LocationSelection
         {
-            get => this.BarcodeCaptureSettings.LocationSelection;
+            get => BarcodeCaptureSettings.LocationSelection;
             set
             {
                 this.BarcodeCaptureSettings.LocationSelection = value;

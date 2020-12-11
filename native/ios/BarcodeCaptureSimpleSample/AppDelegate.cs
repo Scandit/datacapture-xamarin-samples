@@ -32,4 +32,3 @@ namespace BarcodeCaptureSimpleSample_iOS_
         }
     }
 }
-

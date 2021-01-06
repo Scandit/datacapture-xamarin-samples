@@ -40,8 +40,13 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
         private Switch torchSwitch;
         private EditText editFrameRate;
         private View containerResolution;
-        private TextView textResolution, textZoomFactor;
+        private TextView textResolution;
+        private TextView textZoomFactor;
+        private TextView textZoomGestureZoomFactor;
         private SeekBar seekbarZoomFactor;
+        private SeekBar seekbarZoomGestureZoomFactor;
+        private View containerFocusGestureStrategy;
+        private TextView textFocusGestureStrategy;
 
         public static CameraSettingsFragment Create()
         {
@@ -83,6 +88,16 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             this.textZoomFactor = view.FindViewById<TextView>(Resource.Id.text_zoom_factor);
             this.SetupZoomFactor();
             this.RefreshZoomFactorData();
+
+            this.seekbarZoomGestureZoomFactor = view.FindViewById<SeekBar>(Resource.Id.seekbar_zoom_gesture_zoom_factor);
+            this.textZoomGestureZoomFactor = view.FindViewById<TextView>(Resource.Id.text_zoom_gesture_zoom_factor);
+            this.SetupZoomGestureZoomFactor();
+            this.RefreshZoomGestureZoomFactorData();
+
+            this.containerFocusGestureStrategy = view.FindViewById<View>(Resource.Id.container_focus_gesture_strategy);
+            this.textFocusGestureStrategy = view.FindViewById<TextView>(Resource.Id.text_focus_gesture_strategy);
+            this.SetupFocusGestureStrategy();
+            this.RefreshFocusGestureStrategyData();
         }
 
         protected override bool ShouldShowBackButton() => true;
@@ -99,6 +114,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
                 this.RefreshFrameRateData();
                 this.RefreshResolutionData();
                 this.RefreshZoomFactorData();
+                this.RefreshZoomGestureZoomFactorData();
             }
             this.positionAdapter = new CameraSettingsPositionAdapter(this.viewModel.GetItems(), onClickCallback);
             this.recyclerCameraPositions.SetAdapter(this.positionAdapter);
@@ -148,6 +164,28 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             };
         }
 
+        private void SetupZoomGestureZoomFactor()
+        {
+            this.seekbarZoomGestureZoomFactor.Max = ((int)((ZoomMax - ZoomMin) / ZoomStep));
+            this.seekbarZoomGestureZoomFactor.ProgressChanged += async (object sender, SeekBar.ProgressChangedEventArgs args) =>
+            {
+                if (args.FromUser)
+                {
+                    float decimalProgress = ZoomMin + (args.Progress * ZoomStep);
+                    await this.viewModel.SetZoomGestureZoomFactor(decimalProgress);
+                    this.RefreshZoomGestureZoomFactorData();
+                }
+            };
+        }
+
+        private void SetupFocusGestureStrategy()
+        {
+            this.containerFocusGestureStrategy.Click += (object sender, EventArgs args) =>
+            {
+                this.BuildAndShowFocusGestureStrategyMenu();
+            };
+        }
+
         private async Task ApplyChangeAsync(string text)
         {
             if (float.TryParse(text, out float result))
@@ -168,7 +206,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
 
         private void BuildAndShowResolutionMenu()
         {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), containerResolution, GravityFlags.End);
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerResolution, GravityFlags.End);
 
             /*
              * UHD4K is not supported in the Camera API 1. To use the Camera API 2, please contact
@@ -184,6 +222,24 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
                 string selectedResolution = args.Item.TitleFormatted.ToString();
                 await this.viewModel.SetVideoResolutionAsync(Java.Lang.Enum.ValueOf(Java.Lang.Class.FromType(typeof(VideoResolution)), selectedResolution) as VideoResolution);
                 this.RefreshResolutionData();
+            };
+
+            menu.Show();
+        }
+
+        private void BuildAndShowFocusGestureStrategyMenu()
+        {
+            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerFocusGestureStrategy, GravityFlags.End);
+
+            FocusGestureStrategy.Values()
+                                .Select(f => menu.Menu.Add(f.Name()))
+                                .ToList();
+
+            menu.MenuItemClick += async (object sender, PopupMenu.MenuItemClickEventArgs args) =>
+            {
+                string selectedStrategy = args.Item.TitleFormatted.ToString();                
+                await this.viewModel.SetFocusGestureStrategyAsync(Java.Lang.Enum.ValueOf(Java.Lang.Class.FromType(typeof(FocusGestureStrategy)), selectedStrategy) as FocusGestureStrategy);
+                this.RefreshFocusGestureStrategyData();
             };
 
             menu.Show();
@@ -212,10 +268,24 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
 
         private void RefreshZoomFactorData()
         {
-            float value = this.viewModel.ZoomFactor;
+            this.RefreshZoomSeekbar(this.viewModel.ZoomFactor, this.textZoomFactor, this.seekbarZoomFactor);
+        }
+
+        private void RefreshZoomGestureZoomFactorData()
+        {
+            this.RefreshZoomSeekbar(this.viewModel.ZoomGestureZoomFactor, this.textZoomGestureZoomFactor, this.seekbarZoomGestureZoomFactor);
+        }
+
+        private void RefreshZoomSeekbar(float value, TextView textView, SeekBar seekBar)
+        {
             string textFormat = this.Context.GetString(Resource.String.size_no_unit);
-            this.textZoomFactor.Text = string.Format(textFormat, value);
-            this.seekbarZoomFactor.Progress = (int)((value - ZoomMin) / ZoomStep);
+            textView.Text = string.Format(textFormat, value);
+            seekBar.Progress = (int)((value - ZoomMin) / ZoomStep);
+        }
+
+        private void RefreshFocusGestureStrategyData()
+        {
+            this.textFocusGestureStrategy.Text = (this.viewModel.FocusGestureStrategy.Name());
         }
     }
 }

@@ -20,11 +20,17 @@ namespace BarcodeCaptureSettingsSample.Base.UiColors
     {
         private static readonly Dictionary<int, UiColor> Colors = new Dictionary<int, UiColor>
         {
-            { Android.Graphics.Color.Red, new UiColor ( Android.Graphics.Color.Red, Resource.String.red ) },
-            { Android.Graphics.Color.White, new UiColor ( Android.Graphics.Color.White, Resource.String.white ) },
-            { Android.Graphics.Color.Blue, new UiColor ( Android.Graphics.Color.Blue, Resource.String.blue ) },
-            { Android.Graphics.Color.Black, new UiColor ( Android.Graphics.Color.Black, Resource.String.black ) },
-            { Android.Graphics.Color.Green, new UiColor ( Android.Graphics.Color.Green, Resource.String.green ) }
+            { Android.Graphics.Color.Red, new UiColor(Android.Graphics.Color.Red, Resource.String.red) },
+            { Android.Graphics.Color.White, new UiColor(Android.Graphics.Color.White, Resource.String.white) },
+            { Android.Graphics.Color.Blue, new UiColor(Android.Graphics.Color.Blue, Resource.String.blue) },
+            { Android.Graphics.Color.Black, new UiColor(Android.Graphics.Color.Black, Resource.String.black) },
+            { Android.Graphics.Color.Green, new UiColor(Android.Graphics.Color.Green, Resource.String.green) }
+        };
+
+        private static readonly Dictionary<int, UiColor> CustomColors = new Dictionary<int, UiColor>
+        {
+            { Android.Graphics.Color.Blue, new UiColor(Android.Graphics.Color.Argb(alpha: 154, red: 102, green: 205, blue: 205), Resource.String.blue) },
+            { Android.Graphics.Color.Green, new UiColor(Android.Graphics.Color.Argb(alpha: 154, red: 102, green: 154, blue: 51), Resource.String.green) }
         };
 
         public int Color { get; }
@@ -40,6 +46,10 @@ namespace BarcodeCaptureSettingsSample.Base.UiColors
         public static UiColor Black => Colors[Android.Graphics.Color.Black];
 
         public static UiColor Green => Colors[Android.Graphics.Color.Green];
+
+        public static UiColor CustomGreen => CustomColors[Android.Graphics.Color.Green];
+
+        public static UiColor CustomBlue => CustomColors[Android.Graphics.Color.Blue];
 
         public UiColor(int color, int displayNameResourceId)
         {

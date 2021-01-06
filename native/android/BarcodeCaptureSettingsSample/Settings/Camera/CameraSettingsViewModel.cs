@@ -70,5 +70,19 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
         {
             await this.settingsManager.SetZoomFactorAsync(value);
         }
+
+        public float ZoomGestureZoomFactor => this.settingsManager.ZoomGestureZoomFactor;
+
+        public async Task SetZoomGestureZoomFactor(float value)
+        {
+            await this.settingsManager.SetZoomGestureZoomFactor(value);
+        }
+
+        public FocusGestureStrategy FocusGestureStrategy => this.settingsManager.FocusGestureStrategy;
+        
+        public async Task SetFocusGestureStrategyAsync(FocusGestureStrategy strategy)
+        {
+            await this.settingsManager.SetFocusGestureStrategy(strategy);
+        }
     }
 }

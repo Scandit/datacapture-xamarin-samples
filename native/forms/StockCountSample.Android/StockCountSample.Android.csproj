@@ -129,8 +129,8 @@
       <Project>{DCE3963A-4D32-4CA2-8524-30D528260D05}</Project>
       <Name>StockCountSample</Name>
     </ProjectReference>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.6.0" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.6.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.6.1" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.6.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

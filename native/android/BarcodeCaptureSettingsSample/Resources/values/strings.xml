@@ -44,6 +44,8 @@
     <string name="max_frame_rate">Max Frame Rate</string>
     <string name="preferred_resolution">Preferred Resolution</string>
     <string name="zoom_factor">Zoom Factor</string>
+    <string name="zoom_gesture_zoom_factor">Zoom Gesture Zoom Factor</string>
+    <string name="focus_gesture_strategy">Focus Gesture Strategy</string>
     <string name="camera_settings">Camera Settings</string>
     <string name="view">View</string>
     <string name="scan_area">Scan Area</string>

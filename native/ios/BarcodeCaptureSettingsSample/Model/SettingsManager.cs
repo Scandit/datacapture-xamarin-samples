@@ -253,6 +253,26 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
+        public nfloat ZoomGestureZoomFactor
+        {
+            get => this.cameraSettings.ZoomGestureZoomFactor;
+            set
+            {
+                this.cameraSettings.ZoomGestureZoomFactor = value;
+                this.Camera.ApplySettingsAsync(this.cameraSettings);
+            }
+        }
+
+        public FocusGestureStrategy FocusGestureStrategy
+        {
+            get => this.cameraSettings.FocusGestureStrategy;
+            set
+            {
+                this.cameraSettings.FocusGestureStrategy = value;
+                this.Camera.ApplySettingsAsync(this.cameraSettings);
+            }
+        }
+
         public FocusRange FocusRange
         {
             get => this.cameraSettings.FocusRange;

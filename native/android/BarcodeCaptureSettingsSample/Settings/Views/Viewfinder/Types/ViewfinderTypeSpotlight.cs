@@ -25,7 +25,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
     {
         public static class BackgroundColors
         {
-            private static readonly Lazy<IList<UiColor>> colors = new Lazy<IList<UiColor>>(() => new[] { UiColor.Green, UiColor.Blue, Default });
+            private static readonly Lazy<IList<UiColor>> colors = new Lazy<IList<UiColor>>(() => new[] { UiColor.CustomGreen, UiColor.CustomBlue, Default });
             private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() =>
             {
                 using SpotlightViewfinder spotlight = SpotlightViewfinder.Create();

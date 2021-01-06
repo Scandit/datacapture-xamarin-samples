@@ -108,6 +108,18 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.Camera
                     () => SettingsManager.Instance.ZoomFactor,
                     value => SettingsManager.Instance.ZoomFactor = value
                 ),
+                SliderRow.Create(
+                    "Zoom Gesture Zoom Factor",
+                    () => SettingsManager.Instance.ZoomGestureZoomFactor,
+                    value => SettingsManager.Instance.ZoomGestureZoomFactor = value
+                ),
+                ChoiceRow<FocusGestureStrategyType>.Create(
+                    "Focus Gesture Strategy",
+                    Enumeration.GetAll<FocusGestureStrategyType>().ToArray(),
+                    () => FocusGestureStrategyType.Create(SettingsManager.Instance.FocusGestureStrategy),
+                    value => SettingsManager.Instance.FocusGestureStrategy = value.FocusGestureStrategy,
+                    this.DataSourceListener
+                ),
                 ChoiceRow<FocusRangeType>.Create(
                     "Focus Range",
                     Enumeration.GetAll<FocusRangeType>().ToArray(),

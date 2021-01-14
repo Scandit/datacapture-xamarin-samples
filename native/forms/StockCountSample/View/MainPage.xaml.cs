@@ -22,6 +22,9 @@ namespace StockCountSample.View
     [DesignTimeVisible(false)]
     public partial class MainPage
     {
+        // Enter your Scandit License key here.
+        public const string SCANDIT_LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
+
         private bool inventoryListViewExpanded = false;
 
         private Rectangle fullScreen;
@@ -34,6 +37,7 @@ namespace StockCountSample.View
 
             this.InitializeComponent();
             this.BindingContext = new MainViewModel();
+            this.Scanner.LicenseKey = SCANDIT_LICENSE_KEY;
         }
 
         public void OnSleep()

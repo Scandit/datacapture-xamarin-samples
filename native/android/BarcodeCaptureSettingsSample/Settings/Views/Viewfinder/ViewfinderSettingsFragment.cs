@@ -236,9 +236,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 if (args.ActionId == ImeAction.Done)
                 {
-                    this.ApplyHeightChange(this.editHeightAspect.Text);
-                    this.DismissKeyboard(this.editHeightAspect);
-                    this.editHeightAspect.ClearFocus();
+                    this.ApplyHeightChange(this.editSpotlightHeightAspect.Text);
+                    this.DismissKeyboard(this.editSpotlightHeightAspect);
+                    this.editSpotlightHeightAspect.ClearFocus();
                 }
             };
 
@@ -246,9 +246,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 if (args.ActionId == ImeAction.Done)
                 {
-                    this.ApplyWidthChange(this.editWidthAspect.Text);
-                    this.DismissKeyboard(this.editWidthAspect);
-                    this.editWidthAspect.ClearFocus();
+                    this.ApplyWidthChange(this.editSpotlightWidthAspect.Text);
+                    this.DismissKeyboard(this.editSpotlightWidthAspect);
+                    this.editSpotlightWidthAspect.ClearFocus();
                 }
             };
         }

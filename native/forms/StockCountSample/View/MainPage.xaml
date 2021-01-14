@@ -19,8 +19,7 @@
                     </Grid.RowDefinitions>
                     <local:DataCaptureView
                         x:Name="Scanner"
-                        Grid.Row="0"
-                        LicenseKey="-- ENTER YOUR SCANDIT LICENSE KEY HERE --">
+                        Grid.Row="0">
                     </local:DataCaptureView>
                     <Grid Grid.Row="1"
                           ColumnSpacing="0">

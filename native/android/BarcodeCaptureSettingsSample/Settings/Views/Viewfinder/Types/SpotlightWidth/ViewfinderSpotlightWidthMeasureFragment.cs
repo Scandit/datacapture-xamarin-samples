@@ -24,9 +24,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types.Spotlight
     {
         private ViewfinderSpotlightWidthViewModel viewModel;
 
-        public static ViewfinderRectangleWidthMeasureFragment Create()
+        public static ViewfinderSpotlightWidthMeasureFragment Create()
         {
-            return new ViewfinderRectangleWidthMeasureFragment();
+            return new ViewfinderSpotlightWidthMeasureFragment();
         }
 
         public override void OnCreate(Bundle savedInstanceState)

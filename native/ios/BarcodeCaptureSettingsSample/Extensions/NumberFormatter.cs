@@ -35,6 +35,11 @@ namespace BarcodeCaptureSettingsSample.Extensions
             return number.ToString($"F{decimalPlaces}", this.formatInfo);
         }
 
+        public string FormatTimeSpanToSeconds(TimeSpan timeSpan)
+        {
+            return timeSpan.TotalSeconds.ToString(this.formatInfo);
+        }
+
         public nfloat ParseNFloat(string raw)
         {
             try

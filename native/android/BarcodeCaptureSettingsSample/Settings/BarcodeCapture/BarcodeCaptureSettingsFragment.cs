@@ -72,6 +72,9 @@ namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture
                 case BarcodeCaptureSettingsType.Feedback:
                     this.MoveToFragment(FeedbackSettingsFragment.Create(), true, null);
                     break;
+                case BarcodeCaptureSettingsType.CodeDuplicateFilter:
+                    this.MoveToFragment(CodeDuplicateFilterSettingsFragment.Create(), true, null);
+                    break;
             }
         }
     }

@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+using System.Timers;
 using Scandit.DataCapture.Core.Common.Geometry;
 
 namespace BarcodeCaptureSettingsSample.Utils
@@ -28,6 +29,12 @@ namespace BarcodeCaptureSettingsSample.Utils
         {
             var textFormat = context?.GetString(Resource.String.size_no_unit);
             return string.IsNullOrEmpty(textFormat) ? string.Empty : string.Format(textFormat, floatWithUnit.Value);
+        }
+
+        public static void Reset(this Timer timer)
+        {
+            timer.Stop();
+            timer.Start();
         }
     }
 }

@@ -12,10 +12,25 @@
  * limitations under the License.
  */
 
-namespace BarcodeCaptureSettingsSample.Scanning
+using System;
+using AndroidX.Lifecycle;
+
+namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Feedback
 {
-    public interface IBarcodeScanViewModelListener
+    public class CodeDuplicateFilterSettingsViewModel : ViewModel
     {
-        void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount);
+        private readonly SettingsManager settingsManager = SettingsManager.Instance;
+
+        public TimeSpan CodeDuplicateFilter
+        {
+            get
+            {
+                return this.settingsManager.CodeDuplicateFilter;
+            }
+            set
+            {
+                this.settingsManager.SetCodeDuplicateFilter(value);
+            }
+        }
     }
 }

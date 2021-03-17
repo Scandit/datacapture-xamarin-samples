@@ -12,10 +12,17 @@
  * limitations under the License.
  */
 
-namespace BarcodeCaptureSettingsSample.Scanning
+using System;
+using BarcodeCaptureSettingsSample.Controllers.Other;
+using BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture;
+
+namespace BarcodeCaptureSettingsSample.Controllers.Settings.BarcodeCapture
 {
-    public interface IBarcodeScanViewModelListener
+    public partial class DuplicateFilterTableViewController : SettingsTableViewController
     {
-        void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount);
+        public DuplicateFilterTableViewController(IntPtr handle) : base(handle)
+        { }
+
+        protected override void SetupDataSource() => this.dataSource = new DuplicateFilterDataSource(this);
     }
 }

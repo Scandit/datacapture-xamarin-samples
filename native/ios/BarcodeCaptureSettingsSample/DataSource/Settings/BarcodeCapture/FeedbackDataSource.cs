@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+using System.Linq;
 using BarcodeCaptureSettingsSample.DataSource.Other;
 using BarcodeCaptureSettingsSample.DataSource.Other.Rows;
 using BarcodeCaptureSettingsSample.Model;
@@ -21,12 +22,12 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture
 {
     public class FeedbackDataSource : IDataSource
     {
-        public FeedbackDataSource(IDataSourceListener dataSource)
+        public FeedbackDataSource(IDataSourceListener dataSourceListener)
         {
-            this.DataSourceListener = DataSourceListener;
+            this.DataSourceListener = dataSourceListener;
             this.Sections = new[]
             {
-                new Section(new[]
+                new Section(new Row[]
                 {
                     SwitchRow.Create(
                         "Sound",
@@ -38,15 +39,18 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture
                             SettingsManager.Instance.Feedback = feedback;
                         }
                     ),
-                    SwitchRow.Create(
+                    ChoiceRow<VibrationType>.Create(
                         "Vibration",
-                        () => SettingsManager.Instance.Feedback.Vibration != null,
-                        value =>
-                        {
-                            Vibration vibration = value ? Vibration.DefaultVibration : null;
-                            var feedback = new Feedback(vibration, SettingsManager.Instance.Feedback.Sound);
+                        Enumeration.GetAll<VibrationType>().ToArray(),
+                        () => VibrationType.Create(SettingsManager.Instance.Vibration),
+                        type => {
+                            SettingsManager.Instance.Vibration = type.Vibration;
+                            var feedback = new Feedback(
+                                SettingsManager.Instance.Vibration,
+                                SettingsManager.Instance.Feedback.Sound);
                             SettingsManager.Instance.Feedback = feedback;
-                        }
+                        },
+                        this.DataSourceListener
                     )
                 })
             };

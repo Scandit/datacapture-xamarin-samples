@@ -22,6 +22,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.Camera
         public static readonly FocusGestureStrategyType None = new FocusGestureStrategyType(FocusGestureStrategy.None);
         public static readonly FocusGestureStrategyType Manual = new FocusGestureStrategyType(FocusGestureStrategy.Manual);
         public static readonly FocusGestureStrategyType ManualUntilCapture = new FocusGestureStrategyType(FocusGestureStrategy.ManualUntilCapture);
+        public static readonly FocusGestureStrategyType AutoOnLocation = new FocusGestureStrategyType(FocusGestureStrategy.AutoOnLocation);
 
         public FocusGestureStrategy FocusGestureStrategy { get; }
 
@@ -37,6 +38,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.Camera
                 FocusGestureStrategy.None => None,
                 FocusGestureStrategy.Manual => Manual,
                 FocusGestureStrategy.ManualUntilCapture => ManualUntilCapture,
+                FocusGestureStrategy.AutoOnLocation => AutoOnLocation,
                 _ => ManualUntilCapture,
             };
         }

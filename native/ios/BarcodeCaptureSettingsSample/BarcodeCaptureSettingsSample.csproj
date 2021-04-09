@@ -248,10 +248,16 @@
     <Compile Include="Extensions\ArgumentValidation.cs" />
     <Compile Include="Extensions\CultureInfoExtensions.cs" />
     <Compile Include="DataSource\Settings\Camera\FocusGestureStrategyType.cs" />
+    <Compile Include="DataSource\Settings\BarcodeCapture\DuplicateFilterDataSource.cs" />
+    <Compile Include="Controllers\Settings\BarcodeCapture\DuplicateFilterTableViewController.cs" />
+    <Compile Include="Controllers\Settings\BarcodeCapture\DuplicateFilterTableViewController.designer.cs">
+      <DependentUpon>DuplicateFilterTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource\Settings\BarcodeCapture\VibrationType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.6.4" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.6.4" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.7.2" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.7.2" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png">

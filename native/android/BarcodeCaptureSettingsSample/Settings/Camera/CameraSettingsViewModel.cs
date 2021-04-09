@@ -57,13 +57,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             await this.settingsManager.SetVideoResolutionAsync(videoResolution);
         }
 
-        public float MaxFrameRate => this.settingsManager.MaxFrameRate;
-
-        public async Task SetMaxFrameRateAsync(float value)
-        {
-            await this.settingsManager.SetMaxFrameRateAsync(value);
-        }
-
         public float ZoomFactor => this.settingsManager.ZoomFactor;
 
         public async Task SetZoomFactorAsync(float value)

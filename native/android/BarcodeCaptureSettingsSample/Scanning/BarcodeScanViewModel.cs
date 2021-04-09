@@ -44,7 +44,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
 
                 Barcode barcode = session.NewlyRecognizedBarcodes[0];
                 using SymbologyDescription description = SymbologyDescription.Create(barcode.Symbology);
-                this.listener?.ShowDialog(description.ReadableName, barcode.Data, barcode.SymbolCount);
+                this.listener?.ShowDialog(description.ReadableName, barcode.Data, barcode.AddOnData, barcode.SymbolCount);
             }
         }
 

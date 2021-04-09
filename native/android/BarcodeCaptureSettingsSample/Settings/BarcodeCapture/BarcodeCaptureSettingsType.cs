@@ -18,6 +18,7 @@ namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture
     {
         Symbologies = Resource.String.symbologies,
         LocationSelection = Resource.String.location_selection,
-        Feedback = Resource.String.feedback
+        Feedback = Resource.String.feedback,
+        CodeDuplicateFilter = Resource.String.code_duplicate_filter
     }
 }

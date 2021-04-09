@@ -90,6 +90,12 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.Camera
         {
             return new Section(new Row[]
             {
+                FloatRow.Create(
+                    "Max Frame Rate",
+                    () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.MaxFrameRate),
+                    () => SettingsManager.Instance.MaxFrameRate,
+                    value => SettingsManager.Instance.MaxFrameRate = value
+                ),
                 ChoiceRow<Resolution>.Create(
                     "Preferred Resolution",
                     Enumeration.GetAll<Resolution>().ToArray(),

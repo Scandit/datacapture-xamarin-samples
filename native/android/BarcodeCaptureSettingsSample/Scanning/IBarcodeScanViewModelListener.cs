@@ -16,6 +16,6 @@ namespace BarcodeCaptureSettingsSample.Scanning
 {
     public interface IBarcodeScanViewModelListener
     {
-        void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount);
+        void ShowDialog(string symbologyName, string data, int symbolCount);
     }
 }

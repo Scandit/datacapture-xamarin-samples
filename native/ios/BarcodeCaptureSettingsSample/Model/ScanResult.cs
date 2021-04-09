@@ -34,19 +34,13 @@ namespace BarcodeCaptureSettingsSample.Model
             {
                 return this.Barcodes?.Aggregate("", (result, barcode) =>
                 {
-                    result += $"{barcode.Symbology.ReadableName()}: ";
-                    result += barcode.Data;
-
-                    if (!string.IsNullOrEmpty(barcode.AddOnData))
-                    {
-                        result += " " + barcode.AddOnData;
-                    }
+                    result += $"Symbology: {barcode.Symbology.ReadableName()}";
+                    result += " " + barcode.Data + " ";
 
                     if (barcode.SymbolCount != -1)
                     {
-                        result += $"\nSymbol Count: {barcode.SymbolCount}";
+                        result += $"Symbol Count: {barcode.SymbolCount}\n\n";
                     }
-
                     return result;
                 });
             }

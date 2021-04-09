@@ -38,6 +38,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
 
         private RecyclerView recyclerCameraPositions;
         private Switch torchSwitch;
+        private EditText editFrameRate;
         private View containerResolution;
         private TextView textResolution;
         private TextView textZoomFactor;
@@ -74,6 +75,10 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             this.RefreshTorchData();
             this.SetupTorchSwitch();
 
+            this.editFrameRate = view.FindViewById<EditText>(Resource.Id.edit_frame_rate);
+            this.RefreshFrameRateData();
+            this.SetupEditTextFrameRate();
+
             this.containerResolution = view.FindViewById<View>(Resource.Id.container_preferred_resolution);
             this.textResolution = view.FindViewById<TextView>(Resource.Id.text_preferred_resolution);
             this.RefreshResolutionData();
@@ -106,6 +111,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             {
                 await this.viewModel.SetCameraPositionAsync(item.CameraPosition);
                 this.RefreshCameraPositionData();
+                this.RefreshFrameRateData();
                 this.RefreshResolutionData();
                 this.RefreshZoomFactorData();
                 this.RefreshZoomGestureZoomFactorData();
@@ -120,6 +126,19 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             {
                 this.viewModel.TorchEnabled = args.IsChecked;
                 this.RefreshTorchData();
+            };
+        }
+
+        private void SetupEditTextFrameRate()
+        {
+            this.editFrameRate.EditorAction += async (object sender, TextView.EditorActionEventArgs args) =>
+            {
+                if (args.ActionId == ImeAction.Done)
+                {
+                    await this.ApplyChangeAsync(this.editFrameRate.Text);
+                    this.DismissKeyboard(this.editFrameRate);
+                    this.editFrameRate.ClearFocus();
+                }
             };
         }
 
@@ -165,6 +184,19 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
             {
                 this.BuildAndShowFocusGestureStrategyMenu();
             };
+        }
+
+        private async Task ApplyChangeAsync(string text)
+        {
+            if (float.TryParse(text, out float result))
+            {
+                await this.viewModel.SetMaxFrameRateAsync(result);
+                this.RefreshFrameRateData();
+            }
+            else
+            {
+                this.ShowInvalidNumberToast();
+            }
         }
 
         private void ShowInvalidNumberToast()
@@ -221,6 +253,12 @@ namespace BarcodeCaptureSettingsSample.Settings.Camera
         private void RefreshTorchData()
         {
             this.torchSwitch.Checked = this.viewModel.TorchEnabled;
+        }
+
+        private void RefreshFrameRateData()
+        {
+            string textFormat = this.Context.GetString(Resource.String.size_no_unit);
+            this.editFrameRate.Text = string.Format(textFormat, this.viewModel.MaxFrameRate);
         }
 
         private void RefreshResolutionData()

@@ -86,13 +86,11 @@
     <string name="anchor">Anchor</string>
     <string name="torch_button">Torch Button</string>
     <string name="result_title">Scanned</string>
-    <string name="result_parametrised">{0}: {1} {2}\nSymbol count: {3}</string>
+    <string name="result_parametrised">{0}: {1}\nSymbol count: {2}</string>
     <string name="result_handling">Result</string>
     <string name="continuous_scanning">Continuous Scanning</string>
     <string name="disable_all">Disable All</string>
     <string name="enable_all">Enable All</string>
     <string name="ok">OK</string>
     <string name="background_color">Background Color</string>
-    <string name="code_duplicate_filter">Code Duplicate Filter</string>
-    <string name="time_millis">{0:0} (ms)</string>
 </resources>

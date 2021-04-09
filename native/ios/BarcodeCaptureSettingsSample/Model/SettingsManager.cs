@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture;
 using BarcodeCaptureSettingsSample.DataSource.Settings.View.Logo;
 using BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder;
 using BarcodeCaptureSettingsSample.Extensions;
@@ -183,8 +182,6 @@ namespace BarcodeCaptureSettingsSample.Model
             set => this.BarcodeCapture.Feedback.Success = value;
         }
 
-        public Vibration Vibration { get; set; } = VibrationType.Default.Vibration;
-
         #endregion
 
         #region LOCATION SELECTION
@@ -199,18 +196,6 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
-        #endregion
-
-        #region BARCODE CAPTURE DUPLICATE FILTER
-        public TimeSpan DuplicateFilter
-        {
-            get => this.BarcodeCaptureSettings.CodeDuplicateFilter;
-            set
-            {
-                this.BarcodeCaptureSettings.CodeDuplicateFilter = value;
-                this.BarcodeCapture.ApplySettingsAsync(this.BarcodeCaptureSettings);
-            }
-        }
         #endregion
 
         #region CAMERA
@@ -235,6 +220,16 @@ namespace BarcodeCaptureSettingsSample.Model
             {
                 this.internalTorchState = value;
                 this.Camera.DesiredTorchState = value;
+            }
+        }
+
+        public nfloat MaxFrameRate
+        {
+            get => this.cameraSettings.MaxFrameRate;
+            set
+            {
+                this.cameraSettings.MaxFrameRate = value;
+                this.Camera.ApplySettingsAsync(this.cameraSettings);
             }
         }
 

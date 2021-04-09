@@ -19,7 +19,6 @@ using Android.OS;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
-using BarcodeCaptureSettingsSample.Utils;
 using Scandit.DataCapture.Core.Common.Geometry;
 using Scandit.DataCapture.Core.UI;
 using Scandit.DataCapture.Core.UI.Control;
@@ -102,10 +101,10 @@ namespace BarcodeCaptureSettingsSample.Scanning
             inflater.Inflate(Resource.Menu.settings_menu, menu);
         }
 
-        public void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount)
+        public void ShowDialog(string symbologyName, string data, int symbolCount)
         {
             string textFormat = this.RequireContext().GetString(Resource.String.result_parametrised);
-            string text = string.Format(textFormat, symbologyName, data, addOnData, symbolCount);
+            string text = string.Format(textFormat, symbologyName, data, symbolCount);
 
             if (this.viewModel.ContinuousScanningEnabled)
             {
@@ -167,7 +166,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
 
         private void ShowDialogForContinuousScanning(string text)
         {
-            this.continuousResultTimer.Reset();
+            this.continuousResultTimer.Start();
 
             if (this.ShowingDialog)
             {

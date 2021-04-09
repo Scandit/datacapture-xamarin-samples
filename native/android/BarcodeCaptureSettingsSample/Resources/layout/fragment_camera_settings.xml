@@ -116,6 +116,44 @@
                     android:text="@string/camera_settings"/>
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceListItem"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="8dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:text="@string/max_frame_rate"
+                        android:labelFor="@id/edit_frame_rate"/>
+
+                    <EditText
+                        android:id="@+id/edit_frame_rate"
+                        android:layout_width="120dp"
+                        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:maxLines="1"
+                        android:layout_gravity="end"
+                        android:lines="1"
+                        android:imeOptions="actionDone"
+                        android:gravity="center_vertical|end"
+                        android:selectAllOnFocus="true"
+                        android:inputType="numberDecimal"
+                        android:saveEnabled="false"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/container_preferred_resolution"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

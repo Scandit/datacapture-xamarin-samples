@@ -375,6 +375,14 @@ namespace BarcodeCaptureSettingsSample
             await this.ApplyCameraSettingsAsync();
         }
 
+        public float MaxFrameRate => this.CameraSettings.MaxFrameRate;
+
+        public async Task SetMaxFrameRateAsync(float value)
+        {
+            this.CameraSettings.MaxFrameRate = value;
+            await this.ApplyCameraSettingsAsync();
+        }
+        
         public float ZoomFactor => this.CameraSettings.ZoomFactor;
 
         public async Task SetZoomFactorAsync(float value)
@@ -397,16 +405,6 @@ namespace BarcodeCaptureSettingsSample
         {
             this.CameraSettings.FocusGestureStrategy = strategy;
             await this.ApplyCameraSettingsAsync();
-        }
-        #endregion
-
-        #region Code Duplicate Filter
-        public TimeSpan CodeDuplicateFilter => this.BarcodeCaptureSettings.CodeDuplicateFilter;
-
-        public Task SetCodeDuplicateFilter(TimeSpan duplicateFilter)
-        {
-            this.BarcodeCaptureSettings.CodeDuplicateFilter = duplicateFilter;
-            return this.ApplyBarcodeCaptureSettingsAsync();
         }
         #endregion
 

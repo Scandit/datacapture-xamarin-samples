@@ -32,25 +32,19 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 
         private readonly Section laserlineSettings;
 
-        private readonly Section spotlightSettings;
+        private readonly Section aimerSettings;
 
-        private readonly Section spotlightSizeType;
-        
         private readonly FloatWithUnitRow rectangularWidth;
 
         private readonly FloatWithUnitRow rectangularHeight;
+
+        private readonly FloatRow rectangularShorterDimension;
 
         private readonly FloatRow rectangularWidthAspect;
 
         private readonly FloatRow rectangularHeightAspect;
 
-        private readonly FloatWithUnitRow spotlightWidth;
-
-        private readonly FloatWithUnitRow spotlightHeight;
-
-        private readonly FloatRow spotlightWidthAspect;
-
-        private readonly FloatRow spotlightHeightAspect;
+        private readonly FloatRow rectangularLongerDimensioApsect;
 
         public ViewfinderDataSource(IDataSourceListener dataSourceListener)
         {
@@ -70,6 +64,13 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 this.DataSourceListener
             );
 
+            this.rectangularShorterDimension = FloatRow.Create(
+                "Shorter Dimension",
+                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.RectangularShorterDimension),
+                () => SettingsManager.Instance.RectangularShorterDimension,
+                aspect => SettingsManager.Instance.RectangularShorterDimension = aspect
+            );
+
             this.rectangularWidthAspect = FloatRow.Create(
                 "Width Aspect",
                 () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.RectangularWidthAspect),
@@ -84,39 +85,17 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 aspect => SettingsManager.Instance.RectangularHeightAspect = aspect 
             );
 
-            this.spotlightWidth = FloatWithUnitRow.Create(
-                "Width",
-                () => SettingsManager.Instance.SpotlightWidth,
-                unit => SettingsManager.Instance.SpotlightWidth = unit,
-                this.DataSourceListener
-            );
-
-            this.spotlightHeight = FloatWithUnitRow.Create(
-                "Height",
-                () => SettingsManager.Instance.SpotlightHeight,
-                unit => SettingsManager.Instance.SpotlightHeight = unit,
-                this.DataSourceListener
-            );
-
-            this.spotlightWidthAspect = FloatRow.Create(
-                "Width Aspect",
-                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.SpotlightWidthAspect),
-                () => SettingsManager.Instance.SpotlightWidthAspect,
-                aspect => SettingsManager.Instance.SpotlightWidthAspect = aspect
-            );
-
-            this.spotlightHeightAspect = FloatRow.Create(
-                "Height Aspect",
-                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.SpotlightHeightAspect),
-                () => SettingsManager.Instance.SpotlightHeightAspect,
-                aspect => SettingsManager.Instance.SpotlightHeightAspect = aspect
+            this.rectangularLongerDimensioApsect = FloatRow.Create(
+                "Longer Dimension Aspect",
+                () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.RectangularLongerDimensionAspect),
+                () => SettingsManager.Instance.RectangularLongerDimensionAspect,
+                aspect => SettingsManager.Instance.RectangularLongerDimensionAspect = aspect
             );
 
             this.rectangularSettings = this.CreateRectangularSettings();
             this.rectangularSizeType = this.CreateRectangularSizeType();
             this.laserlineSettings = this.CreateLaserlineSettings();
-            this.spotlightSettings = this.CreateSpotlightSettings();
-            this.spotlightSizeType = this.CreateSpotlightSizeType();
+            this.aimerSettings = this.CreateAimerSettings();
             this.viewfinderType = this.CreateTypeSection();
         }
 
@@ -133,10 +112,66 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             });
         }
 
+        private Section CreateRectangularAnimation()
+        {
+            var animationOption = SwitchRow.Create(
+                    "Animation",
+                    () => SettingsManager.Instance.RectangularViewfinderAnimation != null,
+                    enabled =>
+                    {
+                        SettingsManager.Instance.RectangularViewfinderAnimation = enabled ?
+                          new RectangularViewfinderAnimation(looping: false) : null;
+                        this.DataSourceListener.OnDataChange();
+                    });
+
+            var loopingOption = SwitchRow.Create(
+                    "Looping",
+                    () => SettingsManager.Instance.RectangularViewfinderAnimation?.Looping ?? false,
+                    enabled =>
+                    {
+                        SettingsManager.Instance.RectangularViewfinderAnimation =
+                            new RectangularViewfinderAnimation(looping: enabled);
+                    });
+
+            if (SettingsManager.Instance.RectangularViewfinderAnimation != null)
+            {
+                return new Section(new[] { animationOption, loopingOption });
+            }
+
+            return new Section(new[] { animationOption });
+        }
+
         private Section CreateRectangularSettings()
         {
             return new Section(new Row[]
             {
+                ChoiceRow<RectangularViewfinderStyleType>.Create(
+                    "Style",
+                    Enumeration.GetAll<RectangularViewfinderStyleType>().ToArray(),
+                    () => SettingsManager.Instance.RectangularViewfinderStyleType,
+                    newStyle =>
+                    {
+                        SettingsManager.Instance.RectangularViewfinderStyleType = newStyle;
+                        SettingsManager.Instance.ViewfinderKind = ViewfinderKind.UpdateRectangularStyle(newStyle);
+                    },
+                    this.DataSourceListener),
+                ChoiceRow<RectangularViewfinderLineStyleType>.Create(
+                    "Line Style",
+                    Enumeration.GetAll<RectangularViewfinderLineStyleType>().ToArray(),
+                    () => SettingsManager.Instance.RectangularViewfinderLineStyleType,
+                    newLineStyle =>
+                    {
+                        SettingsManager.Instance.RectangularViewfinderLineStyleType = newLineStyle;
+                        SettingsManager.Instance.ViewfinderKind = ViewfinderKind.UpdateRectangularStyle(
+                            SettingsManager.Instance.RectangularViewfinderStyleType, newLineStyle);
+                    },
+                    this.DataSourceListener),
+                FloatRow.Create(
+                    "Dimming (0.0 - 1.0)",
+                    () => NumberFormatter.Instance.FormatNFloat(SettingsManager.Instance.RectangularViewfinderDimming),
+                    () => SettingsManager.Instance.RectangularViewfinderDimming,
+                    value => SettingsManager.Instance.RectangularViewfinderDimming = value
+                    ),
                 ChoiceRow<RectangularViewfinderColor>.Create(
                     "Color",
                     Enumeration.GetAll<RectangularViewfinderColor>().ToArray(),
@@ -174,12 +209,13 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                     () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline,
                     (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Laserline,
                     this.DataSourceListener
-                ), 
+                ),
                 BoolOptionRow.Create(
-                    "Spotlight",
-                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Spotlight,
-                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Spotlight,
-                    this.DataSourceListener)
+                    "Aimer",
+                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Aimer,
+                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Aimer,
+                    this.DataSourceListener
+                )
             }, "Type");
         }
 
@@ -187,6 +223,16 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
         {
              return new Section(new Row[] 
              {
+                 ChoiceRow<LaserlineViewfinderStyleType>.Create(
+                    "Style",
+                    Enumeration.GetAll<LaserlineViewfinderStyleType>().ToArray(),
+                    () => SettingsManager.Instance.LaserlineViewfinderStyleType,
+                    newStyle =>
+                    {
+                        SettingsManager.Instance.LaserlineViewfinderStyleType = newStyle;
+                        SettingsManager.Instance.ViewfinderKind = ViewfinderKind.UpdateLaserlineStyle(newStyle);
+                    },
+                    this.DataSourceListener),
                  FloatWithUnitRow.Create(
                      "Width",
                      () => (SettingsManager.Instance.ViewfinderKind.Viewfinder as LaserlineViewfinder).Width,
@@ -210,45 +256,25 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
              }, "Laserline");
         }
 
-        private Section CreateSpotlightSettings()
+        private Section CreateAimerSettings()
         {
             return new Section(new Row[]
             {
-                 ChoiceRow<SpotlightViewfinderBackgroundColor>.Create(
-                     "Background Color",
-                     Enumeration.GetAll<SpotlightViewfinderBackgroundColor>().ToArray(),
-                     () => SettingsManager.Instance.SpotlightViewfinderBackgroundColor,
-                     color => SettingsManager.Instance.SpotlightViewfinderBackgroundColor = color,
+                 ChoiceRow<AimerViewfinderFrameColor>.Create(
+                     "Frame Color",
+                     Enumeration.GetAll<AimerViewfinderFrameColor>().ToArray(),
+                     () => SettingsManager.Instance.AimerViewfinderFrameColor,
+                     color => SettingsManager.Instance.AimerViewfinderFrameColor = color,
                      this.DataSourceListener
                  ),
-                 ChoiceRow<SpotlightViewfinderEnabledColor>.Create(
-                     "Enabled Color",
-                     Enumeration.GetAll<SpotlightViewfinderEnabledColor>().ToArray(),
-                     () => SettingsManager.Instance.SpotlightViewfinderEnabledColor,
-                     color => SettingsManager.Instance.SpotlightViewfinderEnabledColor = color,
-                     this.DataSourceListener
-                 ),
-                 ChoiceRow<SpotlightViewfinderDisabledColor>.Create(
-                     "Disabled Color",
-                     Enumeration.GetAll<SpotlightViewfinderDisabledColor>().ToArray(),
-                     () => SettingsManager.Instance.SpotlightViewfinderDisabledColor,
-                     color => SettingsManager.Instance.SpotlightViewfinderDisabledColor = color,
+                 ChoiceRow<AimerViewfinderDotColor>.Create(
+                     "Dot Color",
+                     Enumeration.GetAll<AimerViewfinderDotColor>().ToArray(),
+                     () => SettingsManager.Instance.AimerViewfinderDotColor,
+                     color => SettingsManager.Instance.AimerViewfinderDotColor = color,
                      this.DataSourceListener
                  )
-            }, "Spotlight");
-        }
-
-        private Section CreateSpotlightSizeType()
-        {
-            return new Section(new[]
-            {
-                ChoiceRow<SpotlightSizeSpecification>.Create(
-                    "Size Specification",
-                    Enumeration.GetAll<SpotlightSizeSpecification>().ToArray(),
-                    () => SettingsManager.Instance.SpotlightViewfinderSizeSpecification,
-                    spec => SettingsManager.Instance.SpotlightViewfinderSizeSpecification = spec,
-                    this.DataSourceListener)
-            });
+            }, "Aimer");
         }
 
         public IDataSourceListener DataSourceListener { get; }
@@ -261,7 +287,11 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Rectangular)
                 {
                     var sizeSpec = SettingsManager.Instance.ViewfinderSizeSpecification;
-                    sections.AddRange(new List<Section>() {this.rectangularSettings, this.rectangularSizeType});
+                    sections.AddRange(new List<Section>() {
+                        this.rectangularSettings,
+                        this.CreateRectangularAnimation(),
+                        this.rectangularSizeType });
+
                     if (sizeSpec.Equals(RectangularSizeSpecification.WidthAndHeight))
                     {
                         sections.Add(new Section(new Row[]{this.rectangularWidth, this.rectangularHeight}));
@@ -274,27 +304,18 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                     {
                         sections.Add(new Section(new Row[]{this.rectangularWidthAspect, this.rectangularHeight}));
                     }
+                    else if (sizeSpec.Equals(RectangularSizeSpecification.ShorterDimensionAndAspectRatio))
+                    {
+                        sections.Add(new Section(new Row[]{this.rectangularShorterDimension, this.rectangularLongerDimensioApsect }));
+                    }
                 }
                 else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline)
                 {
                     sections.Add(this.laserlineSettings);
                 }
-                else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Spotlight)
+                else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Aimer)
                 {
-                    var sizeSpec = SettingsManager.Instance.SpotlightViewfinderSizeSpecification;
-                    sections.AddRange(new List<Section>() { this.spotlightSettings, this.spotlightSizeType });
-                    if (sizeSpec.Equals(SpotlightSizeSpecification.WidthAndHeight))
-                    {
-                        sections.Add(new Section(new Row[] { this.spotlightWidth, this.spotlightHeight }));
-                    }
-                    else if (sizeSpec.Equals(SpotlightSizeSpecification.WidthAndHeightAspect))
-                    {
-                        sections.Add(new Section(new Row[] { this.spotlightWidth, this.spotlightHeightAspect }));
-                    }
-                    else if (sizeSpec.Equals(SpotlightSizeSpecification.HeightAndWidthAspect))
-                    {
-                        sections.Add(new Section(new Row[] { this.spotlightWidthAspect, this.spotlightHeight }));
-                    }
+                    sections.Add(this.aimerSettings);
                 }
 
                 return sections.ToArray();

@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture;
+using BarcodeCaptureSettingsSample.DataSource.Settings.Camera;
 using BarcodeCaptureSettingsSample.DataSource.Settings.View.Logo;
 using BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder;
 using BarcodeCaptureSettingsSample.Extensions;
@@ -28,6 +29,7 @@ using Scandit.DataCapture.Core.Common.Geometry;
 using Scandit.DataCapture.Core.Source;
 using Scandit.DataCapture.Core.UI;
 using Scandit.DataCapture.Core.UI.Control;
+using Scandit.DataCapture.Core.UI.Gestures;
 using Scandit.DataCapture.Core.UI.Viewfinder;
 using Brush = Scandit.DataCapture.Core.UI.Style.Brush;
 
@@ -41,9 +43,15 @@ namespace BarcodeCaptureSettingsSample.Model
 
         private FloatWithUnit rectangularHeight = FloatWithUnit.Zero;
 
+        private nfloat rectangularShorterDimension = .0f;
+
         private nfloat rectangularWidthAspect = .0f;
 
         private nfloat rectangularHeightAspect = .0f;
+
+        private nfloat rectangularLongerDimensioAspect = .0f;
+
+        private nfloat rectangularViewfinderDimming = .0f;
 
         private FloatWithUnit spotlightWidth = FloatWithUnit.Zero;
 
@@ -57,19 +65,19 @@ namespace BarcodeCaptureSettingsSample.Model
 
         private RectangularViewfinderDisabledColor rectangularViewfinderDisabledColor = RectangularViewfinderDisabledColor.Default;
 
+        private RectangularViewfinderAnimation rectangularViewfinderAnimation = null;
+
         private LaserlineViewfinderEnabledColor laserlineViewfinderEnabledColor = LaserlineViewfinderEnabledColor.Default;
         
         private LaserlineViewfinderDisabledColor laserlineViewfinderDisabledColor = LaserlineViewfinderDisabledColor.Default;
 
-        private SpotlightViewfinderBackgroundColor spotlightViewfinderBackgroundColor = SpotlightViewfinderBackgroundColor.Default;
+        private AimerViewfinderFrameColor aimerViewfinderFrameColor = AimerViewfinderFrameColor.Default;
 
-        private SpotlightViewfinderEnabledColor spotlightViewfinderEnabledColor = SpotlightViewfinderEnabledColor.Default;
-
-        private SpotlightViewfinderDisabledColor spotlightViewfinderDisabledColor = SpotlightViewfinderDisabledColor.Default;
+        private AimerViewfinderDotColor aimerViewfinderDotColor = AimerViewfinderDotColor.Default;
 
         private Camera internalCamera = Camera.GetDefaultCamera();
 
-        private TorchState internalTorchState = TorchState.Off;
+        private TorchStateType internalTorchState = TorchStateType.Off;
 
         private readonly TorchSwitchControl internalTorchSwitch = new TorchSwitchControl();
 
@@ -132,7 +140,7 @@ namespace BarcodeCaptureSettingsSample.Model
             this.internalCamera?.ApplySettingsAsync(this.cameraSettings);
             if (this.internalCamera != null)
             {
-                this.internalCamera.DesiredTorchState = this.internalTorchState;
+                this.internalCamera.DesiredTorchState = this.internalTorchState.TorchState;
             }
         }
 
@@ -213,6 +221,24 @@ namespace BarcodeCaptureSettingsSample.Model
         }
         #endregion
 
+        #region COMPOSITE TYPE SETTINGS
+        public CompositeType EnabledCompositeTypes
+        {
+            get => this.BarcodeCaptureSettings.EnabledCompositeTypes;
+            set
+            {
+                this.BarcodeCaptureSettings.EnabledCompositeTypes = value;
+                this.BarcodeCaptureSettings.EnableSymbologies(value);
+                this.BarcodeCapture.ApplySettingsAsync(this.BarcodeCaptureSettings);
+            }
+        }
+
+        public CompositeType GetEnabledCompositeTypes()
+        {
+            return this.BarcodeCaptureSettings.EnabledCompositeTypes;
+        }
+        #endregion
+
         #region CAMERA
 
         public Camera Camera
@@ -228,13 +254,13 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
-        public TorchState TorchState
+        public TorchStateType TorchStateType
         {
             get => this.internalTorchState;
             set
             {
                 this.internalTorchState = value;
-                this.Camera.DesiredTorchState = value;
+                this.Camera.DesiredTorchState = value.TorchState;
             }
         }
 
@@ -374,6 +400,7 @@ namespace BarcodeCaptureSettingsSample.Model
                 this.Overlay.Viewfinder = value.Viewfinder;
                 if (value.Viewfinder is RectangularViewfinder rectangular)
                 {
+                    this.ViewfinderSizeSpecification = rectangular.SizeWithUnitAndAspect.SizeSpecification();
                     switch(rectangular.SizeWithUnitAndAspect.SizingMode)
                     {
                         case SizingMode.WidthAndHeight:
@@ -393,27 +420,11 @@ namespace BarcodeCaptureSettingsSample.Model
                             this.RectangularHeightAspect = rectangular.SizeWithUnitAndAspect.HeightAndAspectRatio.Aspect;
                             break;
                         }
-                    }
-                }
-                else if (value.Viewfinder is SpotlightViewfinder spotlight)
-                {
-                    switch (spotlight.SizeWithUnitAndAspect.SizingMode)
-                    {
-                        case SizingMode.WidthAndHeight:
+                        case SizingMode.ShorterDimensionAndAspectRatio:
                         {
-                            var widthAndHeight = spotlight.SizeWithUnitAndAspect.WidthAndHeight;
-                            this.SpotlightWidth = widthAndHeight.Width;
-                            this.SpotlightHeight = widthAndHeight.Height;
-                            break;
-                        }
-                        case SizingMode.WidthAndAspectRatio:
-                        {
-                            this.SpotlightWidthAspect = spotlight.SizeWithUnitAndAspect.WidthAndAspectRatio.Aspect;
-                            break;
-                        }
-                        case SizingMode.HeightAndAspectRatio:
-                        {
-                            this.SpotlightHeightAspect = spotlight.SizeWithUnitAndAspect.HeightAndAspectRatio.Aspect;
+                            var shorterDimensionAndAspect = rectangular.SizeWithUnitAndAspect.ShorterDimensionAndAspectRatio;
+                            this.RectangularShorterDimension = shorterDimensionAndAspect.Size.Value;
+                            this.RectangularLongerDimensionAspect = shorterDimensionAndAspect.Aspect;
                             break;
                         }
                     }
@@ -440,6 +451,16 @@ namespace BarcodeCaptureSettingsSample.Model
                 this.UpdateViewfinderSize();
             }
         }
+
+        public nfloat RectangularShorterDimension
+        {
+            get => this.rectangularShorterDimension;
+            set
+            {
+                this.rectangularShorterDimension = value;
+                this.UpdateViewfinderSize();
+            }
+        }
         
         public nfloat RectangularWidthAspect
         {
@@ -458,6 +479,26 @@ namespace BarcodeCaptureSettingsSample.Model
             {
                 this.rectangularHeightAspect = value;
                 this.UpdateViewfinderSize();
+            }
+        }
+
+        public nfloat RectangularLongerDimensionAspect
+        {
+            get => this.rectangularLongerDimensioAspect;
+            set
+            {
+                this.rectangularLongerDimensioAspect = value;
+                this.UpdateViewfinderSize();
+            }
+        }
+
+        public nfloat RectangularViewfinderDimming
+        {
+            get => this.rectangularViewfinderDimming;
+            set
+            {
+                this.rectangularViewfinderDimming = value;
+                (this.ViewfinderKind.Viewfinder as RectangularViewfinder).Dimming = this.rectangularViewfinderDimming;
             }
         }
 
@@ -481,6 +522,22 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
+        public RectangularViewfinderStyleType RectangularViewfinderStyleType { get; set; } = RectangularViewfinderStyleType.Legacy;
+
+        public RectangularViewfinderLineStyleType RectangularViewfinderLineStyleType { get; set; } = RectangularViewfinderLineStyleType.Light;
+
+        public RectangularViewfinderAnimation RectangularViewfinderAnimation
+        {
+            get => this.rectangularViewfinderAnimation;
+            set
+            {
+                this.rectangularViewfinderAnimation = value;
+                (this.ViewfinderKind.Viewfinder as RectangularViewfinder).Animation = this.rectangularViewfinderAnimation;
+            }
+        }
+
+        public LaserlineViewfinderStyleType LaserlineViewfinderStyleType { get; set; } = LaserlineViewfinderStyleType.Legacy;
+
         public LaserlineViewfinderEnabledColor LaserlineViewfinderEnabledColor
         {
             get => this.laserlineViewfinderEnabledColor;
@@ -501,7 +558,39 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
+        public AimerViewfinderFrameColor AimerViewfinderFrameColor
+        {
+            get => this.aimerViewfinderFrameColor;
+            set
+            {
+                this.aimerViewfinderFrameColor = value;
+                (this.ViewfinderKind.Viewfinder as AimerViewfinder).FrameColor = this.aimerViewfinderFrameColor.UIColor;
+            }
+        }
+
+        public AimerViewfinderDotColor AimerViewfinderDotColor
+        {
+            get => this.aimerViewfinderDotColor;
+            set
+            {
+                this.aimerViewfinderDotColor = value;
+                (this.ViewfinderKind.Viewfinder as AimerViewfinder).DotColor = this.aimerViewfinderDotColor.UIColor;
+            }
+        }
+
         public RectangularSizeSpecification ViewfinderSizeSpecification = RectangularSizeSpecification.WidthAndHeight;
+
+        public IZoomGesture SwipeToZoom
+        {
+            get => this.CaptureView.ZoomGesture;
+            set => this.CaptureView.ZoomGesture = value;
+        }
+
+        public IFocusGesture TapToFocus
+        {
+            get => this.CaptureView.FocusGesture;
+            set => this.CaptureView.FocusGesture = value;
+        }
 
         public FloatWithUnit SpotlightWidth
         {
@@ -543,38 +632,6 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
-        public SpotlightSizeSpecification SpotlightViewfinderSizeSpecification = SpotlightSizeSpecification.WidthAndHeight;
-
-        public SpotlightViewfinderBackgroundColor SpotlightViewfinderBackgroundColor
-        {
-            get => this.spotlightViewfinderBackgroundColor;
-            set
-            {
-                this.spotlightViewfinderBackgroundColor = value;
-                (this.ViewfinderKind.Viewfinder as SpotlightViewfinder).BackgroundColor = this.spotlightViewfinderBackgroundColor.UIColor;
-            }
-        }
-
-        public SpotlightViewfinderEnabledColor SpotlightViewfinderEnabledColor
-        {
-            get => this.spotlightViewfinderEnabledColor;
-            set
-            {
-                this.spotlightViewfinderEnabledColor = value;
-                (this.ViewfinderKind.Viewfinder as SpotlightViewfinder).EnabledBorderColor = this.SpotlightViewfinderEnabledColor.UIColor;
-            }
-        }
-
-        public SpotlightViewfinderDisabledColor SpotlightViewfinderDisabledColor
-        {
-            get => this.spotlightViewfinderDisabledColor;
-            set
-            {
-                this.spotlightViewfinderDisabledColor = value;
-                (this.ViewfinderKind.Viewfinder as SpotlightViewfinder).DisabledBorderColor = this.SpotlightViewfinderDisabledColor.UIColor;
-            }
-        }
-
         private void UpdateViewfinderSize()
         {
             if (this.ViewfinderKind == ViewfinderKind.Rectangular)
@@ -593,26 +650,9 @@ namespace BarcodeCaptureSettingsSample.Model
                 } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.HeightAndWidthAspect))
                 {
                     (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetHeightAndAspectRatio(this.RectangularHeight, this.RectangularWidthAspect);
-                }
-            }
-            else if (this.ViewfinderKind == ViewfinderKind.Spotlight)
-            {
-                if (this.SpotlightViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.WidthAndHeight))
+                } else if (this.ViewfinderSizeSpecification.Equals(RectangularSizeSpecification.ShorterDimensionAndAspectRatio))
                 {
-                    var newSize = new SizeWithUnit()
-                    {
-                        Width = this.SpotlightWidth,
-                        Height = this.SpotlightHeight
-                    };
-                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetSize(newSize);
-                }
-                else if (this.SpotlightViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.WidthAndHeightAspect))
-                {
-                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetWidthAndAspectRatio(this.SpotlightWidth, this.SpotlightHeightAspect);
-                }
-                else if (this.SpotlightViewfinderSizeSpecification.Equals(SpotlightSizeSpecification.HeightAndWidthAspect))
-                {
-                    (ViewfinderKind.Spotlight.Viewfinder as SpotlightViewfinder).SetHeightAndAspectRatio(this.SpotlightHeight, this.SpotlightWidthAspect);
+                    (ViewfinderKind.Rectangular.Viewfinder as RectangularViewfinder).SetShorterDimensionAndAspectRatio(this.rectangularShorterDimension, this.rectangularLongerDimensioAspect);
                 }
             }
         }

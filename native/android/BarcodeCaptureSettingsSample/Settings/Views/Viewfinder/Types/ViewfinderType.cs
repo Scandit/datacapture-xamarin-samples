@@ -30,6 +30,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
 
         public abstract IViewfinder Build();
 
+        public virtual void ResetDefaults()
+        { }
+
         public bool Equals(ViewfinderType other)
         {
             if (other == null)

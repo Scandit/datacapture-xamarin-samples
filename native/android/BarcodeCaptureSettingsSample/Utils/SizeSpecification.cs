@@ -18,6 +18,7 @@ namespace BarcodeCaptureSettingsSample.Utils
     {
         WidthAndHeight = Resource.String.width_and_height,
         WidthAndHeightAspect = Resource.String.width_and_height_aspect,
-        HeightAndWidthAspect = Resource.String.height_and_width_aspect
+        HeightAndWidthAspect = Resource.String.height_and_width_aspect,
+        ShorterDimensionAndAspect = Resource.String.shorter_dimension_and_aspect_ratio
     }
 }

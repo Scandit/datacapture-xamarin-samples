@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using BarcodeCaptureSettingsSample.Base.UiColors;
 using BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types;
 using BarcodeCaptureSettingsSample.Utils;
+using Scandit.DataCapture.Core.Common.Geometry;
+using Scandit.DataCapture.Core.UI.Viewfinder;
 
 namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
 {
@@ -28,7 +30,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             ViewfinderTypeNone.FromCurrentViewFinder(this.settingsManager.CurrentViewfinder),
             ViewfinderTypeRectangular.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager),
             ViewfinderTypeLaserline.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager),
-            ViewfinderTypeSpotlight.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager)
+            ViewfinderTypeAimer.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager)
         };
 
         public void SetViewfinderType(ViewfinderType viewfinderType)
@@ -42,23 +44,25 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
                 this.settingsManager.RectangularViewfinderWidthAspect = rectangular.WidthAspect;
                 this.settingsManager.RectangularViewfinderHeight = rectangular.Height;
                 this.settingsManager.RectangularViewfinderHeightAspect = rectangular.HeightAspect;
+                this.settingsManager.RectangularViewfinderShorterDimension = rectangular.ShorterDimension;
+                this.settingsManager.RectangularViewfinderLongerDimensionAspect = rectangular.LongerDimensionAspect;
+                this.settingsManager.RectangularViewfinderDimming = rectangular.Dimming;
+                this.settingsManager.RectangularViewfinderStyle = rectangular.Style;
+                this.settingsManager.RectangularViewfinderLineStyle = rectangular.LineStyle;
+                this.settingsManager.RectangularViewfinderAnimation = rectangular.Animation;
+                this.settingsManager.RectangularViewfinderLooping = rectangular.Looping;
             }
             else if (viewfinderType is ViewfinderTypeLaserline laserline)
             {
+                this.settingsManager.LaserlineViewfinderStyle = laserline.Style;
                 this.settingsManager.LaserlineViewfinderWidth = laserline.Width;
                 this.settingsManager.LaserlineViewfinderEnabledColor = laserline.EnabledColor;
                 this.settingsManager.LaserlineViewfinderDisabledColor = laserline.DisabledColor;
             }
-            else if (viewfinderType is ViewfinderTypeSpotlight spotlight)
+            else if (viewfinderType is ViewfinderTypeAimer aimer)
             {
-                this.settingsManager.SpotlightViewfinderBackgroundColor = spotlight.BackgroundColor;
-                this.settingsManager.SpotlightViewfinderEnabledColor = spotlight.EnabledColor;
-                this.settingsManager.SpotlightViewfinderDisabledColor = spotlight.DisabledColor;
-                this.settingsManager.SpotlightViewfinderSizeSpecification = spotlight.SizeSpecification;
-                this.settingsManager.SpotlightViewfinderWidth = spotlight.Width;
-                this.settingsManager.SpotlightViewfinderWidthAspect = spotlight.WidthAspect;
-                this.settingsManager.SpotlightViewfinderHeight = spotlight.Height;
-                this.settingsManager.SpotlightViewfinderHeightAspect = spotlight.HeightAspect;
+                this.settingsManager.AimerViewfinderDotColor = aimer.DotColor;
+                this.settingsManager.AimerViewfinderFrameColor = aimer.FrameColor;
             }
 
             this.UpdateViewfinder(viewfinderType);
@@ -114,6 +118,91 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             }
         }
 
+        public void SetRectangularViewfinderShorterDimension(float shorterDimensionFraction)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).ShorterDimension = new FloatWithUnit(shorterDimensionFraction, MeasureUnit.Fraction);
+                this.SetViewfinderType(currentViewfinder);
+            }
+        }
+
+        public void SetRectangularViewfinderLongerDimensionAspect(float longerDimensionAspect)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).LongerDimensionAspect = longerDimensionAspect;
+                this.SetViewfinderType(currentViewfinder);
+            }
+        }
+
+        public void SetRectangularViewfinderStyle(RectangularViewfinderStyle style)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).Style = style;
+                currentViewfinder.ResetDefaults();
+                this.SetViewfinderType(currentViewfinder);
+            }
+        }
+
+        public void SetRectangularViewfinderLineStyle(RectangularViewfinderLineStyle style)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).LineStyle = style;
+                this.SetViewfinderType(currentViewfinder);
+            }
+        }
+
+        public void SetRectangularDimming(float dimming)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).Dimming = dimming;
+                this.SetViewfinderType(currentViewfinder);
+            }
+            settingsManager.RectangularViewfinderDimming = dimming;
+        }
+
+        public void SetRectangularAnimationEnabled(bool enabled)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).Animation = enabled;
+                this.SetViewfinderType(currentViewfinder);
+            }
+            settingsManager.RectangularViewfinderAnimation = enabled;
+        }
+
+        public void SetRectangularLoopingEnabled(bool enabled)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeRectangular)
+            {
+                ((ViewfinderTypeRectangular)currentViewfinder).Looping = enabled;
+                this.SetViewfinderType(currentViewfinder);
+            }
+            settingsManager.RectangularViewfinderLooping = enabled;
+        }
+
+        public void SetLaserlineViewfinderStyle(LaserlineViewfinderStyle style)
+        {
+            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
+            if (currentViewfinder is ViewfinderTypeLaserline)
+            {
+                ((ViewfinderTypeLaserline)currentViewfinder).Style = style;
+                currentViewfinder.ResetDefaults();
+                this.SetViewfinderType(currentViewfinder);
+            }
+        }
+
         public void SetLaserlineViewfinderEnabledColor(UiColor color)
         {
             ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
@@ -134,62 +223,22 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             }
         }
 
-        public void SetSpotlightViewfinderBackgroundColor(UiColor color)
+        public void SetAimerViewfinderFrameColor(UiColor color)
         {
             ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
+            if (currentViewfinder is ViewfinderTypeAimer)
             {
-                ((ViewfinderTypeSpotlight)currentViewfinder).BackgroundColor = color;
+                ((ViewfinderTypeAimer)currentViewfinder).FrameColor = color;
                 this.SetViewfinderType(currentViewfinder);
             }
         }
 
-        public void SetSpotlightViewfinderEnabledColor(UiColor color)
+        public void SetAimerViewfinderDotColor(UiColor color)
         {
             ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
+            if (currentViewfinder is ViewfinderTypeAimer)
             {
-                ((ViewfinderTypeSpotlight)currentViewfinder).EnabledColor = color;
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetSpotlightViewfinderDisabledColor(UiColor color)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
-            {
-                ((ViewfinderTypeSpotlight)currentViewfinder).DisabledColor = color;
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetSpotlightViewfinderSizeSpec(SizeSpecification spec)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
-            {
-                ((ViewfinderTypeSpotlight)currentViewfinder).SizeSpecification = spec;
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetSpotlightViewfinderHeightAspect(float aspect)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
-            {
-                ((ViewfinderTypeSpotlight)currentViewfinder).HeightAspect = aspect;
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetSpotlightViewfinderWidthAspect(float aspect)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeSpotlight)
-            {
-                ((ViewfinderTypeSpotlight)currentViewfinder).WidthAspect = aspect;
+                ((ViewfinderTypeAimer)currentViewfinder).DotColor = color;
                 this.SetViewfinderType(currentViewfinder);
             }
         }

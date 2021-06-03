@@ -14,21 +14,20 @@
 
 using BarcodeCaptureSettingsSample.DataSource.Other;
 using Scandit.DataCapture.Core.UI.Viewfinder;
-using UIKit;
 
 namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 {
-    public class SpotlightViewfinderDisabledColor : Enumeration
+    public class RectangularViewfinderStyleType : Enumeration
     {
-        public static readonly SpotlightViewfinderDisabledColor Default = new SpotlightViewfinderDisabledColor(0, "Default", SpotlightViewfinder.Create().DisabledBorderColor);
-        public static readonly SpotlightViewfinderDisabledColor Blue = new SpotlightViewfinderDisabledColor(1, "Black", UIColor.Black);
-        public static readonly SpotlightViewfinderDisabledColor Red = new SpotlightViewfinderDisabledColor(2, "Red", UIColor.Red);
+        public static readonly RectangularViewfinderStyleType Legacy = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Legacy);
+        public static readonly RectangularViewfinderStyleType Square = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Square);
+        public static readonly RectangularViewfinderStyleType Rounded = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Rounded);
 
-        public UIColor UIColor { get; }
+        public RectangularViewfinderStyle Style { get; }
 
-        public SpotlightViewfinderDisabledColor(int key, string value, UIColor color) : base(key, value)
+        public RectangularViewfinderStyleType(RectangularViewfinderStyle style) : base((int)style, style.ToString())
         {
-            this.UIColor = color;
+            this.Style = style;
         }
     }
 }

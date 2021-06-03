@@ -20,9 +20,11 @@ using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using BarcodeCaptureSettingsSample.Utils;
+using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Core.Common.Geometry;
 using Scandit.DataCapture.Core.UI;
 using Scandit.DataCapture.Core.UI.Control;
+using Scandit.DataCapture.Core.UI.Gesture;
 
 namespace BarcodeCaptureSettingsSample.Scanning
 {
@@ -102,10 +104,37 @@ namespace BarcodeCaptureSettingsSample.Scanning
             inflater.Inflate(Resource.Menu.settings_menu, menu);
         }
 
-        public void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount)
-        {
-            string textFormat = this.RequireContext().GetString(Resource.String.result_parametrised);
-            string text = string.Format(textFormat, symbologyName, data, addOnData, symbolCount);
+        public void ShowDialog(Barcode barcode)
+        { 
+            string compositeType = string.Empty;
+            string data = barcode.Data;
+
+            if (!string.IsNullOrEmpty(barcode.AddOnData))
+            {
+                data += " " + barcode.AddOnData;
+            }
+
+            if (!string.IsNullOrEmpty(barcode.CompositeData))
+            {
+                data += " " + barcode.CompositeData;
+                compositeType = this.StringFromCompositeFlag(barcode.CompositeFlag);
+            }
+
+            using SymbologyDescription description = SymbologyDescription.Create(barcode.Symbology);
+            string symbology = description.ReadableName;
+            int symbolCount = barcode.SymbolCount;
+            string text;
+
+            if (string.IsNullOrEmpty(compositeType))
+            {
+                string textFormat = this.RequireContext().GetString(Resource.String.result_parametrised);
+                text = string.Format(textFormat, symbology, data, symbolCount);
+            }
+            else
+            {
+                string textFormat = this.RequireContext().GetString(Resource.String.cc_result_parametrised);
+                text = string.Format(textFormat, compositeType, symbology, data, symbolCount);
+            }
 
             if (this.viewModel.ContinuousScanningEnabled)
             {
@@ -138,6 +167,9 @@ namespace BarcodeCaptureSettingsSample.Scanning
             {
                 this.dataCaptureView.AddControl(new TorchSwitchControl(this.RequireContext()));
             }
+
+            this.dataCaptureView.FocusGesture = settings.TapToFocusEnabled ? TapToFocus.Create() : null;
+            this.dataCaptureView.ZoomGesture = settings.SwipeToZoomEnalbed ? SwipeToZoom.Create() : null;
         }
 
         private void SetupBarcodeCaptureOverlay(SettingsManager settings)
@@ -218,6 +250,17 @@ namespace BarcodeCaptureSettingsSample.Scanning
             {
                 this.dialog.Dismiss();
             }
+        }
+
+        private string StringFromCompositeFlag(CompositeFlag compositeFlag)
+        {
+            return compositeFlag switch
+            {
+                CompositeFlag.Gs1TypeA => "A",
+                CompositeFlag.Gs1TypeB => "B",
+                CompositeFlag.Gs1TypeC => "C",
+                _ => string.Empty,
+            };
         }
     }
 }

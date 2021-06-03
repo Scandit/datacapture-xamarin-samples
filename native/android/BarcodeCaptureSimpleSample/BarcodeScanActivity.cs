@@ -152,7 +152,7 @@ namespace BarcodeCaptureSimpleSample
             // barcodes on top of the video preview.
             // This is optional, but recommended for better visual feedback.
             BarcodeCaptureOverlay overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
-            overlay.Viewfinder = RectangularViewfinder.Create();
+            overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
 
             SetContentView(this.dataCaptureView);
         }

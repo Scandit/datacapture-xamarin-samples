@@ -21,7 +21,6 @@ using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Barcode.UI.Overlay;
 using Scandit.DataCapture.Core.Capture;
 using Scandit.DataCapture.Core.Common.Feedback;
-using Scandit.DataCapture.Core.Common.Geometry;
 using Scandit.DataCapture.Core.Data;
 using Scandit.DataCapture.Core.Source;
 using Scandit.DataCapture.Core.UI;
@@ -97,12 +96,9 @@ namespace BarcodeCaptureRejectSample
             // barcodes on top of the video preview.
             // This is optional, but recommended for better visual feedback.
             overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
-            overlay.Viewfinder = RectangularViewfinder.Create();
 
             // Add a square viewfinder as we are only scanning square QR codes.
-            var viewfinder = RectangularViewfinder.Create();
-            viewfinder.SetWidthAndAspectRatio(new FloatWithUnit(0.8f, MeasureUnit.Fraction), 1f);
-            overlay.Viewfinder = viewfinder;
+            overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
 
             SetContentView(this.dataCaptureView);
         }

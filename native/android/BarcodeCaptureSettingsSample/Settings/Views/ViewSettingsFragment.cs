@@ -18,6 +18,7 @@ using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using BarcodeCaptureSettingsSample.Base;
 using BarcodeCaptureSettingsSample.Settings.Views.Controls;
+using BarcodeCaptureSettingsSample.Settings.Views.Gestures;
 using BarcodeCaptureSettingsSample.Settings.Views.Logo;
 using BarcodeCaptureSettingsSample.Settings.Views.Overlays;
 using BarcodeCaptureSettingsSample.Settings.Views.PointOfInterests;
@@ -77,6 +78,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views
                     break;
                 case ViewSettingsType.Logo:
                     this.MoveToFragment(LogoSettingsFragment.Create(), true, null);
+                    break;
+                case ViewSettingsType.Gestures:
+                    this.MoveToFragment(GesturesSettingsFragment.Create(), true, null);
                     break;
                 case ViewSettingsType.Controls:
                     this.MoveToFragment(ControlsSettingsFragment.Create(), true, null);

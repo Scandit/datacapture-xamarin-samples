@@ -42,6 +42,12 @@ namespace BarcodeCaptureSettingsSample.Model
                         result += " " + barcode.AddOnData;
                     }
 
+                    if (!string.IsNullOrEmpty(barcode.CompositeData))
+                    {
+                        result = $"CC Type {StringFromCompositeFlag(barcode.CompositeFlag)}\n" + result;
+                        result += $"\n{barcode.CompositeData}";
+                    }
+
                     if (barcode.SymbolCount != -1)
                     {
                         result += $"\nSymbol Count: {barcode.SymbolCount}";
@@ -50,6 +56,17 @@ namespace BarcodeCaptureSettingsSample.Model
                     return result;
                 });
             }
+        }
+
+        private static string StringFromCompositeFlag(CompositeFlag compositeFlag)
+        {
+            return compositeFlag switch
+            {
+                CompositeFlag.Gs1TypeA => "A",
+                CompositeFlag.Gs1TypeB => "B",
+                CompositeFlag.Gs1TypeC => "C",
+                _ => string.Empty,
+            };
         }
     }
 }

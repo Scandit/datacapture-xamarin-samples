@@ -24,6 +24,7 @@ namespace BarcodeCaptureSettingsSample.Extensions
             SizingMode.WidthAndHeight => RectangularSizeSpecification.WidthAndHeight,
             SizingMode.WidthAndAspectRatio => RectangularSizeSpecification.WidthAndHeightAspect,
             SizingMode.HeightAndAspectRatio => RectangularSizeSpecification.HeightAndWidthAspect,
+            SizingMode.ShorterDimensionAndAspectRatio => RectangularSizeSpecification.ShorterDimensionAndAspectRatio,
             _ => RectangularSizeSpecification.WidthAndHeight,
         };
     }

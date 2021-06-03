@@ -78,10 +78,12 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.Camera
         {
             return new Section(new[]
             {
-                SwitchRow.Create(
+                ChoiceRow<TorchStateType>.Create(
                     "Desired Torch State",
-                    () => SettingsManager.Instance.TorchState == TorchState.On,
-                    value => SettingsManager.Instance.TorchState = value ? TorchState.On : TorchState.Off
+                    Enumeration.GetAll<TorchStateType>().ToArray(),
+                    () => SettingsManager.Instance.TorchStateType,
+                    value => SettingsManager.Instance.TorchStateType = value,
+                    this.DataSourceListener
                 )
             });
         }

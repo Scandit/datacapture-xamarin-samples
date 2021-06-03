@@ -36,5 +36,23 @@ namespace BarcodeCaptureSettingsSample.Utils
             timer.Stop();
             timer.Start();
         }
+
+        public static SizeSpecification GetForSizingMode(this SizingMode mode)
+        {
+            if (mode == SizingMode.WidthAndAspectRatio)
+            {
+                return SizeSpecification.WidthAndHeightAspect;
+            }
+            if (mode == SizingMode.HeightAndAspectRatio)
+            {
+                return SizeSpecification.HeightAndWidthAspect;
+            }
+            if (mode == SizingMode.ShorterDimensionAndAspectRatio)
+            {
+                return SizeSpecification.ShorterDimensionAndAspect;
+            }
+
+            return SizeSpecification.WidthAndHeight;
+        }
     }
 }

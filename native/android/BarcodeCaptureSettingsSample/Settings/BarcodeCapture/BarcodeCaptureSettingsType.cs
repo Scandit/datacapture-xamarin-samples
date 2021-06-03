@@ -19,6 +19,7 @@ namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture
         Symbologies = Resource.String.symbologies,
         LocationSelection = Resource.String.location_selection,
         Feedback = Resource.String.feedback,
-        CodeDuplicateFilter = Resource.String.code_duplicate_filter
+        CodeDuplicateFilter = Resource.String.code_duplicate_filter,
+        CompositeTypes = Resource.String.composite_types
     }
 }

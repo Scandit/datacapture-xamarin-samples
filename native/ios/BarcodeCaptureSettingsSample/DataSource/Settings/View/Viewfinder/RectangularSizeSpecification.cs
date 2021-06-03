@@ -21,6 +21,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
         public static readonly RectangularSizeSpecification WidthAndHeight = new RectangularSizeSpecification(0, "Width and Height");
         public static readonly RectangularSizeSpecification WidthAndHeightAspect = new RectangularSizeSpecification(1, "Width and Height Aspect");
         public static readonly RectangularSizeSpecification HeightAndWidthAspect = new RectangularSizeSpecification(2, "Height and Width Aspect");
+        public static readonly RectangularSizeSpecification ShorterDimensionAndAspectRatio = new RectangularSizeSpecification(3, "Shorter Dimension and Aspect");
 
         public RectangularSizeSpecification(int key, string name) : base(key, name) { }
     }

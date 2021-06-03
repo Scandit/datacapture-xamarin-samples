@@ -17,6 +17,7 @@ using Android.Views;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using BarcodeCaptureSettingsSample.Base;
+using BarcodeCaptureSettingsSample.Settings.BarcodeCapture.CompositeTypes;
 using BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Feedback;
 using BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Location;
 using BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Symbologies;
@@ -74,6 +75,9 @@ namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture
                     break;
                 case BarcodeCaptureSettingsType.CodeDuplicateFilter:
                     this.MoveToFragment(CodeDuplicateFilterSettingsFragment.Create(), true, null);
+                    break;
+                case BarcodeCaptureSettingsType.CompositeTypes:
+                    this.MoveToFragment(CompositeTypesSettingsFragment.Create(), true, null);
                     break;
             }
         }

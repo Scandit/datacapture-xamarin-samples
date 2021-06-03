@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BarcodeCaptureSettingsSample.Base.UiColors;
 using Scandit.DataCapture.Core.Common.Geometry;
 using Scandit.DataCapture.Core.UI.Viewfinder;
@@ -22,37 +23,81 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
 {
     public class ViewfinderTypeLaserline : ViewfinderType
     {
+        private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() =>
+        {
+            using LaserlineViewfinder laserline = LaserlineViewfinder.Create();
+            return new UiColor(laserline.EnabledColor, Resource.String._default);
+        });
+
+        private static readonly Lazy<UiColor> defaultDisabledColor = new Lazy<UiColor>(() =>
+        {
+            using LaserlineViewfinder laserline = LaserlineViewfinder.Create();
+            return new UiColor(laserline.DisabledColor, Resource.String._default);
+        });
+
         public static class EnabledColors
         {
-            private static readonly Lazy<IList<UiColor>> colors = new Lazy<IList<UiColor>>(() => new[] { UiColor.Red, UiColor.White, Default });
-            private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() => 
+            private static readonly Lazy<Dictionary<LaserlineViewfinderStyle, IList<UiColor>>> colors = new Lazy<Dictionary<LaserlineViewfinderStyle, IList<UiColor>>>(() =>
             {
-                using LaserlineViewfinder laserline = LaserlineViewfinder.Create();
-                return new UiColor(laserline.EnabledColor, Resource.String._default);
-            });
-            
-            public static IList<UiColor> Colors { get { return colors.Value; } }
+                Dictionary<LaserlineViewfinderStyle, IList<UiColor>> availableColors = new Dictionary<LaserlineViewfinderStyle, IList<UiColor>>();
+                foreach (var style in LaserlineViewfinderStyle.Values())
+                {
+                    using LaserlineViewfinder laserlineViewfinder = LaserlineViewfinder.Create(style);
 
-            public static UiColor Default { get { return defaultColor.Value; } }
+                    if (style == LaserlineViewfinderStyle.Legacy)
+                    {
+                        availableColors.Add(style, new[] { new UiColor(laserlineViewfinder.EnabledColor, Resource.String._default), UiColor.Red, UiColor.White });
+                    }
+                    else if (style == LaserlineViewfinderStyle.Animated)
+                    {
+                        availableColors.Add(style, new[] { new UiColor(laserlineViewfinder.EnabledColor, Resource.String._default), UiColor.Blue, UiColor.Red });
+                    }
+                }
+                return availableColors;
+            });
+
+            public static IList<UiColor> GetAllForStyle(LaserlineViewfinderStyle style)
+            {
+                return colors.Value[style];
+            }
+
+            public static UiColor GetDefaultForStyle(LaserlineViewfinderStyle style)
+            {
+                return colors.Value[style].First();
+            }
         }
 
         public static class DisabledColors
         {
-            private static readonly Lazy<IList<UiColor>> colors = new Lazy<IList<UiColor>>(() => new[] { UiColor.Blue, UiColor.Red, Default });
-            private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() =>
+            private static readonly Lazy<Dictionary<LaserlineViewfinderStyle, IList<UiColor>>> colors = new Lazy<Dictionary<LaserlineViewfinderStyle, IList<UiColor>>>(() =>
             {
-                using LaserlineViewfinder laserline = LaserlineViewfinder.Create();
-                return new UiColor(laserline.DisabledColor, Resource.String._default);
+                Dictionary<LaserlineViewfinderStyle, IList<UiColor>> availableColors = new Dictionary<LaserlineViewfinderStyle, IList<UiColor>>();
+                foreach (var style in LaserlineViewfinderStyle.Values())
+                {
+                    using LaserlineViewfinder laserlineViewfinder = LaserlineViewfinder.Create(style);
+                    availableColors.Add(style, new[] { new UiColor(laserlineViewfinder.DisabledColor, Resource.String._default), UiColor.Blue, UiColor.Red });
+                }
+                return availableColors;
             });
 
-            public static IList<UiColor> Colors { get { return colors.Value; } }
+            public static IList<UiColor> GetAllForStyle(LaserlineViewfinderStyle style)
+            {
+                return colors.Value[style];
+            }
 
-            public static UiColor Default { get { return defaultColor.Value; } }
+            public static UiColor GetDefaultForStyle(LaserlineViewfinderStyle style)
+            {
+                return colors.Value[style].First();
+            }
         }
+
+        public static UiColor DefaultEnabledColor { get { return defaultColor.Value; } }
+        public static UiColor DefaultDisabledColor { get { return defaultDisabledColor.Value; } }
 
         public UiColor EnabledColor { get; set; }
         public UiColor DisabledColor { get; set; }
         public FloatWithUnit Width { get; set; }
+        public LaserlineViewfinderStyle Style { get; set; }
 
         public static ViewfinderTypeLaserline FromCurrentViewfinderAndSettings(
                 IViewfinder currentViewfinder, SettingsManager settingsManager)
@@ -61,27 +106,40 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
                     currentViewfinder is LaserlineViewfinder,
                     settingsManager.LaserlineViewfinderWidth,
                     settingsManager.LaserlineViewfinderEnabledColor,
-                    settingsManager.LaserlineViewfinderDisabledColor);
+                    settingsManager.LaserlineViewfinderDisabledColor,
+                    settingsManager.LaserlineViewfinderStyle);
         }
 
         private ViewfinderTypeLaserline(
                 bool enabled,
                 FloatWithUnit width,
                 UiColor enabledColor,
-                UiColor disabledColor) : base(Resource.String.laserline, enabled)
+                UiColor disabledColor,
+                LaserlineViewfinderStyle style) : base(Resource.String.laserline, enabled)
         {
             this.Width = width;
             this.EnabledColor = enabledColor;
             this.DisabledColor = disabledColor;
+            this.Style = style;
         }
 
         public override IViewfinder Build()
         {
-            LaserlineViewfinder viewfinder = LaserlineViewfinder.Create();
+            LaserlineViewfinder viewfinder = LaserlineViewfinder.Create(this.Style);
             viewfinder.Width = this.Width;
             viewfinder.EnabledColor = this.EnabledColor.Color;
             viewfinder.DisabledColor = this.DisabledColor.Color;
             return viewfinder;
+        }
+
+        public override void ResetDefaults()
+        {
+            base.ResetDefaults();
+
+            LaserlineViewfinder viewfinder = LaserlineViewfinder.Create(this.Style);
+            this.Width = viewfinder.Width;
+            this.EnabledColor = EnabledColors.GetDefaultForStyle(this.Style);
+            this.DisabledColor = DisabledColors.GetDefaultForStyle(this.Style);
         }
     }
 }

@@ -13,15 +13,20 @@
  */
 
 using BarcodeCaptureSettingsSample.DataSource.Other;
+using Scandit.DataCapture.Core.UI.Viewfinder;
 
 namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 {
-    public class SpotlightSizeSpecification : Enumeration
+    public class LaserlineViewfinderStyleType : Enumeration
     {
-        public static readonly SpotlightSizeSpecification WidthAndHeight = new SpotlightSizeSpecification(0, "Width and Height");
-        public static readonly SpotlightSizeSpecification WidthAndHeightAspect = new SpotlightSizeSpecification(1, "Width and Height Aspect");
-        public static readonly SpotlightSizeSpecification HeightAndWidthAspect = new SpotlightSizeSpecification(2, "Height and Width Aspect");
+        public static readonly LaserlineViewfinderStyleType Legacy = new LaserlineViewfinderStyleType(LaserlineViewfinderStyle.Legacy);
+        public static readonly LaserlineViewfinderStyleType Animated = new LaserlineViewfinderStyleType(LaserlineViewfinderStyle.Animated);
 
-        public SpotlightSizeSpecification(int key, string name) : base(key, name) { }
+        public LaserlineViewfinderStyle Style { get; }
+
+        public LaserlineViewfinderStyleType(LaserlineViewfinderStyle style) : base((int)style, style.ToString())
+        {
+            this.Style = style;
+        }
     }
 }

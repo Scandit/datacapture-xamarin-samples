@@ -12,10 +12,12 @@
  * limitations under the License.
  */
 
+using Scandit.DataCapture.Barcode.Data;
+
 namespace BarcodeCaptureSettingsSample.Scanning
 {
     public interface IBarcodeScanViewModelListener
     {
-        void ShowDialog(string symbologyName, string data, string addOnData, int symbolCount);
+        void ShowDialog(Barcode barcode);
     }
 }

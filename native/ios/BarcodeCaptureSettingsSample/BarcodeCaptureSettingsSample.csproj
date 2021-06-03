@@ -123,10 +123,6 @@
     <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderEnabledColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderDisabledColor.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightSizeSpecification.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderBackgroundColor.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderDisabledColor.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\SpotlightViewfinderEnabledColor.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Controllers\ScanViewController.cs" />
@@ -205,6 +201,7 @@
     <Compile Include="DataSource\Settings\Camera\CameraDataSource.cs" />
     <Compile Include="DataSource\Settings\Camera\CameraType.cs" />
     <Compile Include="DataSource\Settings\Camera\Resolution.cs" />
+    <Compile Include="DataSource\Settings\Camera\TorchStateType.cs" />
     <Compile Include="Views\EventArgs\SliderCellChangedEventArgs.cs" />
     <Compile Include="DataSource\Other\Rows\SliderRow.cs" />
     <Compile Include="Controllers\Settings\CameraSettingsTableViewController.cs" />
@@ -254,10 +251,25 @@
       <DependentUpon>DuplicateFilterTableViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="DataSource\Settings\BarcodeCapture\VibrationType.cs" />
+    <Compile Include="DataSource\Settings\BarcodeCapture\CompositeTypesDataSource.cs" />
+    <Compile Include="Controllers\Settings\BarcodeCapture\CompositeTypesTableViewController.cs" />
+    <Compile Include="Controllers\Settings\BarcodeCapture\CompositeTypesTableViewController.designer.cs">
+      <DependentUpon>CompositeTypesTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderStyleType.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\AimerViewfinderFrameColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\AimerViewfinderDotColor.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderLineStyleType.cs" />
+    <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderStyleType.cs" />
+    <Compile Include="Controllers\Settings\View\GesturesSettingsViewController.cs" />
+    <Compile Include="Controllers\Settings\View\GesturesSettingsViewController.designer.cs">
+      <DependentUpon>GesturesSettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSource\Settings\View\GesturesDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.7.3" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.7.3" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.8.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.8.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png">

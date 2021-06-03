@@ -21,6 +21,7 @@ namespace BarcodeCaptureSettingsSample.Settings.Views
         Overlay = Resource.String.overlay,
         Viewfinder = Resource.String.view_finder,
         Logo = Resource.String.logo,
+        Gestures = Resource.String.gestures,
         Controls = Resource.String.controls
     }
 }

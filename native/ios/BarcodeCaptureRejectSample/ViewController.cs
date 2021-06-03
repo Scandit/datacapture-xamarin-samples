@@ -119,7 +119,7 @@ namespace BarcodeCaptureRejectSample
             this.View.AddSubview(this.dataCaptureView);
 
             this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
-            this.overlay.Viewfinder = RectangularViewfinder.Create();
+            this.overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
             this.dataCaptureView.AddOverlay(this.overlay);
         }
 

@@ -304,8 +304,8 @@
     <AndroidResource Include="Resources\menu\settings_menu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.8.0" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.8.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.8.1" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.8.1" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_code_duplicate_filter_settings.xml">

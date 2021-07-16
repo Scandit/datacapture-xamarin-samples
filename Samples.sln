@@ -72,6 +72,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureRejectSample"
 EndProject
 
 
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdCaptureSimpleSample", "IdCaptureSimpleSample", "{06151120-B5A7-4480-A0F4-5698235D3320}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdCaptureSimpleSample", "IdCaptureSimpleSample", "{4824171C-7615-4CB9-8B80-154916ED9E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "native\android\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "native\ios\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9D55C192-4444-4553-900E-7B4E65D38E62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -312,6 +320,30 @@ Global
 		{D2C038D5-ADE1-4FEC-9250-D52F73F17D68}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{D2C038D5-ADE1-4FEC-9250-D52F73F17D68}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{D2C038D5-ADE1-4FEC-9250-D52F73F17D68}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|iPhone.Build.0 = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|Any CPU.Build.0 = Debug|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|iPhone.Build.0 = Debug|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|Any CPU.Build.0 = Release|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhone.ActiveCfg = Release|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhone.Build.0 = Release|iPhone
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -354,6 +386,10 @@ Global
 		{4689641E-397A-4C19-B7FE-487D50A2BB16} = {1FCFA75B-8DB3-45D0-9CB5-801771A4437F}
 		{C6E5F507-1858-4A58-B891-A206B1C05AC4} = {4C95E2BE-756F-459A-8BF1-D7F0350336DF}
 		{D2C038D5-ADE1-4FEC-9250-D52F73F17D68} = {C6E5F507-1858-4A58-B891-A206B1C05AC4}
+		{06151120-B5A7-4480-A0F4-5698235D3320} = {6E1A455B-D9CF-402B-A74F-66371395DE2D}
+		{4824171C-7615-4CB9-8B80-154916ED9E61} = {4C95E2BE-756F-459A-8BF1-D7F0350336DF}
+		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4} = {4824171C-7615-4CB9-8B80-154916ED9E61}
+		{9D55C192-4444-4553-900E-7B4E65D38E62} = {06151120-B5A7-4480-A0F4-5698235D3320}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C97BC2B3-3F8F-4E3E-A45B-73C02985EAF3}

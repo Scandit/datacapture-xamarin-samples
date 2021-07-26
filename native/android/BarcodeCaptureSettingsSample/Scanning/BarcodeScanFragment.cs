@@ -31,14 +31,19 @@ namespace BarcodeCaptureSettingsSample.Scanning
     public class BarcodeScanFragment : CameraPermissionFragment, IBarcodeScanViewModelListener 
     {
         private const int dialogAutoDissmissInterval = 500;
-        private readonly Timer continuousResultTimer = new Timer(dialogAutoDissmissInterval);
-        
+        private readonly Timer continuousResultTimer;
+
         private BarcodeScanViewModel viewModel;
         private DataCaptureView dataCaptureView;
         private AlertDialog dialog;
 
         public BarcodeScanFragment()
         {
+            this.continuousResultTimer = new Timer(dialogAutoDissmissInterval)
+            {
+                AutoReset = false,
+                Enabled = false
+            };
             this.continuousResultTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
             {
                 if (this.viewModel.ContinuousScanningEnabled)
@@ -138,11 +143,11 @@ namespace BarcodeCaptureSettingsSample.Scanning
 
             if (this.viewModel.ContinuousScanningEnabled)
             {
-                this.ShowDialogForContinuousScanning(text);
+                this.Activity.RunOnUiThread(() => this.ShowDialogForContinuousScanning(text));
             }
             else
             {
-                this.ShowDialogForOneShotScanning(text);
+                this.Activity.RunOnUiThread(() => this.ShowDialogForOneShotScanning(text));
             }
         }
 
@@ -248,7 +253,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
         {
             if (this.ShowingDialog)
             {
-                this.dialog.Dismiss();
+                this.Activity.RunOnUiThread(() => this.dialog.Dismiss());
             }
         }
 

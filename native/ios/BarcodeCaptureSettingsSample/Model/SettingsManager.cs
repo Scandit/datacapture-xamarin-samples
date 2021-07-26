@@ -68,7 +68,9 @@ namespace BarcodeCaptureSettingsSample.Model
         private RectangularViewfinderAnimation rectangularViewfinderAnimation = null;
 
         private LaserlineViewfinderEnabledColor laserlineViewfinderEnabledColor = LaserlineViewfinderEnabledColor.Default;
-        
+
+        private LaserlineViewfinderAnimatedEnabledColor laserlineViewfinderAnimatedEnabledColor = LaserlineViewfinderAnimatedEnabledColor.Default;
+
         private LaserlineViewfinderDisabledColor laserlineViewfinderDisabledColor = LaserlineViewfinderDisabledColor.Default;
 
         private AimerViewfinderFrameColor aimerViewfinderFrameColor = AimerViewfinderFrameColor.Default;
@@ -545,6 +547,16 @@ namespace BarcodeCaptureSettingsSample.Model
             {
                 this.laserlineViewfinderEnabledColor = value;
                 (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderEnabledColor.UIColor;
+            }
+        }
+
+        public LaserlineViewfinderAnimatedEnabledColor LaserlineViewfinderAnimatedEnabledColor
+        {
+            get => this.laserlineViewfinderAnimatedEnabledColor;
+            set
+            {
+                this.laserlineViewfinderAnimatedEnabledColor = value;
+                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderAnimatedEnabledColor.UIColor;
             }
         }
 

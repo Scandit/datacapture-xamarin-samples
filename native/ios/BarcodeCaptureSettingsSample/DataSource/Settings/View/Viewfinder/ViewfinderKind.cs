@@ -85,6 +85,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                 Laserline = new ViewfinderKind(2, "Laserline", LaserlineViewfinder.Create(styleType.Style));
 
                 SettingsManager.Instance.LaserlineViewfinderEnabledColor = LaserlineViewfinderEnabledColor.Default;
+                SettingsManager.Instance.LaserlineViewfinderAnimatedEnabledColor = LaserlineViewfinderAnimatedEnabledColor.Default;
                 SettingsManager.Instance.LaserlineViewfinderDisabledColor = LaserlineViewfinderDisabledColor.Default;
             }
 

@@ -23,6 +23,7 @@ using Scandit.DataCapture.Core.Capture;
 using Scandit.DataCapture.Core.Data;
 using Scandit.DataCapture.Core.Source;
 using Scandit.DataCapture.Core.UI;
+using Scandit.DataCapture.Core.UI.Style;
 using Scandit.DataCapture.Core.UI.Viewfinder;
 using UIKit;
 
@@ -140,6 +141,13 @@ namespace BarcodeCaptureSimpleSample_iOS_
 
             this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
             this.overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
+
+            // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
+            // With 6.10 we will introduce this visual treatment as a new style for the overlay.
+            overlay.Brush = new Brush(fillColor: UIColor.Clear,
+                                      strokeColor: UIColor.White,
+                                      strokeWidth: 3);
+
             this.dataCaptureView.AddOverlay(this.overlay);
         }
 

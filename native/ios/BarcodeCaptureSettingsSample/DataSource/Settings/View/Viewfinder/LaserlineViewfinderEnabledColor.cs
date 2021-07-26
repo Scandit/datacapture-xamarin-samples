@@ -31,4 +31,18 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             this.UIColor = color;
         }
     }
+
+    public class LaserlineViewfinderAnimatedEnabledColor : Enumeration
+    {
+        public static readonly LaserlineViewfinderAnimatedEnabledColor Default = new LaserlineViewfinderAnimatedEnabledColor(0, "Default", LaserlineViewfinder.Create(LaserlineViewfinderStyle.Animated).EnabledColor);
+        public static readonly LaserlineViewfinderAnimatedEnabledColor Blue = new LaserlineViewfinderAnimatedEnabledColor(1, "Blue", UIColor.Blue);
+        public static readonly LaserlineViewfinderAnimatedEnabledColor Red = new LaserlineViewfinderAnimatedEnabledColor(2, "Red", UIColor.Red);
+
+        public UIColor UIColor { get; }
+
+        public LaserlineViewfinderAnimatedEnabledColor(int id, string name, UIColor color) : base(id, name)
+        {
+            this.UIColor = color;
+        }
+    }
 }

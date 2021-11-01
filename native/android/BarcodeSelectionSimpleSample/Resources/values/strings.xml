@@ -1,0 +1,5 @@
+﻿<resources>
+    <string name="app_name">BSSimple</string>
+    <string name="aim_to_select">Aim to Select</string>
+    <string name="tap_to_select">Tap To Select</string>
+</resources>

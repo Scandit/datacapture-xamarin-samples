@@ -38,7 +38,6 @@ namespace BarcodeCaptureRejectSample
         private DataCaptureView dataCaptureView;
         private BarcodeCapture barcodeCapture;
         private BarcodeCaptureOverlay overlay;
-        private Brush highlightingBrush;
         private readonly Feedback feedback = Feedback.DefaultFeedback;
 
         public ViewController (IntPtr handle) : base (handle)
@@ -119,17 +118,8 @@ namespace BarcodeCaptureRejectSample
                                                     UIViewAutoresizing.FlexibleWidth;
             this.View.AddSubview(this.dataCaptureView);
 
-            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
+            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, BarcodeCaptureOverlayStyle.Frame);
             this.overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
-
-            // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
-            // With 6.10 we will introduce this visual treatment as a new style for the overlay.
-            this.highlightingBrush = new Brush(fillColor: UIColor.Clear,
-                                               strokeColor: UIColor.White,
-                                               strokeWidth: 3);
-            overlay.Brush = this.highlightingBrush;
-
-            this.dataCaptureView.AddOverlay(this.overlay);
         }
 
         public void ShowResult(string result)
@@ -164,10 +154,6 @@ namespace BarcodeCaptureRejectSample
                 this.overlay.Brush = Brush.TransparentBrush;
                 return;
             }
-
-            // If the code is recognized, we want to make sure to use a brush to highlight
-            // the code.
-            this.overlay.Brush = this.highlightingBrush;
 
             // We also want to emit a feedback (vibration and, if enabled, sound).
             this.feedback.Emit();

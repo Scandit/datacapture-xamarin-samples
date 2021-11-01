@@ -110,7 +110,12 @@ namespace BarcodeCaptureSettingsSample.Scanning
         }
 
         public void ShowDialog(Barcode barcode)
-        { 
+        {
+            if (!this.IsAdded)
+            {
+                return;
+            }
+
             string compositeType = string.Empty;
             string data = barcode.Data;
 
@@ -171,6 +176,10 @@ namespace BarcodeCaptureSettingsSample.Scanning
             if (settings.TorchButtonEnabled)
             {
                 this.dataCaptureView.AddControl(new TorchSwitchControl(this.RequireContext()));
+            }
+            if (settings.ZoomSwitchButtonEnabled)
+            {
+                this.dataCaptureView.AddControl(new ZoomSwitchControl(this.RequireContext()));
             }
 
             this.dataCaptureView.FocusGesture = settings.TapToFocusEnabled ? TapToFocus.Create() : null;

@@ -137,7 +137,7 @@ namespace MatrixScanBubblesSample
             // Add a barcode tracking overlay to the data capture view to render the tracked barcodes on top of the video
             // preview. This is optional, but recommended for better visual feedback. The overlay is automatically added
             // to the view.
-            this.basicOverlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.captureView);
+            this.basicOverlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.captureView, BarcodeTrackingBasicOverlayStyle.Dot);
             this.basicOverlay.Listener = this;
 
             // Add another barcode tracking overlay to the data capture view to render other views. The overlay is 

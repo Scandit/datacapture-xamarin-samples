@@ -99,13 +99,19 @@ namespace StockCountSample.iOS
                     // camera preview. The view must be connected to the data capture context.
                     this.captureView = NativeDataCaptureView.Create(this.context, NativeView.Frame);
 
+                    this.captureView.FocusGesture = null;
+                    this.captureView.ZoomGesture = null;
+
                     // Once the native DataCaptureView is created it needs to be set as the native control.
                     this.SetNativeControl(this.captureView);
 
                     // Add a barcode tracking overlay to the data capture view to render the tracked barcodes on top of the video
                     // preview. This is optional, but recommended for better visual feedback.
-                    this.overlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.captureView);
+                    this.overlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.captureView, BarcodeTrackingBasicOverlayStyle.Frame);
                     this.overlay.Listener = this;
+
+                    var cameraSettings = BarcodeTracking.RecommendedCameraSettings;
+                    this.camera?.ApplySettingsAsync(cameraSettings);
 
                     this.camera?.SwitchToDesiredStateAsync(FrameSourceState.On);
                     this.barcodeTracking.Enabled = true;
@@ -115,6 +121,13 @@ namespace StockCountSample.iOS
 
         public NativeBrush BrushForTrackedBarcode(BarcodeTrackingBasicOverlay overlay, TrackedBarcode trackedBarcode)
         {
+            if (this.Element?.BindingContext is MainViewModel viewModel)
+            {
+                if (viewModel.ScannedProducts.Count > 0)
+                {
+                    return ((StockCountSample.Bridging.Brush)this.Element.GetValue(DataCaptureView.NonEmptyListBrushProperty)).ConvertToNative();
+                }
+            }
             // This method is used to change the overlay color for a tracked barcode.
             return this.Element.TrackedBarcodesBrush.ConvertToNative();
         }

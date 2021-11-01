@@ -53,6 +53,7 @@ namespace BarcodeCaptureSettingsSample
         public bool TapToFocusEnabled { get; set; } = true;
         public bool SwipeToZoomEnalbed { get; set; } = true;
         public bool TorchButtonEnabled { get; set; } = false;
+        public bool ZoomSwitchButtonEnabled { get; set; } = false;
         #endregion
 
         #region ScanResult Settings
@@ -159,6 +160,19 @@ namespace BarcodeCaptureSettingsSample
             set
             {
                 this.BarcodeCaptureOverlay.Brush = value;
+            }
+        }
+
+        public BarcodeCaptureOverlayStyle OverlayStyle
+        {
+            get => this.BarcodeCaptureOverlay.Style;
+            set
+            {
+                var shouldShowScanAreaGuides = this.BarcodeCaptureOverlay.ShouldShowScanAreaGuides;
+                var viewfinder = this.BarcodeCaptureOverlay.Viewfinder;
+                this.BarcodeCaptureOverlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, null, value);
+                this.BarcodeCaptureOverlay.ShouldShowScanAreaGuides = shouldShowScanAreaGuides;
+                this.BarcodeCaptureOverlay.Viewfinder = viewfinder;
             }
         }
         #endregion
@@ -447,7 +461,7 @@ namespace BarcodeCaptureSettingsSample
             this.BarcodeCapture.Enabled = true;
 
             // Create a new overlay with the barcode capture from above, and retrieve the default brush.
-            this.BarcodeCaptureOverlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, null);
+            this.BarcodeCaptureOverlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, null, BarcodeCaptureOverlayStyle.Frame);
 
             // Create a temporary RectangularViewfinder instance to get default values for width and height.
             using RectangularViewfinder tempRectangularViewfinder = RectangularViewfinder.Create();

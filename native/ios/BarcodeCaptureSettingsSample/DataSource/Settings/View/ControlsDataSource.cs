@@ -31,6 +31,11 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View
                         "Torch Button",
                         () => SettingsManager.Instance.TorchSwitchShown,
                         value => SettingsManager.Instance.TorchSwitchShown = value
+                    ),
+                    SwitchRow.Create(
+                        "Zoom Switch Button",
+                        () => SettingsManager.Instance.IsZoomSwitchButtonEnabled,
+                        value => SettingsManager.Instance.IsZoomSwitchButtonEnabled = value
                     )
                 })
             };

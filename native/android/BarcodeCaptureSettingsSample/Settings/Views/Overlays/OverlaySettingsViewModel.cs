@@ -17,6 +17,7 @@ using Android.Graphics;
 using System.Collections.Generic;
 using Scandit.DataCapture.Core.UI.Style;
 using System.Linq;
+using Scandit.DataCapture.Barcode.UI.Overlay;
 
 namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
 {
@@ -30,6 +31,21 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
         private readonly SettingsManager settingsManager = SettingsManager.Instance;
 
         public IList<OverlaySettingsBrush> AvailableBrushes { get; private set; }
+
+        public OverlayStyleEntry[] Entries
+        {
+            get => new[]
+            {
+                new OverlayStyleEntry(
+                    BarcodeCaptureOverlayStyle.Legacy,
+                    settingsManager.OverlayStyle == BarcodeCaptureOverlayStyle.Legacy
+                ),
+                new OverlayStyleEntry(
+                    BarcodeCaptureOverlayStyle.Frame,
+                    settingsManager.OverlayStyle == BarcodeCaptureOverlayStyle.Frame
+                ),
+            };
+        }
 
         public OverlaySettingsViewModel()
         {
@@ -70,6 +86,12 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
             };
 
             return this.AvailableBrushes.Where(item => eq(item.Brush, brush)).FirstOrDefault();
+        }
+
+        public OverlayStyleEntry CurrentStyle
+        {
+            get => this.Entries.First((style) => style.enabled);
+            set => settingsManager.OverlayStyle = value.style;
         }
     }
 }

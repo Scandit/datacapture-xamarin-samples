@@ -16,10 +16,10 @@ using System.Linq;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
-using AndroidX.Core.Content;
 using MatrixScanRejectSample.Data;
 using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Barcode.Tracking.Capture;
@@ -30,6 +30,8 @@ using Scandit.DataCapture.Core.Data;
 using Scandit.DataCapture.Core.Source;
 using Scandit.DataCapture.Core.UI;
 using Scandit.DataCapture.Core.UI.Style;
+
+using Camera = Scandit.DataCapture.Core.Source.Camera;
 
 namespace MatrixScanRejectSample
 {
@@ -123,16 +125,11 @@ namespace MatrixScanRejectSample
             // Add a barcode tracking overlay to the data capture view to render the tracked barcodes on
             // top of the video preview. This is optional, but recommended for better visual feedback.
             var overlay =
-                    BarcodeTrackingBasicOverlay.Create(barcodeTracking, dataCaptureView);
+                    BarcodeTrackingBasicOverlay.Create(barcodeTracking, dataCaptureView, BarcodeTrackingBasicOverlayStyle.Frame);
 
             // Configure how barcodes are highlighted - apply default brush or create your own.
-            // final Brush defaultBrush = new Brush(Color.BLUE, Color.RED, 5f);
-            defaultBrush = overlay.Brush;
-            overlay.Brush = defaultBrush;
-
-            var rejectedFillColor = ContextCompat.GetColor(this, Resource.Color.barcode_rejected);
-            var rejectedBorderColor = ContextCompat.GetColor(this, Resource.Color.barcode_rejected_border);
-            rejectedBrush = new Brush(rejectedFillColor, rejectedBorderColor, 1f);
+            this.rejectedBrush = new Brush(Color.Transparent, Color.Red, 1f);
+            this.defaultBrush = new Brush(Color.Transparent, Color.Green, 1f);
             overlay.Listener = this;
 
             // Add the DataCaptureView to the container.

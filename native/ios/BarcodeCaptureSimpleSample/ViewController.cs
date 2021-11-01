@@ -139,16 +139,8 @@ namespace BarcodeCaptureSimpleSample_iOS_
                                                     UIViewAutoresizing.FlexibleWidth;
             this.View.AddSubview(this.dataCaptureView);
 
-            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
+            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, BarcodeCaptureOverlayStyle.Frame);
             this.overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
-
-            // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
-            // With 6.10 we will introduce this visual treatment as a new style for the overlay.
-            overlay.Brush = new Brush(fillColor: UIColor.Clear,
-                                      strokeColor: UIColor.White,
-                                      strokeWidth: 3);
-
-            this.dataCaptureView.AddOverlay(this.overlay);
         }
 
         public void ShowResult(string result)

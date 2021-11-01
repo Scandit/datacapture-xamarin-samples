@@ -76,7 +76,7 @@ namespace IdCaptureSimpleSample
             // to the main thread.
             this.view.Post(() =>
             {
-                string message = string.Empty;
+                string message;
 
                 // The recognized fields of the captured Id can vary based on the capturedResultType.
                 if (capturedId.CapturedResultType == CapturedResultType.AamvaBarcodeResult)
@@ -84,8 +84,28 @@ namespace IdCaptureSimpleSample
                     message = GetDescriptionForAamvaBarcodeResult(capturedId);
                 }
                 else if (capturedId.CapturedResultType == CapturedResultType.VizResult)
-                { 
-                    message = GetDescriptionForViz(capturedId);    
+                {
+                    message = GetDescriptionForViz(capturedId);
+                }
+                else if (capturedId.CapturedResultType == CapturedResultType.UsUniformedServicesBarcodeResult)
+                {
+                    message = GetDescriptionForUsUniformedServicesBarcodeResult(capturedId);
+                }
+                else if (capturedId.CapturedResultType == CapturedResultType.ColombiaIdBarcodeResult)
+                {
+                    message = GetDescriptionForColombianIdResult(capturedId);
+                }
+                else if (capturedId.CapturedResultType == CapturedResultType.ArgentinaIdBarcodeResult)
+                {
+                    message = GetDescriptionForArgentinianIdResult(capturedId);
+                }
+                else if (capturedId.CapturedResultType == CapturedResultType.SouthAfricaIdBarcodeResult)
+                {
+                    message = GetDescriptionForSouthAfricanIdResult(capturedId);
+                }
+                else if (capturedId.CapturedResultType == CapturedResultType.SouthAfricaDlBarcodeResult)
+                {
+                    message = GetDescriptionForSouthAfricaDlResult(capturedId);
                 }
                 else
                 {
@@ -94,6 +114,16 @@ namespace IdCaptureSimpleSample
 
                 this.ShowAlert(Resource.String.captured_id_title, message);
             });
+        }
+
+        public void OnIdLocalized(IdCapture mode, IdCaptureSession session, IFrameData frameData)
+        {
+            // In this sample we are not interested in this callback.
+        }
+
+        public void OnIdRejected(IdCapture mode, IdCaptureSession session, IFrameData frameData)
+        {
+            // In this sample we are not interested in this callback.
         }
 
         public void OnErrorEncountered(IdCapture mode, Throwable error, IdCaptureSession session, IFrameData data)
@@ -181,6 +211,54 @@ namespace IdCaptureSimpleSample
         {
             // Enable capture again, after the result dialog is dismissed.
             DataCaptureManager.Instance.IdCapture.Enabled = true;
+        }
+
+        private static string GetDescriptionForUsUniformedServicesBarcodeResult(CapturedId result)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            AppendDescriptionForCapturedId(result, builder);
+
+            UsUniformedServicesBarcodeResult ususBarcodeResult = result.UsUniformedServicesBarcode;
+
+            AppendField(builder, "Version: ", ususBarcodeResult.Version);
+            AppendField(builder, "Sponsor Flag: ", ususBarcodeResult.SponsorFlag);
+            AppendField(builder, "Person Designator Document: ", ususBarcodeResult.PersonDesignatorDocument);
+            AppendField(builder, "Family Sequence Number: ", ususBarcodeResult.FamilySequenceNumber);
+            AppendField(builder, "Deers Dependent Suffix Code: ", ususBarcodeResult.DeersDependentSuffixCode);
+            AppendField(builder, "Deers Dependent Suffix Description: ", ususBarcodeResult.DeersDependentSuffixDescription);
+            AppendField(builder, "Height: ", ususBarcodeResult.Height);
+            AppendField(builder, "Weight: ", ususBarcodeResult.Weight);
+            AppendField(builder, "Hair Color: ", ususBarcodeResult.HairColor);
+            AppendField(builder, "Eye Color: ", ususBarcodeResult.EyeColor);
+            AppendField(builder, "Direct Care Flag Code: ", ususBarcodeResult.DirectCareFlagCode);
+            AppendField(builder, "Direct Care Flag Description: ", ususBarcodeResult.DirectCareFlagDescription);
+            AppendField(builder, "Civilian Health Care Flag Code: ", ususBarcodeResult.CivilianHealthCareFlagCode);
+            AppendField(builder, "Civilian Health Care Flag Description: ", ususBarcodeResult.CivilianHealthCareFlagDescription);
+            AppendField(builder, "Commissary Flag Code: ", ususBarcodeResult.CommissaryFlagCode);
+            AppendField(builder, "Commissary Flag Description: ", ususBarcodeResult.CommissaryFlagDescription);
+            AppendField(builder, "MWR Flag Code: ", ususBarcodeResult.MwrFlagCode);
+            AppendField(builder, "MWR Flag Description: ", ususBarcodeResult.MwrFlagDescription);
+            AppendField(builder, "Exchange Flag Code: ", ususBarcodeResult.ExchangeFlagCode);
+            AppendField(builder, "Exchange Flag Description: ", ususBarcodeResult.ExchangeFlagDescription);
+            AppendField(builder, "Champus Effective Date: ", ususBarcodeResult.ChampusEffectiveDate?.ToString() ?? "<empty>");
+            AppendField(builder, "Champus Expiry Date: ", ususBarcodeResult.ChampusExpiryDate?.ToString() ?? "<empty>");
+            AppendField(builder, "Form Number: ", ususBarcodeResult.FormNumber);
+            AppendField(builder, "Security Code: ", ususBarcodeResult.SecurityCode);
+            AppendField(builder, "Service Code: ", ususBarcodeResult.ServiceCode);
+            AppendField(builder, "Status Code: ", ususBarcodeResult.StatusCode);
+            AppendField(builder, "Status Code Description: ", ususBarcodeResult.StatusCodeDescription);
+            AppendField(builder, "Branch Of Service: ", ususBarcodeResult.BranchOfService);
+            AppendField(builder, "Rank: ", ususBarcodeResult.Rank);
+            AppendField(builder, "Pay Grade: ", ususBarcodeResult.PayGrade ?? "<empty>");
+            AppendField(builder, "Sponsor Name: ", ususBarcodeResult.SponsorName ?? "<empty>");
+            AppendField(builder, "Sponsor Person Designator Identifier: ", ususBarcodeResult.SponsorPersonDesignatorIdentifier);
+            AppendField(builder, "Relationship Code: ", ususBarcodeResult.RelationshipCode ?? "<empty>");
+            AppendField(builder, "Relationship Description: ", ususBarcodeResult.RelationshipDescription ?? "<empty>");
+            AppendField(builder, "Geneva Convention Category: ", ususBarcodeResult.GenevaConventionCategory ?? "<empty>");
+            AppendField(builder, "Blood Type: ", ususBarcodeResult.BloodType ?? "<empty>");
+
+            return builder.ToString();
         }
 
         private static string GetDescriptionForCapturedId(CapturedId result)
@@ -272,6 +350,48 @@ namespace IdCaptureSimpleSample
             AppendField(builder, "Document Number: ", result.DocumentNumber);
             AppendField(builder, "Date of Expiry: ", result.DateOfExpiry);
             AppendField(builder, "Date of Issue: ", result.DateOfIssue);
+        }
+        
+        private static string GetDescriptionForSouthAfricaDlResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var southAfricanDrivingLicense = capturedId.SouthAfricaDlBarcode;
+            AppendField(builder, "Version: ", southAfricanDrivingLicense?.Version.ToString());
+            AppendField(builder, "Document copy: ", southAfricanDrivingLicense?.DocumentCopy.ToString());
+            AppendField(builder, "Personal ID number: ", southAfricanDrivingLicense?.PersonalIdNumber);
+            AppendField(builder, "Personal ID number type: ", southAfricanDrivingLicense?.PersonalIdNumberType);
+            return builder.ToString();
+        }
+        
+        private static string GetDescriptionForSouthAfricanIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var southAfricanId = capturedId.SouthAfricaIdBarcode;
+            AppendField(builder, "Citizenship status: ", southAfricanId?.CitizenshipStatus);
+            AppendField(builder, "Country of birth: ", southAfricanId?.CountryOfBirth);
+            AppendField(builder, "Personal ID number: ", southAfricanId?.PersonalIdNumber);
+            AppendField(builder, "Country of birth ISO: ", southAfricanId?.CountryOfBirthIso);
+            return builder.ToString();
+        }
+        
+        private static string GetDescriptionForArgentinianIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var argentinianId = capturedId.ArgentinaIdBarcode;
+            AppendField(builder, "Document copy: ", argentinianId?.DocumentCopy);
+            AppendField(builder, "Personal ID number: ", argentinianId?.PersonalIdNumber);
+            return builder.ToString();
+        }
+
+        private static string GetDescriptionForColombianIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            AppendField(builder, "Blood type: ", capturedId.ColombiaIdBarcode?.BloodType);
+            return builder.ToString();
         }
 
         private static void AppendField(StringBuilder builder, string name, int value)

@@ -16,6 +16,7 @@ using System.Linq;
 using BarcodeCaptureSettingsSample.DataSource.Other;
 using BarcodeCaptureSettingsSample.DataSource.Other.Rows;
 using BarcodeCaptureSettingsSample.Model;
+using Scandit.DataCapture.Barcode.UI.Overlay;
 
 namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 {
@@ -26,6 +27,19 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             this.DataSourceListener = dataSourceListener;
             this.Sections = new[]
             {
+                new Section(new []
+                {
+                    BoolOptionRow.Create("Legacy",
+                        () => SettingsManager.Instance.Overlay.Style == BarcodeCaptureOverlayStyle.Legacy,
+                        _ => SettingsManager.Instance.OverlayStyle = BarcodeCaptureOverlayStyle.Legacy,
+                        this.DataSourceListener
+                    ),
+                    BoolOptionRow.Create("Frame",
+                        () => SettingsManager.Instance.Overlay.Style == BarcodeCaptureOverlayStyle.Frame,
+                        _ => SettingsManager.Instance.OverlayStyle = BarcodeCaptureOverlayStyle.Frame,
+                        this.DataSourceListener
+                    )
+                }, "Style"),
                 new Section(new[]
                 {
                     ChoiceRow<NamedBrush>.Create("Brush",

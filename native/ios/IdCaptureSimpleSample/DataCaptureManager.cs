@@ -72,7 +72,7 @@ namespace IdCaptureSimpleSample
             // to the passed DataCaptureContext.
             IdCaptureSettings settings = new IdCaptureSettings
             {
-                SupportedDocuments = IdDocumentType.IdCardViz | IdDocumentType.DlViz | IdDocumentType.AamvaBarcode
+                SupportedDocuments = IdDocumentType.IdCardViz | IdDocumentType.DlViz | IdDocumentType.AamvaBarcode | IdDocumentType.ColombiaIdBarcode | IdDocumentType.ArgentinaIdBarcode | IdDocumentType.SouthAfricaDlBarcode | IdDocumentType.SouthAfricaIdBarcode
             };
 
             this.IdCapture = IdCapture.Create(this.DataCaptureContext, settings);

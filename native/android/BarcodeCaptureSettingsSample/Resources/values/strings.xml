@@ -99,6 +99,7 @@
     <string name="aimer">Aimer</string>
     <string name="anchor">Anchor</string>
     <string name="torch_button">Torch Button</string>
+    <string name="zoom_switch_button">Zoom Switch Button</string>
     <string name="result_title">Scanned</string>
     <string name="result_parametrised">{0}: {1}\nSymbol count: {2}</string>
     <string name="cc_result_parametrised">CC Type {0}\n{1}: {2}\nSymbol count: {3}</string>

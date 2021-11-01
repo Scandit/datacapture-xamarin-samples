@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/data_capture_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="48dp" />
+
+    <LinearLayout
+            android:id="@+id/container_anchor"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal"
+            android:background="@android:color/black">
+        <Button
+            android:id="@+id/aim_to_select_button"
+            android:textSize="12sp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/aim_to_select"            
+            android:textColor="@android:color/white"
+            app:backgroundTint="@android:color/black" />
+        <Button
+            android:id="@+id/tap_to_select_button"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/tap_to_select"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@android:color/black" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

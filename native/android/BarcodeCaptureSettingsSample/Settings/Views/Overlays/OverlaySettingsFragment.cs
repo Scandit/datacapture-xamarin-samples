@@ -17,6 +17,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Lifecycle;
+using AndroidX.RecyclerView.Widget;
 using BarcodeCaptureSettingsSample.Base;
 
 namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
@@ -26,6 +27,8 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
         private OverlaySettingsViewModel viewModel;
         private View containerBrush;
         private TextView textBrush;
+        private RecyclerView recyclerOverlayStyles;
+        private OverlayStyleAdapter adapter;
 
         public static OverlaySettingsFragment Create()
         {
@@ -51,6 +54,9 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
             this.containerBrush = view.FindViewById<View>(Resource.Id.container_brush);
             this.SetupBrush();
             this.RefreshBrushData();
+
+            this.recyclerOverlayStyles = view.FindViewById<RecyclerView>(Resource.Id.recycler_overlay_styles);
+            this.SetupRecyclerStyles();
         }
 
         protected override bool ShouldShowBackButton() => true;
@@ -88,6 +94,22 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
             };
 
             popup.Show();
+        }
+
+        private void SetupRecyclerStyles()
+        {
+            this.adapter = new OverlayStyleAdapter(viewModel.Entries, (entry) =>
+            {
+                this.viewModel.CurrentStyle = entry;
+                this.RefreshStyleData();
+                this.RefreshBrushData();
+            });
+            this.recyclerOverlayStyles.SetAdapter(this.adapter);
+        }
+
+        private void RefreshStyleData()
+        {
+            this.adapter.UpdateData(viewModel.Entries);
         }
     }
 }

@@ -151,7 +151,7 @@ namespace MatrixScanSimpleSample
 
             // Create barcode tracking overlay to the data capture view to render the tracked barcodes on
             // top of the video preview. This is optional, but recommended for better visual feedback.
-            BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.dataCaptureView);
+            BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.dataCaptureView, BarcodeTrackingBasicOverlayStyle.Frame);
 
             // Add the DataCaptureView to the container.
             FrameLayout container = this.FindViewById<FrameLayout>(Resource.Id.data_capture_view_container);

@@ -25,5 +25,11 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Controls
             get { return this.settingsManager.TorchButtonEnabled; }
             set { this.settingsManager.TorchButtonEnabled = value; }
         }
+
+        public bool ZoomSwitchButtonEnabled
+        {
+            get => this.settingsManager.ZoomSwitchButtonEnabled;
+            set => this.settingsManager.ZoomSwitchButtonEnabled = value;
+        }
     }
 }

@@ -56,11 +56,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{794A15E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StockCountSample", "StockCountSample", "{576E8965-940C-4760-B6C8-5C2B5E36CC2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockCountSample", "native\forms\StockCountSample\StockCountSample.csproj", "{83B86075-BECB-4207-A7A7-413E421447C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockCountSample", "native\forms\StockCountSample\StockCountSample\StockCountSample.csproj", "{83B86075-BECB-4207-A7A7-413E421447C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockCountSample.Android", "native\forms\StockCountSample.Android\StockCountSample.Android.csproj", "{493D1F2F-DB7D-463A-99B9-766CDE2F51A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockCountSample.Android", "native\forms\StockCountSample\StockCountSample.Android\StockCountSample.Android.csproj", "{493D1F2F-DB7D-463A-99B9-766CDE2F51A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockCountSample.iOS", "native\forms\StockCountSample.iOS\StockCountSample.iOS.csproj", "{F85CDEC8-14F2-4496-9E16-BA14DCC313A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockCountSample.iOS", "native\forms\StockCountSample\StockCountSample.iOS\StockCountSample.iOS.csproj", "{F85CDEC8-14F2-4496-9E16-BA14DCC313A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MatrixScanRejectSample", "MatrixScanRejectSample", "{68A0B8CF-657E-448B-8579-E6A9C5CF1DE7}"
 EndProject
@@ -79,6 +79,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "native\android\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "native\ios\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9D55C192-4444-4553-900E-7B4E65D38E62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BarcodeSelectionSimpleSample", "BarcodeSelectionSimpleSample", "{CA4A0760-A581-4A10-9503-C47D753D8F6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BarcodeSelectionSimpleSample", "BarcodeSelectionSimpleSample", "{AE2509E3-7947-40E2-83A8-0282D2E4C1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "native\android\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "native\ios\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -344,6 +352,30 @@ Global
 		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhone.Build.0 = Release|iPhone
 		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{9D55C192-4444-4553-900E-7B4E65D38E62}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|iPhone.Build.0 = Release|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|iPhone.Build.0 = Debug|iPhone
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|iPhone.ActiveCfg = Release|iPhone
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|iPhone.Build.0 = Release|iPhone
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -390,6 +422,10 @@ Global
 		{4824171C-7615-4CB9-8B80-154916ED9E61} = {4C95E2BE-756F-459A-8BF1-D7F0350336DF}
 		{9BE18E27-8AE0-4683-93E6-F60709DBF8F4} = {4824171C-7615-4CB9-8B80-154916ED9E61}
 		{9D55C192-4444-4553-900E-7B4E65D38E62} = {06151120-B5A7-4480-A0F4-5698235D3320}
+		{CA4A0760-A581-4A10-9503-C47D753D8F6E} = {4C95E2BE-756F-459A-8BF1-D7F0350336DF}
+		{AE2509E3-7947-40E2-83A8-0282D2E4C1E1} = {6E1A455B-D9CF-402B-A74F-66371395DE2D}
+		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943} = {CA4A0760-A581-4A10-9503-C47D753D8F6E}
+		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305} = {AE2509E3-7947-40E2-83A8-0282D2E4C1E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C97BC2B3-3F8F-4E3E-A45B-73C02985EAF3}

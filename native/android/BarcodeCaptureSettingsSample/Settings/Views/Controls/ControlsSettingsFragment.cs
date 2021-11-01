@@ -23,7 +23,8 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Controls
     public class ControlsSettingsFragment : NavigationFragment
     {
         private ControlsSettingsViewModel viewModel;
-        private Switch switchTorch;
+        private Switch torchSwitch;
+        private Switch zoomSwitch;
 
         public static ControlsSettingsFragment Create()
         {
@@ -46,26 +47,33 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Controls
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             base.OnViewCreated(view, savedInstanceState);
-            this.switchTorch = view.FindViewById<Switch>(Resource.Id.switch_torch_button);
-            this.RefreshSwitchTorchState();
-            this.SetupSwitchTorch();
+            this.torchSwitch = view.FindViewById<Switch>(Resource.Id.switch_torch_button);
+            this.zoomSwitch = view.FindViewById<Switch>(Resource.Id.switch_zoom_button);
+            this.RefreshSwitchStates();
+            this.SetupSwitches();
         }
 
         protected override bool ShouldShowBackButton() => true;
 
         protected override string GetTitle() => this.Context.GetString((int)ViewSettingsType.Controls);
 
-        private void RefreshSwitchTorchState()
+        private void RefreshSwitchStates()
         {
-            this.switchTorch.Checked = this.viewModel.TorchButtonEnabled;
+            this.torchSwitch.Checked = this.viewModel.TorchButtonEnabled;
+            this.zoomSwitch.Checked = this.viewModel.ZoomSwitchButtonEnabled;
         }
 
-        private void SetupSwitchTorch()
+        private void SetupSwitches()
         {
-            this.switchTorch.CheckedChange += (object sender, CompoundButton.CheckedChangeEventArgs args) =>
+            this.torchSwitch.CheckedChange += (object sender, CompoundButton.CheckedChangeEventArgs args) =>
             {
                 this.viewModel.TorchButtonEnabled = args.IsChecked;
-                this.RefreshSwitchTorchState();
+                this.RefreshSwitchStates();
+            };
+            this.zoomSwitch.CheckedChange += (object sender, CompoundButton.CheckedChangeEventArgs args) =>
+            {
+                this.viewModel.ZoomSwitchButtonEnabled = args.IsChecked;
+                this.RefreshSwitchStates();
             };
         }
     }

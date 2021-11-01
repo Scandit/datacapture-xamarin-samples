@@ -163,7 +163,7 @@ namespace MatrixScanSimpleSample
                                                UIViewAutoresizing.FlexibleWidth;
             this.View.AddSubview(dataCaptureView);
             this.View.SendSubviewToBack(dataCaptureView);
-            BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, dataCaptureView);
+            BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, dataCaptureView, BarcodeTrackingBasicOverlayStyle.Frame);
         }
     }
 }

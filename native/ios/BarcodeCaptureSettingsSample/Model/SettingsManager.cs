@@ -83,7 +83,11 @@ namespace BarcodeCaptureSettingsSample.Model
 
         private readonly TorchSwitchControl internalTorchSwitch = new TorchSwitchControl();
 
+        private readonly ZoomSwitchControl zoomSwitchControl = new ZoomSwitchControl();
+
         private bool torchSwitchShown = false;
+
+        private bool zoomSwitchEnabled = false;
 
         // Use the recommended camera settings for the BarcodeCapture mode.
         private readonly CameraSettings cameraSettings = BarcodeCapture.RecommendedCameraSettings;
@@ -112,7 +116,7 @@ namespace BarcodeCaptureSettingsSample.Model
                 //to render the location of captured barcodes on top of the
                 // video preview.
                 // This is optional, but recommended for better visual feedback.
-                this.Overlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, this.captureView);
+                this.Overlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, this.captureView, BarcodeCaptureOverlayStyle.Frame);
             }
         }
 
@@ -346,6 +350,21 @@ namespace BarcodeCaptureSettingsSample.Model
 
         #region Overlay
 
+        public BarcodeCaptureOverlayStyle OverlayStyle
+        {
+            get => Overlay.Style;
+            set
+            {
+                var shouldShowScanAreaGuides = Overlay.ShouldShowScanAreaGuides;
+                var viewfinder = Overlay.Viewfinder;
+                this.CaptureView.RemoveOverlay(this.Overlay);
+                var overlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, this.CaptureView, value);
+                overlay.ShouldShowScanAreaGuides = shouldShowScanAreaGuides;
+                overlay.Viewfinder = viewfinder;
+                this.Overlay = overlay;
+            }
+        }
+
         public Brush Brush
         {
             get => this.Overlay.Brush;
@@ -385,6 +404,23 @@ namespace BarcodeCaptureSettingsSample.Model
                 else
                 {
                     this.CaptureView.RemoveControl(this.internalTorchSwitch);
+                }
+            }
+        }
+
+        public bool IsZoomSwitchButtonEnabled
+        {
+            get => this.zoomSwitchEnabled;
+            set
+            {
+                this.zoomSwitchEnabled = value;
+                if (value)
+                {
+                    this.CaptureView.AddControl(this.zoomSwitchControl);
+                }
+                else
+                {
+                    this.CaptureView.RemoveControl(this.zoomSwitchControl);
                 }
             }
         }

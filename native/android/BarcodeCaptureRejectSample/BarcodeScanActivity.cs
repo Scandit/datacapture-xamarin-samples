@@ -40,8 +40,8 @@ namespace BarcodeCaptureRejectSample
         private Camera camera;
         private DataCaptureView dataCaptureView;
         private BarcodeCaptureOverlay overlay;
-        private Brush highlightingBrush;
         private readonly Feedback feedback = Feedback.DefaultFeedback;
+        private Brush highlightingBrush;
 
         private AlertDialog dialog;
 
@@ -96,17 +96,11 @@ namespace BarcodeCaptureRejectSample
             // Add a barcode capture overlay to the data capture view to render the location of captured
             // barcodes on top of the video preview.
             // This is optional, but recommended for better visual feedback.
-            overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView);
+            overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, BarcodeCaptureOverlayStyle.Frame);
+            this.highlightingBrush = overlay.Brush;
 
             // Add a square viewfinder as we are only scanning square QR codes.
             overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
-
-            // Adjust the overlay's barcode highlighting to match the new viewfinder styles and improve the visibility of feedback.
-            // With 6.10 we will introduce this visual treatment as a new style for the overlay.
-            this.highlightingBrush = new Brush(fillColor: Android.Graphics.Color.Transparent,
-                                               strokeColor: Android.Graphics.Color.White,
-                                               strokeWidth: 3);
-            overlay.Brush = this.highlightingBrush;
 
             SetContentView(this.dataCaptureView);
         }

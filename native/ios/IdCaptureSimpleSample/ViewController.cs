@@ -80,32 +80,41 @@ namespace IdCaptureSimpleSample
 
         public void OnIdCaptured(IdCapture idCapture, IdCaptureSession session, IFrameData frameData)
         {
+            var capturedId = session.NewlyCapturedId;
             try
             {
-                CapturedId capturedId = session.NewlyCapturedId;
+                string message;
 
-                string message = string.Empty;
-
-                // The recognized fields of the captured Id can vary based on the capturedResultType.
-                if (capturedId.CapturedResultType == CapturedResultType.MrzResult)
+                switch (capturedId.CapturedResultType)
                 {
-                    message = GetDescriptionForMrzResult(capturedId);
-                }
-                else if (capturedId.CapturedResultType == CapturedResultType.AamvaBarcodeResult)
-                {
-                    message = GetDescriptionForAamvaBarcodeResult(capturedId);
-                }
-                else if (capturedId.CapturedResultType == CapturedResultType.VizResult)
-                {
-                    message = GetDescriptionForViz(capturedId);
-                }
-                else if (capturedId.CapturedResultType == CapturedResultType.UsUniformedServicesBarcodeResult)
-                {
-                    message = GetDescriptionForUsUniformedServicesBarcodeResult(capturedId);
-                }
-                else
-                {
-                    message = GetDescriptionForCapturedId(capturedId);
+                    // The recognized fields of the captured Id can vary based on the capturedResultType.
+                    case CapturedResultType.MrzResult:
+                        message = GetDescriptionForMrzResult(capturedId);
+                        break;
+                    case CapturedResultType.AamvaBarcodeResult:
+                        message = GetDescriptionForAamvaBarcodeResult(capturedId);
+                        break;
+                    case CapturedResultType.VizResult:
+                        message = GetDescriptionForViz(capturedId);
+                        break;
+                    case CapturedResultType.UsUniformedServicesBarcodeResult:
+                        message = GetDescriptionForUsUniformedServicesBarcodeResult(capturedId);
+                        break;
+                    case CapturedResultType.ColombiaIdBarcodeResult:
+                        message = GetDescriptionForColombianIdResult(capturedId);
+                        break;
+                    case CapturedResultType.ArgentinaIdBarcodeResult:
+                        message = GetDescriptionForArgentinianIdResult(capturedId);
+                        break;
+                    case CapturedResultType.SouthAfricaIdBarcodeResult:
+                        message = GetDescriptionForSouthAfricanIdResult(capturedId);
+                        break;
+                    case CapturedResultType.SouthAfricaDlBarcodeResult:
+                        message = GetDescriptionForSouthAfricaDlResult(capturedId);
+                        break;
+                    default:
+                        message = GetDescriptionForCapturedId(capturedId);
+                        break;
                 }
 
                 this.ShowResult(message);
@@ -167,9 +176,51 @@ namespace IdCaptureSimpleSample
 
         private static string GetDescriptionForCapturedId(CapturedId result)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             AppendDescriptionForCapturedId(result, builder);
 
+            return builder.ToString();
+        }
+        
+        private static string GetDescriptionForSouthAfricaDlResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var southAfricanDrivingLicense = capturedId.SouthAfricaDlBarcode;
+            AppendField(builder, "Version: ", southAfricanDrivingLicense?.Version.ToString());
+            AppendField(builder, "Document copy: ", southAfricanDrivingLicense?.DocumentCopy.ToString());
+            AppendField(builder, "Personal ID number: ", southAfricanDrivingLicense?.PersonalIdNumber);
+            AppendField(builder, "Personal ID number type: ", southAfricanDrivingLicense?.PersonalIdNumberType);
+            return builder.ToString();
+        }
+        
+        private static string GetDescriptionForSouthAfricanIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var southAfricanId = capturedId.SouthAfricaIdBarcode;
+            AppendField(builder, "Citizenship status: ", southAfricanId?.CitizenshipStatus);
+            AppendField(builder, "Country of birth: ", southAfricanId?.CountryOfBirth);
+            AppendField(builder, "Personal ID number: ", southAfricanId?.PersonalIdNumber);
+            AppendField(builder, "Country of birth ISO: ", southAfricanId?.CountryOfBirthIso);
+            return builder.ToString();
+        }
+        
+        private static string GetDescriptionForArgentinianIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            var argentinianId = capturedId.ArgentinaIdBarcode;
+            AppendField(builder, "Document copy: ", argentinianId?.DocumentCopy);
+            AppendField(builder, "Personal ID number: ", argentinianId?.PersonalIdNumber);
+            return builder.ToString();
+        }
+
+        private static string GetDescriptionForColombianIdResult(CapturedId capturedId)
+        {
+            var builder = new StringBuilder();
+            AppendDescriptionForCapturedId(capturedId, builder);
+            AppendField(builder, "Blood type: ", capturedId.ColombiaIdBarcode?.BloodType);
             return builder.ToString();
         }
 

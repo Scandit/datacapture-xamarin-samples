@@ -12,25 +12,15 @@
  * limitations under the License.
  */
 
-using Xamarin.Forms;
+using UIKit;
 
-namespace StockCountSample.Bridging
+namespace BarcodeSelectionSimpleSample
 {
-    public class Brush
+    public class Application
     {
-        public static readonly Brush Default = new Brush(Color.White, Color.White.MultiplyAlpha(0.3), 2);
-
-        public Color BorderColor { get; set; }
-
-        public Color FillColor { get; set; }
-
-        public float BorderWidth { get; set; }
-
-        private Brush(Color borderColor, Color fillColor, float borderWidth)
+        static void Main(string[] args)
         {
-            this.BorderColor = borderColor;
-            this.FillColor = fillColor;
-            this.BorderWidth = borderWidth;
+            UIApplication.Main(args, null, "AppDelegate");
         }
     }
 }

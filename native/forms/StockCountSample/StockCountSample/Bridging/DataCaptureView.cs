@@ -41,6 +41,13 @@ namespace StockCountSample.Bridging
             defaultValue: Brush.Default
         );
 
+        public static readonly BindableProperty NonEmptyListBrushProperty = BindableProperty.Create(
+            propertyName: "NonEmptyListBrushProperty",
+            returnType: typeof(Brush),
+            declaringType: typeof(DataCaptureView),
+            defaultValue: new Brush(Color.Green.MultiplyAlpha(0.3), Color.Green, 2)
+        );
+
         public Brush TrackedBarcodesBrush
         {
             get => (Brush)this.GetValue(TrackedBarcodesBrushProperty);

@@ -128,8 +128,8 @@ namespace MatrixScanRejectSample
                     BarcodeTrackingBasicOverlay.Create(barcodeTracking, dataCaptureView, BarcodeTrackingBasicOverlayStyle.Frame);
 
             // Configure how barcodes are highlighted - apply default brush or create your own.
-            this.rejectedBrush = new Brush(Color.Transparent, Color.Red, 1f);
-            this.defaultBrush = new Brush(Color.Transparent, Color.Green, 1f);
+            this.rejectedBrush = new Brush(Color.Transparent, Color.Red, 3f);
+            this.defaultBrush = new Brush(Color.Transparent, Color.Green, 3f);
             overlay.Listener = this;
 
             // Add the DataCaptureView to the container.

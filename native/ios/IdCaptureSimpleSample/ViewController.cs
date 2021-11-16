@@ -139,6 +139,16 @@ namespace IdCaptureSimpleSample
             }
         }
 
+        public void OnIdLocalized(IdCapture capture, IdCaptureSession session, IFrameData frameData)
+        {
+            // In this sample we are not interested in this callback.
+        }
+
+        public void OnIdRejected(IdCapture capture, IdCaptureSession session, IFrameData frameData)
+        {
+            // In this sample we are not interested in this callback.
+        }
+
         public void OnObservationStarted(IdCapture idCapture)
         {
             // In this sample we are not interested in this callback.

@@ -193,10 +193,8 @@ namespace MatrixScanRejectSample
             var overlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, dataCaptureView, BarcodeTrackingBasicOverlayStyle.Frame);
             overlay.Listener = this;
 
-            var acceptedColor = UIColor.Green;
-            this.defaultBrush = new Brush(acceptedColor.ColorWithAlpha((nfloat)0.3), acceptedColor, 1);
-            var rejectedColor = UIColor.Red;
-            this.rejectedBrush = new Brush(fillColor: rejectedColor.ColorWithAlpha((nfloat)0.3), strokeColor: rejectedColor, strokeWidth: 1);
+            this.defaultBrush = new Brush(UIColor.Clear, UIColor.Green, 3);
+            this.rejectedBrush = new Brush(UIColor.Clear, UIColor.Red, 3);
 
             this.View.AddSubview(dataCaptureView);
             this.View.SendSubviewToBack(dataCaptureView);

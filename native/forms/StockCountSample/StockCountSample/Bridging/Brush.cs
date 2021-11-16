@@ -18,7 +18,7 @@ namespace StockCountSample.Bridging
 {
     public class Brush
     {
-        public static readonly Brush Default = new Brush(Color.White, Color.White.MultiplyAlpha(0.3), 2);
+        public static readonly Brush Default = new Brush(Color.White, Color.Transparent, 3);
 
         public Color BorderColor { get; set; }
 

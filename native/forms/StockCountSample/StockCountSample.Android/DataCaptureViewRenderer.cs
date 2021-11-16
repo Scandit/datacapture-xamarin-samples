@@ -140,14 +140,6 @@ namespace StockCountSample.Droid
 
         public Scandit.DataCapture.Core.UI.Style.Brush BrushForTrackedBarcode(BarcodeTrackingBasicOverlay overlay, TrackedBarcode trackedBarcode)
         {
-            if (this.Element?.BindingContext is MainViewModel viewModel)
-            {
-                if (viewModel.ScannedProducts.Count > 0)
-                {
-                    return ((StockCountSample.Bridging.Brush)this.Element.GetValue(DataCaptureView.NonEmptyListBrushProperty)).ConvertToNative();
-                }
-            }
-            // This method is used to change the overlay color for a tracked barcode.
             return this.Element.TrackedBarcodesBrush.ConvertToNative();
         }
 

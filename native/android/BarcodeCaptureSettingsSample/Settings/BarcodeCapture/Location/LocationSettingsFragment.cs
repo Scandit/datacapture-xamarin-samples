@@ -244,7 +244,11 @@ namespace BarcodeCaptureSettingsSample.Settings.BarcodeCapture.Location
         {
             using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerRectangularSpecification, GravityFlags.End);
 
-            System.Collections.IList sizeSpecificationItems = Enum.GetValues(typeof(SizeSpecification));
+            System.Collections.IList sizeSpecificationItems = new[] {
+                SizeSpecification.WidthAndHeight,
+                SizeSpecification.WidthAndHeightAspect,
+                SizeSpecification.HeightAndWidthAspect};
+
             for (int i = 0; i < sizeSpecificationItems.Count; i++)
             {
                 int itemId = (int)sizeSpecificationItems[i];

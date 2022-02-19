@@ -79,7 +79,10 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture
                     {
                         ChoiceRow<RectangularSizeSpecification>.Create(
                             "Size Specification",
-                            Enumeration.GetAll<RectangularSizeSpecification>().ToArray(),
+                            new [] {
+                                RectangularSizeSpecification.WidthAndHeight,
+                                RectangularSizeSpecification.WidthAndHeightAspect,
+                                RectangularSizeSpecification.HeightAndWidthAspect},
                             () => this.GetCurrentSizeSpecification(),
                             specification => this.SetCurrentSizeSpecification(specification),
                             this.DataSourceListener
@@ -230,7 +233,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture
             }
             return rectangularLocationSelection.SizeWithUnitAndAspect.SizingMode switch
             {
-                SizingMode.WidthAndAspectRatio => rectangularLocationSelection.SizeWithUnitAndAspect.WidthAndAspectRatio.Size,
+                SizingMode.HeightAndAspectRatio => rectangularLocationSelection.SizeWithUnitAndAspect.HeightAndAspectRatio.Size,
                 SizingMode.WidthAndHeight => rectangularLocationSelection.SizeWithUnitAndAspect.WidthAndHeight.Height,
                 _ => FloatWithUnit.Zero
             };
@@ -289,6 +292,7 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.BarcodeCapture
                     ),
                 _ => rectangularLocationSelection
             };
+            SettingsManager.Instance.LocationSelection = locationSelection;
         }
     }
 }

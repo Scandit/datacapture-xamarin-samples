@@ -83,6 +83,9 @@ namespace IdCaptureSimpleSample
             var capturedId = session.NewlyCapturedId;
             try
             {
+                // Pause the idCapture to not capture while showing the result.
+                idCapture.Enabled = false;
+
                 string message;
 
                 switch (capturedId.CapturedResultType)
@@ -121,6 +124,8 @@ namespace IdCaptureSimpleSample
             }
             finally
             {
+                // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
+                // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
                 frameData.Dispose();
             }
         }
@@ -135,6 +140,8 @@ namespace IdCaptureSimpleSample
             }
             finally
             {
+                // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
+                // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
                 frameData.Dispose();
             }
         }
@@ -142,11 +149,26 @@ namespace IdCaptureSimpleSample
         public void OnIdLocalized(IdCapture capture, IdCaptureSession session, IFrameData frameData)
         {
             // In this sample we are not interested in this callback.
+
+            // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
+            // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
+            frameData.Dispose();
         }
 
-        public void OnIdRejected(IdCapture capture, IdCaptureSession session, IFrameData frameData)
+        public void OnIdRejected(IdCapture idCapture, IdCaptureSession session, IFrameData frameData)
         {
-            // In this sample we are not interested in this callback.
+            // Implement to handle documents recognized in a frame, but rejected.
+            // A document or its part is considered rejected when (a) it's valid, but not enabled in the settings,
+            // (b) it's a barcode of a correct symbology or a Machine Readable Zone (MRZ),
+            // but the data is encoded in an unexpected/incorrect format.
+
+            // Pause the idCapture to not capture while showing the result.
+            idCapture.Enabled = false;
+            this.ShowResult("Document not supported");
+
+            // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
+            // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
+            frameData.Dispose();
         }
 
         public void OnObservationStarted(IdCapture idCapture)

@@ -50,8 +50,6 @@ namespace MatrixScanBubblesSample.Scan
 
         public BarcodeTracking BarcodeTracking => this.dataCaptureManager.BarcodeTracking;
 
-        public Brush DefaultBrush => this.dataCaptureManager.DefaultBrush;
-
         public Camera Camera => this.dataCaptureManager.Camera;
 
         public void SetListener(IScanViewModelListener listener) => this.listener = listener;

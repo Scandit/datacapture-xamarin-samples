@@ -16,7 +16,9 @@ using System;
 using System.Timers;
 using Android.Content;
 using Android.OS;
+using Android.Support.Design.Widget;
 using Android.Views;
+using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using BarcodeCaptureSettingsSample.Utils;
@@ -30,16 +32,27 @@ namespace BarcodeCaptureSettingsSample.Scanning
 {
     public class BarcodeScanFragment : CameraPermissionFragment, IBarcodeScanViewModelListener 
     {
-        private const int dialogAutoDissmissInterval = 500;
+        private const int snackbarAutoDissmissInterval = 500;
         private readonly Timer continuousResultTimer;
 
         private BarcodeScanViewModel viewModel;
         private DataCaptureView dataCaptureView;
         private AlertDialog dialog;
+        private Snackbar snackbar;
+
+        private class SnackbarCallback : BaseTransientBottomBar.BaseCallback
+        {
+            public override void OnShown(Java.Lang.Object transientBottomBar)
+            {
+                base.OnShown(transientBottomBar);
+                var view = ((Snackbar)transientBottomBar).View;
+                view.Visibility = ViewStates.Visible;
+            }
+        }
 
         public BarcodeScanFragment()
         {
-            this.continuousResultTimer = new Timer(dialogAutoDissmissInterval)
+            this.continuousResultTimer = new Timer(snackbarAutoDissmissInterval)
             {
                 AutoReset = false,
                 Enabled = false
@@ -48,7 +61,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             {
                 if (this.viewModel.ContinuousScanningEnabled)
                 {
-                    this.DismissDialog();
+                    this.DismissSnackbar();
                 }
             };
         }
@@ -59,6 +72,8 @@ namespace BarcodeCaptureSettingsSample.Scanning
         }
 
         public bool ShowingDialog => this.dialog?.IsShowing ?? false;
+
+        public bool ShowingSnackbar => this.snackbar?.IsShown ?? false;
 
         public override void OnCreate(Bundle savedInstanceState) 
         {
@@ -89,6 +104,12 @@ namespace BarcodeCaptureSettingsSample.Scanning
             {
                 this.DismissDialog();
                 this.dialog = null;
+            }
+
+            if (this.snackbar != null)
+            {
+                this.DismissSnackbar();
+                this.snackbar = null;
             }
 
             this.viewModel.SetListener(this);
@@ -215,14 +236,14 @@ namespace BarcodeCaptureSettingsSample.Scanning
         {
             this.continuousResultTimer.Reset();
 
-            if (this.ShowingDialog)
+            if (this.ShowingSnackbar)
             {
-                this.dialog.SetMessage(text);
+                this.snackbar.SetText(text);
             }
             else
             {
-                this.dialog = this.BuildAutoDismissDialog(text);
-                this.dialog.Show();
+                this.snackbar = this.BuildSnackbarDialog(text);
+                this.snackbar.Show();
             }
         }
 
@@ -244,9 +265,20 @@ namespace BarcodeCaptureSettingsSample.Scanning
                        .Create();
         }
 
-        private AlertDialog BuildAutoDismissDialog(string text)
+        private Snackbar BuildSnackbarDialog(string text)
         {
-            return this.BuildBaseDialog(text).Create();
+            Snackbar snackbar = Snackbar.Make(this.dataCaptureView, text, Snackbar.LengthShort);
+            snackbar.SetDuration(int.MaxValue);
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)snackbar.View.LayoutParameters;
+            snackbar.View.Visibility = ViewStates.Invisible;
+            layoutParams.Gravity = (int)GravityFlags.Top;
+            snackbar.View.LayoutParameters = layoutParams;
+            snackbar.View.SetBackgroundColor(Android.Graphics.Color.White);
+            TextView textView = (TextView)snackbar.View.FindViewById(Resource.Id.snackbar_text);
+            textView.SetTextColor(Android.Graphics.Color.Black);
+            snackbar.AddCallback(new SnackbarCallback());
+
+            return snackbar;
         }
 
         private AlertDialog.Builder BuildBaseDialog(string text)
@@ -263,6 +295,14 @@ namespace BarcodeCaptureSettingsSample.Scanning
             if (this.ShowingDialog)
             {
                 this.Activity.RunOnUiThread(() => this.dialog.Dismiss());
+            }
+        }
+
+        private void DismissSnackbar()
+        {
+            if (this.ShowingSnackbar)
+            {
+                this.Activity.RunOnUiThread(() => this.snackbar.Dismiss());
             }
         }
 

@@ -37,8 +37,6 @@ namespace MatrixScanBubblesSample.Models
 
         public Camera Camera => Camera.GetDefaultCamera();
 
-        public Brush DefaultBrush => new Brush(Color.Transparent, Color.White, 2f);
-
         private DataCaptureManager()
         {
             // The barcode tracking process is configured through barcode tracking settings

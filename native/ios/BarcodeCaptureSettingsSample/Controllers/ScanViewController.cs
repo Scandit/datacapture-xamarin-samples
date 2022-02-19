@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Timers;
 using BarcodeCaptureSettingsSample.Model;
 using CoreFoundation;
 using Scandit.DataCapture.Barcode.Capture;
@@ -29,6 +30,7 @@ namespace BarcodeCaptureSettingsSample.Controllers
     public partial class ScanViewController : UIViewController, IBarcodeCaptureListener
     {
         private const int ShownDurationInContinuousModeInMilliSecs = 500;
+        private Timer continuousResultTimer;
 
         public ScanViewController(IntPtr handle) : base(handle) { }
 
@@ -39,15 +41,33 @@ namespace BarcodeCaptureSettingsSample.Controllers
         public BarcodeCapture BarcodeCapture => SettingsManager.Instance.BarcodeCapture;
 
         private DataCaptureView dataCaptureView;
+        private UIView continuousResultView;
+        private UILabel continuousText;
+        private NSLayoutConstraint continuousAnchor;
 
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            SetupRecognition();
+            this.SetupRecognition();
+            this.CreateResultViewForContinuousScan();
+
             if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
             {
                 this.EdgesForExtendedLayout = UIRectEdge.None;
             }
+
+            this.continuousResultTimer = new Timer(ShownDurationInContinuousModeInMilliSecs)
+            {
+                AutoReset = false,
+                Enabled = false
+            };
+            this.continuousResultTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+            {
+                if (SettingsManager.Instance.ContinuousModeEnabled)
+                {
+                    DispatchQueue.MainQueue.DispatchAsync(() => this.continuousResultView.Hidden = true);
+                }
+            };
         }
 
         public override void ViewWillAppear(bool animated)
@@ -72,6 +92,17 @@ namespace BarcodeCaptureSettingsSample.Controllers
             this.Camera?.SwitchToDesiredStateAsync(FrameSourceState.Off);
         }
 
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            this.View.RemoveConstraint(this.continuousAnchor);
+            var height = this.NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            this.continuousAnchor = this.continuousResultView.TopAnchor.ConstraintEqualTo(this.View.TopAnchor, height);
+            this.View.AddConstraint(this.continuousAnchor);
+            this.View.LayoutIfNeeded();
+        }
+
         private void SetupRecognition()
         {
             // Register this as a listener to get informed whenever a
@@ -83,7 +114,7 @@ namespace BarcodeCaptureSettingsSample.Controllers
             // The view must be connected to the data capture context.
             this.dataCaptureView = DataCaptureView.Create(Context, View.Bounds);
             this.dataCaptureView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth |
-                                               UIViewAutoresizing.FlexibleHeight;
+                                                    UIViewAutoresizing.FlexibleHeight;
             this.View.AddSubview(this.dataCaptureView);
             this.View.SendSubviewToBack(this.dataCaptureView);
             SettingsManager.Instance.CaptureView = this.dataCaptureView;
@@ -94,28 +125,34 @@ namespace BarcodeCaptureSettingsSample.Controllers
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
                 var result = new ScanResult(barcodes);
-                var alert = UIAlertController.Create("Scan Results", result.Text, UIAlertControllerStyle.Alert);
-                alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, action =>
+
+                if (!SettingsManager.Instance.ContinuousModeEnabled)
                 {
-                    DismissViewController(true, null);
-                    completion.Invoke();
-                }));
-                this.PresentViewController(alert, true, () =>
+                    var alert = UIAlertController.Create("Scan Results", result.Text, UIAlertControllerStyle.Alert);
+                    alert.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, action =>
+                    {
+                        DismissViewController(true, null);
+                        completion.Invoke();
+                    }));
+                    this.PresentViewController(alert, true, completionHandler: null);
+                }
+                else
                 {
-                    if (!SettingsManager.Instance.ContinuousModeEnabled)
-                    {
-                        return;
-                    }
-                    var delta = new TimeSpan(0, 0, 0, 0, ShownDurationInContinuousModeInMilliSecs);
-                    var dispatchTime = new DispatchTime(DispatchTime.Now, delta);
-                    DispatchQueue.MainQueue.DispatchAfter(dispatchTime, () =>
-                    {
-                        this.DismissViewController(true, completion);
-                    });
-                });
+                    this.ShowViewForContinuousScanning(result.Text);
+                }
             });
         }
 
+        private void ShowViewForContinuousScanning(string text)
+        {
+            this.continuousResultTimer.Stop();
+            this.continuousResultTimer.Start();
+
+            this.continuousText.Text = text;
+            this.continuousResultView.Hidden = false;
+        }
+
+        #region IBarcodeCaptureListener
         public void OnBarcodeScanned(BarcodeCapture barcodeCapture, BarcodeCaptureSession session, IFrameData frameData)
         {
             if (!SettingsManager.Instance.ContinuousModeEnabled)
@@ -129,7 +166,7 @@ namespace BarcodeCaptureSettingsSample.Controllers
                 this.BarcodeCapture.Enabled = false;
             }
 
-            this.ShowResult(session.NewlyRecognizedBarcodes, () =>
+            this.ShowResult(session.NewlyRecognizedBarcodes, completion: () =>
             {
                 if (!SettingsManager.Instance.ContinuousModeEnabled)
                 {
@@ -150,5 +187,43 @@ namespace BarcodeCaptureSettingsSample.Controllers
         public void OnObservationStarted(BarcodeCapture barcodeCapture) { }
 
         public void OnObservationStopped(BarcodeCapture barcodeCapture) { }
+        #endregion
+
+        private void CreateResultViewForContinuousScan()
+        {
+            this.continuousResultView = new UIView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                BackgroundColor = UIColor.White,
+                Hidden = true
+            };
+
+            this.continuousText = new UILabel
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                TextAlignment = UITextAlignment.Left,
+                TextColor = UIColor.Black,
+                Lines = 0
+            };
+
+            this.continuousResultView.AddSubview(this.continuousText);
+            this.continuousResultView.AddConstraints(new[]
+            {
+                this.continuousText.LeadingAnchor.ConstraintEqualTo(this.continuousResultView.LeadingAnchor, 15),
+                this.continuousText.TopAnchor.ConstraintEqualTo(this.continuousResultView.TopAnchor, 15),
+                this.continuousText.TrailingAnchor.ConstraintEqualTo(this.continuousResultView.TrailingAnchor, -15),
+                this.continuousText.BottomAnchor.ConstraintEqualTo(this.continuousResultView.BottomAnchor, -15)
+            });
+            
+            this.View.AddSubview(this.continuousResultView);
+            var height = this.NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
+            this.continuousAnchor = this.continuousResultView.TopAnchor.ConstraintEqualTo(this.View.TopAnchor, height);
+            this.View.AddConstraints(new[]
+            {
+                this.continuousResultView.LeadingAnchor.ConstraintEqualTo(this.View.LeadingAnchor),
+                this.continuousAnchor,
+                this.continuousResultView.TrailingAnchor.ConstraintEqualTo(this.View.TrailingAnchor),
+            });
+        }
     }
 }

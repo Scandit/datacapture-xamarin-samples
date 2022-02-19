@@ -33,7 +33,7 @@ using UIKit;
 
 namespace MatrixScanBubblesSample
 {
-    public partial class ScanViewController : UIViewController, IBarcodeTrackingListener, IBarcodeTrackingBasicOverlayListener, IBarcodeTrackingAdvancedOverlayListener
+    public partial class ScanViewController : UIViewController, IBarcodeTrackingListener, IBarcodeTrackingAdvancedOverlayListener
     {
         private static readonly nfloat BarcodeToScreenTresholdRatio = 0.1f;
         private static readonly int ShelfCount = 4;
@@ -138,7 +138,6 @@ namespace MatrixScanBubblesSample
             // preview. This is optional, but recommended for better visual feedback. The overlay is automatically added
             // to the view.
             this.basicOverlay = BarcodeTrackingBasicOverlay.Create(this.barcodeTracking, this.captureView, BarcodeTrackingBasicOverlayStyle.Dot);
-            this.basicOverlay.Listener = this;
 
             // Add another barcode tracking overlay to the data capture view to render other views. The overlay is 
             // automatically added to the view.
@@ -223,17 +222,6 @@ namespace MatrixScanBubblesSample
         public void OnObservationStarted(BarcodeTracking barcodeTracking) { }
 
         public void OnObservationStopped(BarcodeTracking barcodeTracking) { }
-
-        #endregion
-
-        #region IBarcodeTrackingBasicOverlayListener
-
-        public Brush BrushForTrackedBarcode(BarcodeTrackingBasicOverlay overlay, TrackedBarcode trackedBarcode)
-        {
-            return BrushExtensions.HighlightedBrush;
-        }
-
-        public void OnTrackedBarcodeTapped(BarcodeTrackingBasicOverlay overlay, TrackedBarcode trackedBarcode) { }
 
         #endregion
 

@@ -39,6 +39,7 @@ namespace BarcodeCaptureRejectSample
         private BarcodeCapture barcodeCapture;
         private BarcodeCaptureOverlay overlay;
         private readonly Feedback feedback = Feedback.DefaultFeedback;
+        private readonly BarcodeCaptureOverlayStyle overlayStyle = BarcodeCaptureOverlayStyle.Frame;
 
         public ViewController (IntPtr handle) : base (handle)
         {
@@ -118,7 +119,7 @@ namespace BarcodeCaptureRejectSample
                                                     UIViewAutoresizing.FlexibleWidth;
             this.View.AddSubview(this.dataCaptureView);
 
-            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, BarcodeCaptureOverlayStyle.Frame);
+            this.overlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, this.overlayStyle);
             this.overlay.Viewfinder = RectangularViewfinder.Create(RectangularViewfinderStyle.Square, RectangularViewfinderLineStyle.Light);
         }
 
@@ -154,6 +155,10 @@ namespace BarcodeCaptureRejectSample
                 this.overlay.Brush = Brush.TransparentBrush;
                 return;
             }
+
+            // If the code is accepted, we want to make sure to use
+            // a brush to highlight the code.
+            this.overlay.Brush = BarcodeCaptureOverlay.DefaultBrushForStyle(this.overlayStyle);
 
             // We also want to emit a feedback (vibration and, if enabled, sound).
             this.feedback.Emit();

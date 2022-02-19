@@ -122,7 +122,7 @@ namespace BarcodeCaptureSettingsSample.Model
 
         public BarcodeCaptureOverlay Overlay { get; set; }
 
-        public Brush DefaultBrush { get; }
+        public Brush DefaultBrush => BarcodeCaptureOverlay.DefaultBrushForStyle(this.OverlayStyle);
 
         private SettingsManager()
         {
@@ -138,8 +138,6 @@ namespace BarcodeCaptureSettingsSample.Model
 
             // Create new barcode capture mode with the settings from above.
             this.BarcodeCapture = BarcodeCapture.Create(this.Context, this.BarcodeCaptureSettings);
-
-            this.DefaultBrush = BarcodeCaptureOverlay.Create(this.BarcodeCapture).Brush;
 
             // Make sure that references to some settings are actually
             // the current settings.

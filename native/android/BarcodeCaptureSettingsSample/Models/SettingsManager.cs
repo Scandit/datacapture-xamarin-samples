@@ -149,7 +149,7 @@ namespace BarcodeCaptureSettingsSample
         #endregion
 
         #region Overlay Settings
-        public Brush DefaultBrush => BarcodeCaptureOverlay.DefaultBrush;
+        public Brush DefaultBrush => BarcodeCaptureOverlay.DefaultBrushForStyle(this.OverlayStyle);
 
         public Brush CurrentBrush
         {

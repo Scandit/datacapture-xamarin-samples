@@ -118,12 +118,25 @@ namespace IdCaptureSimpleSample
 
         public void OnIdLocalized(IdCapture mode, IdCaptureSession session, IFrameData frameData)
         {
+            // Implement to handle a personal identification document or its part localized within
+            // a frame. A document or its part is considered localized when it's detected in a frame,
+            // but its data is not yet extracted.
+
             // In this sample we are not interested in this callback.
         }
 
         public void OnIdRejected(IdCapture mode, IdCaptureSession session, IFrameData frameData)
         {
-            // In this sample we are not interested in this callback.
+            // Implement to handle documents recognized in a frame, but rejected.
+            // A document or its part is considered rejected when (a) it's valid, but not enabled in the settings,
+            // (b) it's a barcode of a correct symbology or a Machine Readable Zone (MRZ),
+            // but the data is encoded in an unexpected/incorrect format.
+
+            // This callback may be executed on an arbitrary thread.
+            this.view.Post(() =>
+            {
+                this.ShowAlert(Resource.String.captured_id_title, "Document not supported");
+            });
         }
 
         public void OnErrorEncountered(IdCapture mode, Throwable error, IdCaptureSession session, IFrameData data)

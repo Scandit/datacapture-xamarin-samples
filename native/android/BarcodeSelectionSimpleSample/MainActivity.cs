@@ -111,7 +111,11 @@ namespace BarcodeSelectionSimpleSample
             if (this.barcodeSelectionSettings.SelectionType is BarcodeSelectionTapSelection)
             {
                 this.barcodeSelectionSettings.SelectionType = BarcodeSelectionAimerSelection.Create();
-                this.barcodeSelection.ApplySettingsAsync(this.barcodeSelectionSettings);
+                this.barcodeSelection.ApplySettingsAsync(this.barcodeSelectionSettings)
+                                     .ContinueWith((task) =>
+                                         // Switch the camera to On state in case it froze through
+                                         // double tap while on TapToSelect selection type. 
+                                         this.camera.SwitchToDesiredStateAsync(FrameSourceState.On));
             }
         }
 

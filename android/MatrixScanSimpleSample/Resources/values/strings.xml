@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">MSSimple</string>
+    <string name="done">Done</string>
+    <string name="scan_again">Scan Again</string>
+    <string name="action_settings">Settings</string>
+</resources>

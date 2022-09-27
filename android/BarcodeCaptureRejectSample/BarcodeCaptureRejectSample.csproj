@@ -113,8 +113,8 @@
     
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.14.0" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.14.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.14.1" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.14.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

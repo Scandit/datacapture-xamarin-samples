@@ -256,7 +256,7 @@ namespace IdCaptureExtendedSample
 
         private void DisplayBackOfCardAlert(CapturedId capturedId)
         {
-            string message = "This documents has additional data in the visual inspection zone on the back of the card";
+            string message = "This document has additional data on the back of the card";
             UIAlertController alertController = UIAlertController.Create(title: "Back of Card", message, UIAlertControllerStyle.Alert);
 
             var scanAction = UIAlertAction.Create(title: "Scan",

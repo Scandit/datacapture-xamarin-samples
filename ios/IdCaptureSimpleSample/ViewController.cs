@@ -171,6 +171,11 @@ namespace IdCaptureSimpleSample
             frameData.Dispose();
         }
 
+        public void OnIdCaptureTimedOut(IdCapture idCapture, IdCaptureSession session, IFrameData frameData)
+        {
+            // In this sample we are not interested in this callback.
+        }
+
         public void OnObservationStarted(IdCapture idCapture)
         {
             // In this sample we are not interested in this callback.

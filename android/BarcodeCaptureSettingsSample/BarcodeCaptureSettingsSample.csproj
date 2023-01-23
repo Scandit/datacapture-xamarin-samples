@@ -17,7 +17,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
@@ -207,9 +207,11 @@
     <AndroidResource Include="Resources\layout\fragment_barcode_capture_settings.xml" />
   </ItemGroup>
   <ItemGroup>
-    
+    <PackageReference Include="Square.OkHttp3">
+      <Version>4.9.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-    
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.5.31.2" />
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.ViewModel">
       <Version>2.1.0</Version>
     </PackageReference>
@@ -306,8 +308,8 @@
     <AndroidResource Include="Resources\menu\settings_menu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.15.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.15.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.16.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.16.0" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_code_duplicate_filter_settings.xml">

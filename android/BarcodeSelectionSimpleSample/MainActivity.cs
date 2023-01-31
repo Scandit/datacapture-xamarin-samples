@@ -230,11 +230,6 @@ namespace BarcodeSelectionSimpleSample
 
         private void ShowResults(string result)
         {
-            if (this.dialog != null)
-            {
-                this.dialog.Dismiss();
-            }
-
             this.dialogAutoDismissTimer.Stop();
             this.dialogAutoDismissTimer.Start();
 

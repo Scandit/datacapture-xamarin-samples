@@ -149,6 +149,11 @@ namespace IdCaptureSimpleSample
             });
         }
 
+        public void OnIdCaptureTimedOut(IdCapture mode, IdCaptureSession session, IFrameData data)
+        {
+            // In this sample we are not interested in this callback.
+        }
+
         public void OnObservationStarted(IdCapture mode)
         {
             // In this sample we are not interested in this callback.

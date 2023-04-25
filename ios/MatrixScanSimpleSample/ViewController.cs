@@ -45,7 +45,7 @@ namespace MatrixScanSimpleSample
 
         public override void ViewWillDisappear(bool animated)
         {
-            base.ViewWillAppear(animated);
+            base.ViewWillDisappear(animated);
             // First, disable barcode tracking to stop processing frames.
             this.barcodeTracking.Enabled = false;
             // Switch the camera off to stop streaming frames. The camera is stopped asynchronously.

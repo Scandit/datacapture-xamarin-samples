@@ -28,8 +28,6 @@ namespace IdCaptureExtendedSample.Scan
 {
     public class ScanFragment : CameraPermissionFragment, BottomNavigationView.IOnNavigationItemSelectedListener, IScanViewModelListener
     {
-        private const string AskScanBackSideTag = "ASK_SCAN_BACK_SIDE";
-
         private Mode mode = Mode.Barcode;
         private ScanViewModel viewModel;
         private BottomNavigationView modeNavigation;
@@ -106,17 +104,6 @@ namespace IdCaptureExtendedSample.Scan
         public void ShowIdCaptured(CapturedId capturedId)
         {
             ((MainActivity)this.RequireActivity()).GoToResultScreen(capturedId);
-        }
-
-        public void ShowBackOfCardAlert(CapturedId capturedId)
-        {
-            if (this.ChildFragmentManager.FindFragmentByTag(AskScanBackSideTag) == null)
-            {
-                var dialogFragment = AskScanBackSideDialogFragment.Create(capturedId);
-                dialogFragment.BackSideScanAccepted += DialogBackSideScanAccepted;
-                dialogFragment.BackSideScanSkipped += DialogBackSideScanSkipped;
-                dialogFragment.Show(this.ChildFragmentManager, AskScanBackSideTag);
-            }
         }
 
         public void ShowError(string error)
@@ -196,18 +183,6 @@ namespace IdCaptureExtendedSample.Scan
             this.viewModel.OnModeSelected(mode);
             this.idCaptureOverlay = IdCaptureOverlay.Create(this.viewModel.IdCapture, this.dataCaptureView);
             this.idCaptureOverlay.IdLayoutStyle = IdLayoutStyle.Rounded;
-        }
-
-        private void DialogBackSideScanSkipped(object sender, CapturedId capturedId)
-        {
-            this.viewModel.ScanBackSide(scanningBackSide: false);
-            this.ShowIdCaptured(capturedId);
-        }
-
-        private void DialogBackSideScanAccepted(object sender, EventArgs args)
-        {
-            this.viewModel.ScanBackSide(scanningBackSide: true);
-            this.viewModel.ResumeScanning();
         }
     }
 }

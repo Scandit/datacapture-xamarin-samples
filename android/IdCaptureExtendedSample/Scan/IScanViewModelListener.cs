@@ -19,7 +19,6 @@ namespace IdCaptureExtendedSample.Scan
     public interface IScanViewModelListener
     {
         void ShowIdCaptured(CapturedId capturedId);
-        void ShowBackOfCardAlert(CapturedId capturedId);
         void ShowIdRejected();
         void ShowError(string error);
     }

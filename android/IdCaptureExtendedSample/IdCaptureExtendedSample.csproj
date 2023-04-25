@@ -88,7 +88,6 @@
     <Compile Include="Scan\IScanViewModelListener.cs" />
     <Compile Include="Data\DataCaptureManager.cs" />
     <Compile Include="Scan\AlertDialogFragment.cs" />
-    <Compile Include="Scan\AskScanBackSideDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -190,8 +189,8 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.2.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.16.2" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.16.2" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.16.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.17.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.17.0" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.17.0" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

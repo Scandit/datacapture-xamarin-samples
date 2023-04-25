@@ -28,7 +28,6 @@ namespace IdCaptureExtendedSample.Scan
     {
         private readonly DataCaptureManager dataCaptureManager = DataCaptureManager.Instance;
         private IScanViewModelListener listener;
-        private bool isScanningBackSide = false;
 
         public DataCaptureContext DataCaptureContext => this.dataCaptureManager.DataCaptureContext;
         public IdCapture IdCapture => this.dataCaptureManager.IdCapture;
@@ -66,22 +65,9 @@ namespace IdCaptureExtendedSample.Scan
 
         public void OnModeSelected(Mode mode)
         {
-            this.isScanningBackSide = false;
             this.dataCaptureManager.IdCapture?.RemoveListener(this);
             this.dataCaptureManager.ConfigureIdCapture(mode);
             this.dataCaptureManager.IdCapture.AddListener(this);
-        }
-
-        public void ScanBackSide(bool scanningBackSide)
-        {
-            if (!scanningBackSide)
-            {
-                // If we want to skip scanning the back of the document, we have to call
-                // `IdCapture.Reset()` to allow for another front IDs to be scanned.
-                this.IdCapture.Reset();
-            }
-
-            this.isScanningBackSide = scanningBackSide;
         }
 
         #region IIdCaptureListener
@@ -95,31 +81,20 @@ namespace IdCaptureExtendedSample.Scan
         {
             CapturedId capturedId = session.NewlyCapturedId;
 
-            // Pause the IdCapture to not capture while showing the result.
-            this.PauseScanning();
-
             // Viz documents support multiple sides scanning.
             // In case the back side is supported and not yet captured we inform the user about the feature.
             if (capturedId.Viz != null &&
                 capturedId.Viz.BackSideCaptureSupported &&
                 capturedId.Viz.CapturedSides == SupportedSides.FrontOnly)
             {
-                // Until the back side is scanned, IdCapture will keep reporting the front side.
-                // If we are looking for the back side we just resume scanning.
-                if (this.isScanningBackSide)
-                {
-                    this.ResumeScanning();
-                }
-                else
-                {
-                    this.listener?.ShowBackOfCardAlert(capturedId);
-                }
+                return;
             }
-            else
-            {
-                // Show the result
-                this.listener?.ShowIdCaptured(capturedId);
-            }
+
+            // Pause the IdCapture to not capture while showing the result.
+            this.PauseScanning();
+
+            // Show the result
+            this.listener?.ShowIdCaptured(capturedId);
         }
 
         public void OnIdLocalized(IdCapture mode, IdCaptureSession session, IFrameData data)

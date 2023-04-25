@@ -90,7 +90,7 @@ namespace ListBuildingSample
                 Symbology.Upce,
                 Symbology.Code39,
                 Symbology.Code128,
-                Symbology.IataTwoOfFive 
+                Symbology.InterleavedTwoOfFive
             };
 
             settings.EnableSymbologies(symbologies);
@@ -206,16 +206,16 @@ namespace ListBuildingSample
                 else
                 {
                     this.sparkScanView.EmitFeedback(new SparkScanViewSuccessFeedback());
-                }
-            });
 
-            var itemNumber = ListItemManager.Instance.TotalItemsCount + 1;
-            ListItemManager.Instance.AddItem(
-                new ListItem(
-                    thumbnail,
-                    itemNumber,
-                    barcode.Symbology,
-                    barcode.Data)); ;
+                    var itemNumber = ListItemManager.Instance.TotalItemsCount + 1;
+                    ListItemManager.Instance.AddItem(
+                        new ListItem(
+                            thumbnail,
+                            itemNumber,
+                            barcode.Symbology,
+                            barcode.Data));
+                }
+            });            
         }
     }
 }

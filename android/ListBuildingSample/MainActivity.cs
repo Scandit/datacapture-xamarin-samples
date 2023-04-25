@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Widget;
@@ -31,7 +32,7 @@ using Scandit.DataCapture.Core.Capture;
 
 namespace ListBuildingSample
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : CameraPermissionActivity
     {
         // Enter your Scandit License key here.
@@ -130,7 +131,7 @@ namespace ListBuildingSample
                 Symbology.Upce,
                 Symbology.Code39,
                 Symbology.Code128,
-                Symbology.IataTwoOfFive
+                Symbology.InterleavedTwoOfFive
             };
             settings.EnableSymbologies(symbologies);
 
@@ -189,15 +190,15 @@ namespace ListBuildingSample
                     else
                     {
                         this.sparkScanView.EmitFeedback(new SparkScanViewSuccessFeedback());
-                    }
 
-                    var itemNumber = this.resultListAdapter.ItemCount + 1;
-                    this.resultListAdapter.AddListItem(
-                        new ListItem(
-                            thumbnail,
-                            itemNumber,
-                            barcode.Symbology,
-                            barcode.Data));
+                        var itemNumber = this.resultListAdapter.ItemCount + 1;
+                        this.resultListAdapter.AddListItem(
+                            new ListItem(
+                                thumbnail,
+                                itemNumber,
+                                barcode.Symbology,
+                                barcode.Data));
+                    }
                 });
             });
         }

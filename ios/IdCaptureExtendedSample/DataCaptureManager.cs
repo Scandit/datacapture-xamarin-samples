@@ -23,7 +23,6 @@ namespace IdCaptureExtendedSample
 {
     public class DataCaptureManager
     {
-        // Enter your Scandit License key here.
         private static readonly string SCANDIT_LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
         private static readonly Lazy<DataCaptureManager> instance = new Lazy<DataCaptureManager>(() => new DataCaptureManager(), LazyThreadSafetyMode.PublicationOnly);
@@ -48,7 +47,7 @@ namespace IdCaptureExtendedSample
         {
             // Set the device's default camera as DataCaptureContext's FrameSource. DataCaptureContext
             // passes the frames from it's FrameSource to the added modes to perform capture.
-            // 
+            //
             // Since we are going to perform IdCapture in this sample, we initiate the camera with
             // the recommended settings for this mode.
             this.Camera = Camera.GetDefaultCamera();

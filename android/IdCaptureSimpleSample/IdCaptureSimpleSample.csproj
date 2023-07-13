@@ -90,8 +90,8 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.18.0" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.18.0" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.18.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.18.1" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.18.1" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.18.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

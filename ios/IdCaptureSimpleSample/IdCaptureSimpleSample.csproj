@@ -125,8 +125,8 @@
         <Compile Include="DataCaptureManager.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.3" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.19.3" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.19.3" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.4" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.19.4" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.19.4" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

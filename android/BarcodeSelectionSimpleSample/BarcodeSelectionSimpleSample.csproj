@@ -88,8 +88,8 @@
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.3" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.3" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.4" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.4" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

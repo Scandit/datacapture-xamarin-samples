@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+using System.Collections.Generic;
 using IdCaptureExtendedSample.Result.Presenters;
 using Scandit.DataCapture.ID.Data;
 using UIKit;
@@ -29,8 +30,9 @@ namespace IdCaptureExtendedSample.Result
 
         public ResultViewController(CapturedId capturedId)
         {
-            IResultPresenter presenter = this.factory.Create(capturedId);
-            this.tableViewManager = new TableViewManager(presenter);
+            IEnumerable<IResultPresenter> presenters = this.factory.Create(capturedId);
+            CombinedResultPresenter combinedResult = new CombinedResultPresenter(capturedId, presenters);
+            this.tableViewManager = new TableViewManager(combinedResult);
         }
 
         public override void ViewDidLoad()

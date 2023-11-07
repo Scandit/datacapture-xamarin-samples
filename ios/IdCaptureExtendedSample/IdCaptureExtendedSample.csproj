@@ -167,8 +167,8 @@
         <Compile Include="Result\Presenters\ResultPresenterFactory.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.5" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.19.5" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.19.5" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.20.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.20.0" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.20.0" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

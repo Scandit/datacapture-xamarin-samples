@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using IdCaptureExtendedSample.Result;
 using Scandit.DataCapture.ID.Data;
 
@@ -37,7 +36,7 @@ namespace IdCaptureExtendedSample.Extensions
                 new ResultEntry(value: capturedId.DateOfBirth?.Date.ToShortDateString(), title: "Date of Birth"),
                 new ResultEntry(value: capturedId.Nationality, title: "Nationality"),
                 new ResultEntry(value: capturedId.Address, title: "Address"),
-                new ResultEntry(value: capturedId.CapturedResultTypes.GetResultTypes(), title: "Captured Result Types"),
+                new ResultEntry(value: capturedId.CapturedResultType.Name(), title: "Captured Result Type"),
                 new ResultEntry(value: capturedId.DocumentType.Name(), title: "Document Type"),
                 new ResultEntry(value: capturedId.IssuingCountryIso, title: "Issuing Country ISO"),
                 new ResultEntry(value: capturedId.IssuingCountry, title: "Issuing Country"),
@@ -45,16 +44,6 @@ namespace IdCaptureExtendedSample.Extensions
                 new ResultEntry(value: capturedId.DateOfExpiry?.Date.ToShortDateString(), title: "Date of Expiry"),
                 new ResultEntry(value: capturedId.DateOfIssue?.Date.ToShortDateString(), title: "Date of Issue")
             };
-        }
-
-        private static string GetResultTypes(this CapturedResultType resultType)
-        {
-            return string.Join(", ",
-                Enum.GetValues(typeof(CapturedResultType))
-                    .Cast<Enum>()
-                    .Where(m => resultType.HasFlag(m))
-                    .Cast<CapturedResultType>()
-                    .Select(i => i.ToString()));
         }
     }
 }

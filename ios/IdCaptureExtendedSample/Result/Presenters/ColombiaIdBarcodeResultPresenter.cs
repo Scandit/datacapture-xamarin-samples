@@ -32,12 +32,14 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.ColombiaIdBarcodeResult))
+            if (capturedId.CapturedResultType != CapturedResultType.ColombiaIdBarcodeResult)
             {
                 throw new ArgumentException("Unexpected null ColombiaIdBarcodeResult");
             }
 
-            this.Rows = this.GetColombiaIdBarcodeRows(capturedId.ColombiaIdBarcode).ToList();
+            this.Rows = capturedId.GetCommonRows()
+                                  .Concat(GetColombiaIdBarcodeRows(capturedId.ColombiaIdBarcode))
+                                  .ToList();
         }
 
         private IList<ICellProvider> GetColombiaIdBarcodeRows(ColombiaIdBarcodeResult colombiaIdBarcodeResult)

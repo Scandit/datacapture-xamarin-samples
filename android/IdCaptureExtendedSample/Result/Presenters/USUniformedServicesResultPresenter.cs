@@ -31,12 +31,14 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.UsUniformedServicesBarcodeResult))
+            if (capturedId.CapturedResultType != CapturedResultType.UsUniformedServicesBarcodeResult)
             {
                 throw new ArgumentException("Unexpected null UsUniformedServicesBarcodeResult");
             }
 
-            this.Rows = this.GetUsUniformedServicesBarcodeRows(capturedId.UsUniformedServicesBarcode).ToList();
+            this.Rows = capturedId.GetCommonRows()
+                                  .Concat(GetUsUniformedServicesBarcodeRows(capturedId.UsUniformedServicesBarcode))
+                                  .ToList();
         }
 
         private IList<ResultEntry> GetUsUniformedServicesBarcodeRows(UsUniformedServicesBarcodeResult usUniformedServicesResult)

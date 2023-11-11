@@ -33,10 +33,9 @@ namespace IdCaptureExtendedSample.Result
 
         public ResultViewModel(CapturedId capturedId)
         {
-            IEnumerable<IResultPresenter> resultPresenters = this.factory.Create(capturedId);
-            CombinedResultPresenter combinedResult = new CombinedResultPresenter(capturedId, resultPresenters);
+            IResultPresenter resultPresenter = this.factory.Create(capturedId);
 
-            this.UiState = new ResultUiState(combinedResult.Rows)
+            this.UiState = new ResultUiState(resultPresenter.Rows)
             {
                 FaceImage = capturedId.GetImageBitmapForType(IdImageType.Face),
                 IdFrontImage = capturedId.GetImageBitmapForType(IdImageType.IdFront),

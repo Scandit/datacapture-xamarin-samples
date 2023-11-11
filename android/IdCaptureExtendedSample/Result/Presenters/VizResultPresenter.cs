@@ -31,12 +31,14 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.VizResult))
+            if (capturedId.CapturedResultType != CapturedResultType.VizResult)
             {
                 throw new ArgumentException("Unexpected null VizResult");
             }
 
-            this.Rows = this.GetMrzRows(capturedId).ToList();
+            this.Rows = capturedId.GetCommonRows()
+                                  .Concat(GetMrzRows(capturedId))
+                                  .ToList();
         }
 
         private IList<ResultEntry> GetMrzRows(CapturedId capturedId)
@@ -59,7 +61,10 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 new ResultEntry(value: vizResult.IssuingJurisdictionIso, title: "Issuing Jurisdiction ISO"),
                 new ResultEntry(value: vizResult.IssuingAuthority, title: "Issuing Authority"),
                 new ResultEntry(value: vizResult.CapturedSides.Name(), title: "Captured Sides"),
-                new ResultEntry(value: vizResult.BackSideCaptureSupported ? "Yes" : "No", title: "Backside Supported")
+                new ResultEntry(value: vizResult.BackSideCaptureSupported ? "Yes" : "No", title: "Backside Supported"),
+                //new ImageCellProvider(image: capturedId.GetImageBitmapForType(IdImageType.Face), title: "Face Image"),
+                //new ImageCellProvider(image: capturedId.GetImageBitmapForType(IdImageType.IdFront), title: "Front Image"),
+                //new ImageCellProvider(image: capturedId.GetImageBitmapForType(IdImageType.IdBack), title: "Back Image")
             };
 
             return vizRows;

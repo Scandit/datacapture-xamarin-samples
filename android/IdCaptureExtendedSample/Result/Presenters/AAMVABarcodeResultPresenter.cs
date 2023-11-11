@@ -31,12 +31,14 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.AamvaBarcodeResult))
+            if (capturedId.CapturedResultType != CapturedResultType.AamvaBarcodeResult)
             { 
                 throw new ArgumentException("Unexpected null AAMVABarcodeResult");
             }
 
-            this.Rows = this.GetAamvaBarcodeRows(capturedId.AamvaBarcode).ToList();
+            this.Rows = capturedId.GetCommonRows()
+                                  .Concat(GetAamvaBarcodeRows(capturedId.AamvaBarcode))
+                                  .ToList();
         }
 
         private IList<ResultEntry> GetAamvaBarcodeRows(AamvaBarcodeResult aamvaBarcodeResult)

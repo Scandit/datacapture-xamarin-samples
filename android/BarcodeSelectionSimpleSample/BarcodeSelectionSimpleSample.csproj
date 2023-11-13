@@ -84,12 +84,12 @@
   <ItemGroup>
     <PackageReference Include="Square.OkHttp3" Version="4.9.0.1" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.7.21" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.5.31.2" />
     <PackageReference Include="Xamarin.Android.Support.Constraint.Layout" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.6" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.6" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.18.3" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.18.3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

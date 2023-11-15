@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Square.OkHttp3" Version="4.9.0.1" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.5.31.2" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.7.21" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
     <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.8" />
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.2" />
@@ -115,8 +115,8 @@
     <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.5.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.18.3" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.18.3" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.7" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.7" />
   </ItemGroup>
     <ItemGroup>
       <Folder Include="Data\" />

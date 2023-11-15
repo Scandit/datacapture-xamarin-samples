@@ -26,6 +26,8 @@ namespace IdCaptureExtendedSample.Result
 {
     public class ResultFragment : Fragment
     {
+        private static string KeyCaptureResult = "CAPTURE_RESULT";
+
         private ResultViewModel viewModel;
 
         private ImageView faceImage;
@@ -35,10 +37,22 @@ namespace IdCaptureExtendedSample.Result
 
         public static ResultFragment Create(CapturedId capturedId)
         {
-            return new ResultFragment()
+            var fragment = new ResultFragment()
             {
                 viewModel = new ResultViewModel(capturedId)
             };
+
+            Bundle bundle = new Bundle();
+            bundle.PutParcelable(KeyCaptureResult, fragment.viewModel);
+            fragment.Arguments = bundle;
+
+            return fragment;
+        }
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            this.viewModel = this.Arguments.GetParcelable(KeyCaptureResult) as ResultViewModel;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

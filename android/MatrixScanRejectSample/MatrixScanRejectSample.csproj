@@ -138,8 +138,8 @@
     <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.7.21" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.7" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.7" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.19.8" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.19.8" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

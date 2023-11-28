@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using IdCaptureExtendedSample.Result.CellProviders;
 using Scandit.DataCapture.ID.Data;
 
@@ -36,7 +37,7 @@ namespace IdCaptureExtendedSample.Extensions
                 new SimpleTextCellProvider(value: capturedId.DateOfBirth?.Date.ToShortDateString(), title: "Date of Birth"),
                 new SimpleTextCellProvider(value: capturedId.Nationality, title: "Nationality"),
                 new SimpleTextCellProvider(value: capturedId.Address, title: "Address"),
-                new SimpleTextCellProvider(value: capturedId.CapturedResultType.GetName(), title: "Captured Result Type"),
+                new SimpleTextCellProvider(value: capturedId.CapturedResultTypes.GetResultTypes(), title: "Captured Result Types"),
                 new SimpleTextCellProvider(value: capturedId.DocumentType.GetName(), title: "Document Type"),
                 new SimpleTextCellProvider(value: capturedId.IssuingCountryIso, title: "Issuing Country ISO"),
                 new SimpleTextCellProvider(value: capturedId.IssuingCountry, title: "Issuing Country"),
@@ -44,6 +45,16 @@ namespace IdCaptureExtendedSample.Extensions
                 new SimpleTextCellProvider(value: capturedId.DateOfExpiry?.Date.ToShortDateString(), title: "Date of Expiry"),
                 new SimpleTextCellProvider(value: capturedId.DateOfIssue?.Date.ToShortDateString(), title: "Date of Issue")
             };
+        }
+
+        private static string GetResultTypes(this CapturedResultType resultType)
+        {
+            return string.Join(", ",
+                Enum.GetValues(typeof(CapturedResultType))
+                    .Cast<Enum>()
+                    .Where(m => resultType.HasFlag(m))
+                    .Cast<CapturedResultType>()
+                    .Select(i => i.GetName()));
         }
     }
 }

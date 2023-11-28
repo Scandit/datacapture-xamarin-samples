@@ -31,14 +31,12 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (capturedId.CapturedResultType != CapturedResultType.SouthAfricaDlBarcodeResult)
+            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.SouthAfricaDlBarcodeResult))
             {
                 throw new ArgumentException("Unexpected null SouthAfricaDlBarcodeResult");
             }
 
-            this.Rows = capturedId.GetCommonRows()
-                                  .Concat(GetSouthAfricaDlBarcodeRows(capturedId.SouthAfricaDlBarcode))
-                                  .ToList();
+            this.Rows = this.GetSouthAfricaDlBarcodeRows(capturedId.SouthAfricaDlBarcode).ToList();
         }
 
         private IList<ResultEntry> GetSouthAfricaDlBarcodeRows(SouthAfricaDlBarcodeResult southAfricaDlBarcodeResult)

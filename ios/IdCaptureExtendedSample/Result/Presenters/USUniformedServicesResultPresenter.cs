@@ -32,14 +32,12 @@ namespace IdCaptureExtendedSample.Result.Presenters
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            if (capturedId.CapturedResultType != CapturedResultType.UsUniformedServicesBarcodeResult)
+            if (!capturedId.CapturedResultTypes.HasFlag(CapturedResultType.UsUniformedServicesBarcodeResult))
             {
                 throw new ArgumentException("Unexpected null UsUniformedServicesBarcodeResult");
             }
 
-            this.Rows = capturedId.GetCommonRows()
-                                  .Concat(GetUsUniformedServicesBarcodeRows(capturedId.UsUniformedServicesBarcode))
-                                  .ToList();
+            this.Rows = this.GetUsUniformedServicesBarcodeRows(capturedId.UsUniformedServicesBarcode).ToList();
         }
 
         private IList<ICellProvider> GetUsUniformedServicesBarcodeRows(UsUniformedServicesBarcodeResult usUniformedServicesResult)

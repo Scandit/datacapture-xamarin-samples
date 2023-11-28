@@ -29,7 +29,7 @@ namespace IdCaptureExtendedSample.Result.Presenters
             this.Rows = capturedId.GetCommonRows();
         }
 
-        public CombinedResultPresenter(CapturedId capturedId, IList<IResultPresenter> presenters)
+        public CombinedResultPresenter(CapturedId capturedId, IEnumerable<IResultPresenter> presenters)
         {
             this.Rows = capturedId.GetCommonRows()
                                   .Concat(presenters.SelectMany(p => p.Rows))

@@ -20,7 +20,8 @@ namespace IdCaptureExtendedSample.Result.Presenters
 {
     public class ResultPresenterFactory
     {
-        private readonly Dictionary<CapturedResultType, Func<CapturedId, IResultPresenter>> mappings = new Dictionary<CapturedResultType, Func<CapturedId, IResultPresenter>>()
+        private readonly Dictionary<CapturedResultType, Func<CapturedId, IResultPresenter>> mappings =
+            new Dictionary<CapturedResultType, Func<CapturedId, IResultPresenter>>()
         {
             { CapturedResultType.AamvaBarcodeResult, (CapturedId id) => new AAMVABarcodeResultPresenter(id) },
             { CapturedResultType.ArgentinaIdBarcodeResult, (CapturedId id) => new ArgentinaIdResultPresenter(id) },
@@ -32,14 +33,20 @@ namespace IdCaptureExtendedSample.Result.Presenters
             { CapturedResultType.VizResult, (CapturedId id) => new VizResultPresenter(id) },
         };
 
-        public IResultPresenter Create(CapturedId capturedId)
+        public IEnumerable<IResultPresenter> Create(CapturedId capturedId)
         {
             if (capturedId == null)
             {
                 throw new ArgumentNullException(nameof(capturedId));
             }
 
-            return this.mappings[capturedId.CapturedResultType].Invoke(capturedId);
+            foreach (CapturedResultType value in Enum.GetValues(capturedId.CapturedResultTypes.GetType()))
+            {
+                if (capturedId.CapturedResultTypes.HasFlag(value))
+                {
+                    yield return this.mappings[value].Invoke(capturedId);
+                }
+            }
         }
     }
 }

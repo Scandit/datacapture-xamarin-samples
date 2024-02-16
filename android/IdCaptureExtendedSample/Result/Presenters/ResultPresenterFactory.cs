@@ -31,6 +31,7 @@ namespace IdCaptureExtendedSample.Result.Presenters
             { CapturedResultType.SouthAfricaIdBarcodeResult, (CapturedId id) => new SouthAfricaIdResultPresenter(id) },
             { CapturedResultType.UsUniformedServicesBarcodeResult, (CapturedId id) => new UsUniformedServicesResultPresenter(id) },
             { CapturedResultType.VizResult, (CapturedId id) => new VizResultPresenter(id) },
+            { CapturedResultType.UsVisaVizResult, (CapturedId id) => new UsVisaVizResultPresenter(id) }
         };
 
         public IEnumerable<IResultPresenter> Create(CapturedId capturedId)
@@ -42,7 +43,7 @@ namespace IdCaptureExtendedSample.Result.Presenters
 
             foreach (CapturedResultType value in Enum.GetValues(capturedId.CapturedResultTypes.GetType()))
             {
-                if (capturedId.CapturedResultTypes.HasFlag(value))
+                if (capturedId.CapturedResultTypes.HasFlag(value) && this.mappings.ContainsKey(value))
                 {
                     yield return this.mappings[value].Invoke(capturedId);
                 }

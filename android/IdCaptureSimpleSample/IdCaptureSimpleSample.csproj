@@ -85,13 +85,12 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Square.OkHttp3" Version="4.9.0.1" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.7.21" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.8.22" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.21.2" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.21.2" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.21.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.22.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.22.0" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.22.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

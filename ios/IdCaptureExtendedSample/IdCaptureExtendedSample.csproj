@@ -165,10 +165,11 @@
         <Compile Include="Result\Presenters\VizResultPresenter.cs" />
         <Compile Include="Extensions\SupportedSidesExtensions.cs" />
         <Compile Include="Result\Presenters\ResultPresenterFactory.cs" />
+        <Compile Include="Result\Presenters\UsVisaVizResultPresenter.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.21.2" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.21.2" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.21.2" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.22.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.22.0" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.22.0" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

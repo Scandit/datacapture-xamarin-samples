@@ -114,8 +114,8 @@
     <PackageReference Include="Xamarin.AndroidX.Fragment" Version="1.5.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.22.0" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.22.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.22.1" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.22.1" />
   </ItemGroup>
     <ItemGroup>
       <Folder Include="Data\" />

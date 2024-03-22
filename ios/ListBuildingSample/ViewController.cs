@@ -23,16 +23,20 @@ using ListBuildingSample.Models;
 using ListBuildingSample.Views;
 using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Barcode.Spark.Capture;
+using Scandit.DataCapture.Barcode.Spark.Feedback;
 using Scandit.DataCapture.Barcode.Spark.UI;
 using Scandit.DataCapture.Core.Capture;
 using UIKit;
 
 namespace ListBuildingSample
 {
-    public partial class ViewController : UIViewController
+    public partial class ViewController : UIViewController, ISparkScanFeedbackDelegate
     {
         public static readonly int HeaderMarginTop = 20;
         public static readonly int CellHeight = 70;
+
+        private SparkScanBarcodeErrorFeedback errorFeedback;
+        private SparkScanBarcodeSuccessFeedback successFeedback;
 
         private DataCaptureContext dataCaptureContext;
         private SparkScan sparkScan;
@@ -43,8 +47,7 @@ namespace ListBuildingSample
         private UITableView tableView;
 
         public ViewController(IntPtr handle) : base(handle)
-        {
-        }
+        {}
 
         public override void ViewDidLoad()
         {
@@ -53,6 +56,7 @@ namespace ListBuildingSample
             this.SetupTableView();
             this.SetupClearView();
             this.SetupSparkScan();
+            
         }
 
         public override void ViewWillAppear(bool animated)
@@ -119,6 +123,18 @@ namespace ListBuildingSample
                                                       context: this.dataCaptureContext,
                                                       sparkScan: sparkScan,
                                                       settings: viewSettings);
+
+            this.SetupSparkScanFeedback();
+        }
+
+        private void SetupSparkScanFeedback()
+        {
+            this.errorFeedback = new SparkScanBarcodeErrorFeedback(
+                message: "This code should not have been scanned",
+                resumeCapturingDelay: TimeSpan.FromSeconds(60));
+
+            this.successFeedback = new SparkScanBarcodeSuccessFeedback();
+            this.sparkScanView.Feedback = this;
         }
 
         private void SetupHeaderView()
@@ -183,6 +199,16 @@ namespace ListBuildingSample
             });
         }
 
+        SparkScanBarcodeFeedback ISparkScanFeedbackDelegate.GetFeedbackForBarcode(Barcode barcode)
+        {
+            if (IsBarcodeValid(barcode))
+            {
+                return this.successFeedback;
+            }
+
+            return this.errorFeedback;
+        }
+
         private void BarcodeScanned(object sender, SparkScanEventArgs args)
         {
             if (args.Session.NewlyRecognizedBarcodes.Count == 0)
@@ -197,16 +223,8 @@ namespace ListBuildingSample
 
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                if (barcode.Data == "123456789")
+                if (IsBarcodeValid(barcode))
                 {
-                    var feedback = new SparkScanViewErrorFeedback(message: "This code should not have been scanned",
-                                                                  resumeCapturingDelay: TimeSpan.FromSeconds(60));
-                    this.sparkScanView.EmitFeedback(feedback);
-                }
-                else
-                {
-                    this.sparkScanView.EmitFeedback(new SparkScanViewSuccessFeedback());
-
                     var itemNumber = ListItemManager.Instance.TotalItemsCount + 1;
                     ListItemManager.Instance.AddItem(
                         new ListItem(
@@ -215,7 +233,12 @@ namespace ListBuildingSample
                             barcode.Symbology,
                             barcode.Data));
                 }
-            });            
+            });
+        }
+
+        private static bool IsBarcodeValid(Barcode barcode)
+        {
+            return barcode.Data != "123456789";
         }
     }
 }

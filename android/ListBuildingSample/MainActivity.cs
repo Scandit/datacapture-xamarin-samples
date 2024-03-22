@@ -27,18 +27,22 @@ using ListBuildingSample.Models;
 using ListBuildingSample.Views;
 using Scandit.DataCapture.Barcode.Data;
 using Scandit.DataCapture.Barcode.Spark.Capture;
+using Scandit.DataCapture.Barcode.Spark.Feedback;
 using Scandit.DataCapture.Barcode.Spark.UI;
 using Scandit.DataCapture.Core.Capture;
 
 namespace ListBuildingSample
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : CameraPermissionActivity
+    public class MainActivity : CameraPermissionActivity, ISparkScanFeedbackDelegate
     {
         // There is a Scandit sample license key set below here.
         // This license key is enabled for sample evaluation only.
         // If you want to build your own application, get your license key by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
         public static string SCANDIT_LICENSE_KEY = "AbvELRLKNvXhGsHO0zMIIg85n3IiQdKMA2p5yeVDSOSZSZg/BhX401FXc+2UHPun8Rp2LRpw26tYdgnIJlXiLAtmXfjDZNQzZmrZY2R0QaJaXJC34UtcQE12hEpIYhu+AmjA5cROhJN3CHPoHDns+ho12ibrRAoFrAocoBIwCVzuTRHr0U6pmCKoa/Mn3sNPdINHh97m1X9Al9xjh3VOTNimP6ZjrHLVWEJSOdp2QYOnqn5izP1329PVcZhn8gqlGCRh+LJytbKJYI/KIRbMy3bNOyq5kNnr2IlOqaoXRgYdz2IU+jIWw8Cby9XoSB1zkphiYMmlCUqrDzxLUmTAXF4rSWobiM+OxnoImDqISpunJBQz0a5DSeT5Zf0lwwvXQLX4ghkgXozyYYfYvIKsqxJLZoza8g1BFsJ1i3fb0JYP2Ju209OMN2NTJifAu9ZJjQKGWS76Rmr/jre13jCqGgx5SX9F2lA2ZpF2AEb6rmYYmMtL9CPwWvstM+W295WvscH+gCBccZ9q3rxfIsak6cV2T50/2uBWfJJka6kL9UOjMOG3BOGKx+O+KWT/twwvOC+GcvC8s1qMwGNNM6G+/m7fG5Xtl5wtp3QhpzPJbBHSmlkYbxXQx0SpuWBmvxygyKOi3lUzz3gRzOdykWRXzrhiMAp5bb1y6n6g4O2v2TVgzWWF8vwZ6F60ehYDUq7pbusgT4Fl3fV7fYPgLxMMvXKduMmUlWyGv3CWL9LfvoY/hLl7RxoyUryTMmSfRVBcsKs+MWYJGh1iIvWk1UhOChb9IGI2PzUsHz7+OikuYMjKhR8LZZYalXpPiEVfT66yy75M5DODcjXRoFZU";
+
+        private SparkScanBarcodeErrorFeedback errorFeedback;
+        private SparkScanBarcodeSuccessFeedback successFeedback;
 
         private DataCaptureContext dataCaptureContext;
         private SparkScan sparkScan;
@@ -164,6 +168,18 @@ namespace ListBuildingSample
             // to the container.
             this.sparkScanView =
                 SparkScanView.Create(container, this.dataCaptureContext, this.sparkScan, viewSettings);
+
+            this.SetupSparkScanFeedback();
+        }
+
+        private void SetupSparkScanFeedback()
+        {
+            this.errorFeedback = new SparkScanBarcodeErrorFeedback(
+                message: "This code should not have been scanned",
+                resumeCapturingDelay: TimeSpan.FromSeconds(60));
+
+            this.successFeedback = new SparkScanBarcodeSuccessFeedback();
+            this.sparkScanView.Feedback = this;
         }
 
         private void BarcodeScanned(object sender, SparkScanEventArgs args)
@@ -182,16 +198,8 @@ namespace ListBuildingSample
 
                 this.RunOnUiThread(() =>
                 {
-                    if (barcode.Data == "123456789")
+                    if (IsBarcodeValid(barcode))
                     {
-                        var feedback = new SparkScanViewErrorFeedback(message: "This code should not have been scanned",
-                                                                      resumeCapturingDelay: TimeSpan.FromSeconds(60));
-                        this.sparkScanView.EmitFeedback(feedback);
-                    }
-                    else
-                    {
-                        this.sparkScanView.EmitFeedback(new SparkScanViewSuccessFeedback());
-
                         var itemNumber = this.resultListAdapter.ItemCount + 1;
                         this.resultListAdapter.AddListItem(
                             new ListItem(
@@ -202,6 +210,21 @@ namespace ListBuildingSample
                     }
                 });
             });
+        }
+
+        SparkScanBarcodeFeedback ISparkScanFeedbackDelegate.GetFeedbackForBarcode(Barcode barcode)
+        {
+            if (IsBarcodeValid(barcode))
+            {
+                return this.successFeedback;
+            }
+
+            return this.errorFeedback;
+        }
+
+        private static bool IsBarcodeValid(Barcode barcode)
+        {
+            return barcode.Data != "123456789";
         }
     }
 }

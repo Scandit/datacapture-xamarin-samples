@@ -15,6 +15,7 @@
         <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
         <ProvisioningType>automatic</ProvisioningType>
         <LangVersion>latest</LangVersion>
+        <MtouchExtraArgs>-gcc_flags "-Xlinker -ld_classic"</MtouchExtraArgs>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
         <DebugSymbols>true</DebugSymbols>
@@ -144,8 +145,8 @@
         <Compile Include="TableSource.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.23.2" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.23.2" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.24.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.24.0" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

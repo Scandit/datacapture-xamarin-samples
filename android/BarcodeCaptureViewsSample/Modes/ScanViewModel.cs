@@ -65,9 +65,9 @@ namespace BarcodeCaptureViewsSample.Modes
 
         protected virtual void OnBarcodeScanned(object sender, BarcodeCaptureEventArgs args)
         {
-            Barcode firstBarcode = args.Session.NewlyRecognizedBarcodes.FirstOrDefault();
+            Barcode barcode = args.Session.NewlyRecognizedBarcode;
 
-            if (firstBarcode != null)
+            if (barcode != null)
             {
                 // Stop recognizing barcodes for as long as we are displaying the result.
                 // There won't be any new results until the capture mode is enabled again.
@@ -77,7 +77,7 @@ namespace BarcodeCaptureViewsSample.Modes
 
                 // This method is invoked on a non-UI thread, so in order to perform UI work,
                 // we have to switch to the main thread.
-                this.mainHandler.Post(() => this.BarcodeScanned?.Invoke(this, firstBarcode));
+                this.mainHandler.Post(() => this.BarcodeScanned?.Invoke(this, barcode));
             }
         }
     }

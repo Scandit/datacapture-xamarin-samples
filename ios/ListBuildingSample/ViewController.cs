@@ -56,7 +56,7 @@ namespace ListBuildingSample
             this.SetupTableView();
             this.SetupClearView();
             this.SetupSparkScan();
-            
+
         }
 
         public override void ViewWillAppear(bool animated)
@@ -105,7 +105,7 @@ namespace ListBuildingSample
             // falling outside the default range, you may need to adjust the "active symbol counts"
             // for this symbology. This is shown in the following few lines of code for one of the
             // variable-length symbologies.
-            settings.GetSymbologySettings(Symbology.Code39).ActiveSymbolCounts = 
+            settings.GetSymbologySettings(Symbology.Code39).ActiveSymbolCounts =
                 new short[] { 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 
             // Create new spark scan mode with the settings from above.
@@ -211,12 +211,12 @@ namespace ListBuildingSample
 
         private void BarcodeScanned(object sender, SparkScanEventArgs args)
         {
-            if (args.Session.NewlyRecognizedBarcodes.Count == 0)
+            if (args.Session.NewlyRecognizedBarcode == null)
             {
                 return;
             }
 
-            var barcode = args.Session.NewlyRecognizedBarcodes.First();
+            var barcode = args.Session.NewlyRecognizedBarcode;
             var frame = args.FrameData?.ImageBuffers.Last().ToImage();
             var location = barcode.GetBarcodeLocation(frame);
             var thumbnail = frame?.CropImage((int)location.X, (int)location.Y, (int)location.Width, (int)location.Height);

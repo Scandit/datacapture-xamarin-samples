@@ -21,40 +21,39 @@ namespace BarcodeCaptureSettingsSample.Model
 {
     public class ScanResult
     {
-        public ScanResult(IList<Barcode> barcodes)
-        {
-            this.Barcodes = barcodes;
-        }
+        private readonly Barcode barcode;
 
-        public IList<Barcode> Barcodes { get; private set; }
+        public ScanResult(Barcode barcode)
+        {
+            this.barcode = barcode;
+        }
 
         public string Text
         {
             get
             {
-                return this.Barcodes?.Aggregate("", (result, barcode) =>
+                string result = string.Empty;
+
+                result += $"{barcode.Symbology.ReadableName()}: ";
+                result += barcode.Data;
+
+                if (!string.IsNullOrEmpty(barcode.AddOnData))
                 {
-                    result += $"{barcode.Symbology.ReadableName()}: ";
-                    result += barcode.Data;
+                    result += " " + barcode.AddOnData;
+                }
 
-                    if (!string.IsNullOrEmpty(barcode.AddOnData))
-                    {
-                        result += " " + barcode.AddOnData;
-                    }
+                if (!string.IsNullOrEmpty(barcode.CompositeData))
+                {
+                    result = $"CC Type {StringFromCompositeFlag(barcode.CompositeFlag)}\n" + result;
+                    result += $"\n{barcode.CompositeData}";
+                }
 
-                    if (!string.IsNullOrEmpty(barcode.CompositeData))
-                    {
-                        result = $"CC Type {StringFromCompositeFlag(barcode.CompositeFlag)}\n" + result;
-                        result += $"\n{barcode.CompositeData}";
-                    }
+                if (barcode.SymbolCount != -1)
+                {
+                    result += $"\nSymbol Count: {barcode.SymbolCount}";
+                }
 
-                    if (barcode.SymbolCount != -1)
-                    {
-                        result += $"\nSymbol Count: {barcode.SymbolCount}";
-                    }
-
-                    return result;
-                });
+                return result;
             }
         }
 

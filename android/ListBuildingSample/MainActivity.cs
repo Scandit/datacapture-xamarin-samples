@@ -183,13 +183,13 @@ namespace ListBuildingSample
 
         private void BarcodeScanned(object sender, SparkScanEventArgs args)
         {
-            if (args.Session.NewlyRecognizedBarcodes.Count == 0)
+            if (args.Session.NewlyRecognizedBarcode == null)
             {
                 return;
             }
 
             var frame = args.FrameData?.ImageBuffer.ToBitmap();
-            var barcode = args.Session.NewlyRecognizedBarcodes.First();
+            var barcode = args.Session.NewlyRecognizedBarcode;
 
             Task.Factory.StartNew(() =>
             {

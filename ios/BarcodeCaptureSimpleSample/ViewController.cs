@@ -160,7 +160,7 @@ namespace BarcodeCaptureSimpleSample_iOS_
 
         public void OnBarcodeScanned(BarcodeCapture barcodeCapture, BarcodeCaptureSession session, IFrameData frameData)
         {
-            var barcode = session?.NewlyRecognizedBarcodes.FirstOrDefault();
+            var barcode = session?.NewlyRecognizedBarcode;
 
             if (barcode == null)
             {

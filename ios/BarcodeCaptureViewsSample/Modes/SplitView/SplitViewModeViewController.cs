@@ -53,7 +53,7 @@ namespace BarcodeCaptureViewsSample.Modes.SplitView
 
         private void BarcodeScannedHandler(object sender, BarcodeCaptureEventArgs args)
         {
-            var barcode = args.Session?.NewlyRecognizedBarcodes.FirstOrDefault();
+            var barcode = args.Session?.NewlyRecognizedBarcode;
 
             if (barcode == null)
             {

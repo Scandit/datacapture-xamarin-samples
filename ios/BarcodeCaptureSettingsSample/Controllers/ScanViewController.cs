@@ -120,11 +120,11 @@ namespace BarcodeCaptureSettingsSample.Controllers
             SettingsManager.Instance.CaptureView = this.dataCaptureView;
         }
 
-        private void ShowResult(IList<Barcode> barcodes, Action completion)
+        private void ShowResult(Barcode barcode, Action completion)
         {
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                var result = new ScanResult(barcodes);
+                var result = new ScanResult(barcode);
 
                 if (!SettingsManager.Instance.ContinuousModeEnabled)
                 {
@@ -166,15 +166,18 @@ namespace BarcodeCaptureSettingsSample.Controllers
                 this.BarcodeCapture.Enabled = false;
             }
 
-            this.ShowResult(session.NewlyRecognizedBarcodes, completion: () =>
+            if (session.NewlyRecognizedBarcode != null)
             {
-                if (!SettingsManager.Instance.ContinuousModeEnabled)
+                this.ShowResult(session.NewlyRecognizedBarcode, completion: () =>
                 {
-                    // Enable recognizing barcodes when the result
-                    // is not shown anymore.
-                    this.BarcodeCapture.Enabled = true;
-                }
-            });
+                    if (!SettingsManager.Instance.ContinuousModeEnabled)
+                    {
+                        // Enable recognizing barcodes when the result
+                        // is not shown anymore.
+                        this.BarcodeCapture.Enabled = true;
+                    }
+                });
+            }
 
             frameData.Dispose();
         }
@@ -214,7 +217,7 @@ namespace BarcodeCaptureSettingsSample.Controllers
                 this.continuousText.TrailingAnchor.ConstraintEqualTo(this.continuousResultView.TrailingAnchor, -15),
                 this.continuousText.BottomAnchor.ConstraintEqualTo(this.continuousResultView.BottomAnchor, -15)
             });
-            
+
             this.View.AddSubview(this.continuousResultView);
             var height = this.NavigationController.NavigationBar.Frame.Height + UIApplication.SharedApplication.StatusBarFrame.Height;
             this.continuousAnchor = this.continuousResultView.TopAnchor.ConstraintEqualTo(this.View.TopAnchor, height);

@@ -21,7 +21,7 @@ using Scandit.DataCapture.Core.Source;
 
 namespace BarcodeCaptureSettingsSample.Scanning
 {
-    public class BarcodeScanViewModel : ViewModel, IBarcodeCaptureListener 
+    public class BarcodeScanViewModel : ViewModel, IBarcodeCaptureListener
     {
         private IBarcodeScanViewModelListener listener = null;
 
@@ -35,14 +35,14 @@ namespace BarcodeCaptureSettingsSample.Scanning
         #region IBarcodeCaptureListener
         public void OnBarcodeScanned(BarcodeCapture barcodeCapture, BarcodeCaptureSession session, IFrameData frameData)
         {
-            if (session.NewlyRecognizedBarcodes.Any())
+            if (session.NewlyRecognizedBarcode != null)
             {
                 if (!this.ContinuousScanningEnabled)
                 {
                     this.PauseScanning();
                 }
 
-                Barcode barcode = session.NewlyRecognizedBarcodes[0];
+                Barcode barcode = session.NewlyRecognizedBarcode;
                 this.listener?.ShowDialog(barcode);
             }
         }

@@ -140,12 +140,12 @@ namespace BarcodeCaptureRejectSample
 
         public void OnBarcodeScanned(BarcodeCapture barcodeCapture, BarcodeCaptureSession session, IFrameData frameData)
         {
-            if (session.NewlyRecognizedBarcodes.Count == 0)
+            if (session.NewlyRecognizedBarcode == null)
             {
                 return;
             }
 
-            var barcode = session.NewlyRecognizedBarcodes[0];
+            var barcode = session.NewlyRecognizedBarcode;
 
             // If the code scanned doesn't start with "09:", we will just ignore it and continue
             // scanning.

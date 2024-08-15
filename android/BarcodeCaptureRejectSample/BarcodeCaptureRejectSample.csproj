@@ -25,6 +25,7 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <UseShortFileNames>True</UseShortFileNames>
+    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -112,8 +113,8 @@
     <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.8.22" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.25.2" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.25.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.26.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.26.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

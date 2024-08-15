@@ -170,12 +170,12 @@ namespace BarcodeCaptureSimpleSample
 
         public void OnBarcodeScanned(BarcodeCapture barcodeCapture, BarcodeCaptureSession session, IFrameData frameData)
         {
-            if (!session.NewlyRecognizedBarcodes.Any())
+            if (session.NewlyRecognizedBarcode == null)
             {
                 return;
             }
 
-            Barcode barcode = session.NewlyRecognizedBarcodes[0];
+            Barcode barcode = session.NewlyRecognizedBarcode;
 
             // Stop recognizing barcodes for as long as we are displaying the result. There won't be any new results until
             // the capture mode is enabled again. Note that disabling the capture mode does not stop the camera, the camera

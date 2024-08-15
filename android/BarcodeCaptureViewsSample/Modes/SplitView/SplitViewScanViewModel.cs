@@ -78,14 +78,14 @@ namespace BarcodeCaptureViewsSample.Modes.SplitView
 
         protected override void OnBarcodeScanned(object sender, BarcodeCaptureEventArgs args)
         {
-            Barcode firstBarcode = args.Session.NewlyRecognizedBarcodes.FirstOrDefault();
+            Barcode barcode = args.Session.NewlyRecognizedBarcode;
 
-            if (firstBarcode != null)
+            if (barcode != null)
             {
                 this.scannerTimeoutTimer.Stop();
                 this.scannerTimeoutTimer.Start();
 
-                this.Barcodes.Add(firstBarcode);
+                this.Barcodes.Add(barcode);
 
                 // This method is invoked on a non-UI thread, so in order to perform UI work,
                 // we have to switch to the main thread.

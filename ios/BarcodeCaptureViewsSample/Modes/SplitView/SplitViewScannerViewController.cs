@@ -166,9 +166,8 @@ namespace BarcodeCaptureViewsSample.Modes.SplitView
                                                     UIViewAutoresizing.FlexibleWidth;
 
             this.barcodeCaptureOverlay = BarcodeCaptureOverlay.Create(this.barcodeCapture, this.dataCaptureView, BarcodeCaptureOverlayStyle.Frame);
-            // Add the laser line viewfinder to the overlay.
-            var viewFinder = LaserlineViewfinder.Create(LaserlineViewfinderStyle.Animated);
-            viewFinder.Width = new FloatWithUnit(value: 0.9f, unit: MeasureUnit.Fraction);
+            // Add the aimer viewfinder to the overlay.
+            var viewFinder = AimerViewfinder.Create();
             barcodeCaptureOverlay.Viewfinder = viewFinder;
 
             // We are resizing the capture view to not to take the whole screen,

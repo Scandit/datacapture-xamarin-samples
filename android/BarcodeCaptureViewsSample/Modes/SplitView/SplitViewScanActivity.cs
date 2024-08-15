@@ -148,8 +148,8 @@ namespace BarcodeCaptureViewsSample.Modes.SplitView
             // This is optional, but recommended for better visual feedback.
             BarcodeCaptureOverlay overlay = BarcodeCaptureOverlay.Create(this.viewModel.BarcodeCapture, view, BarcodeCaptureOverlayStyle.Frame);
 
-            // Add the laser line viewfinder to the overlay.
-            overlay.Viewfinder = LaserlineViewfinder.Create(LaserlineViewfinderStyle.Animated);
+            // Add the aimer viewfinder to the overlay.
+            overlay.Viewfinder = AimerViewfinder.Create();
 
             // We put the dataCaptureView in its container.
             ((ViewGroup)this.FindViewById(Resource.Id.scanner_container)).AddView(view);

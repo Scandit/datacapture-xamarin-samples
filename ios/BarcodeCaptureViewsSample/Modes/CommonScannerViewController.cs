@@ -120,7 +120,7 @@ namespace BarcodeCaptureViewsSample.Modes
 
         private void BarcodeScanned(object sender, BarcodeCaptureEventArgs args)
         {
-            var barcode = args.Session?.NewlyRecognizedBarcodes.FirstOrDefault();
+            var barcode = args.Session?.NewlyRecognizedBarcode;
 
             if (barcode == null)
             {

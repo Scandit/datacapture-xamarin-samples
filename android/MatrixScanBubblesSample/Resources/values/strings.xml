@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <string name="app_name">Matrix Scan Bubbles Sample</string>
-    <string name="report_stock_count">Report stock count</string>
-    <string name="shelf_text">Shelf: {0} Back room: {1}</string>
-</resources>

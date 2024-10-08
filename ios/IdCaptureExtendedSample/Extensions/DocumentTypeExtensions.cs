@@ -68,6 +68,8 @@ namespace IdCaptureExtendedSample.Extensions
                 DocumentType.RefugeeId => "Refugee ID",
                 DocumentType.TribalId => "Tribal ID",
                 DocumentType.VeteranId => "Veteran ID",
+                DocumentType.DrivingPrivilegeCard => "Driving Privilege Card",
+                DocumentType.MunicipalId => "Municipal ID",
                 _ => "None",
             };
         }

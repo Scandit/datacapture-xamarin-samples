@@ -13,6 +13,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Scandit.DataCapture.Core.Capture;
 using Scandit.DataCapture.Core.Source;
@@ -66,9 +67,14 @@ namespace IdCaptureSimpleSample
         {
             // Create a mode responsible for recognizing documents. This mode is automatically added
             // to the passed DataCaptureContext.
-            IdCaptureSettings settings = new IdCaptureSettings
+            var settings = new IdCaptureSettings
             {
-                SupportedDocuments = IdDocumentType.IdCardViz | IdDocumentType.DlViz | IdDocumentType.AamvaBarcode | IdDocumentType.ColombiaIdBarcode | IdDocumentType.ArgentinaIdBarcode | IdDocumentType.SouthAfricaDlBarcode | IdDocumentType.SouthAfricaIdBarcode
+                AcceptedDocuments = new List<IIdCaptureDocument> {
+                    new IdCard(IdCaptureRegion.Any),
+                    new DriverLicense(IdCaptureRegion.Any),
+                    new Passport(IdCaptureRegion.Any)
+                },
+                ScannerType = new FullDocumentScanner()
             };
 
             this.IdCapture = IdCapture.Create(this.DataCaptureContext, settings);

@@ -26,13 +26,13 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder.Types
     {
         private static readonly Lazy<UiColor> defaultColor = new Lazy<UiColor>(() =>
         {
-            using RectangularViewfinder rectangular = RectangularViewfinder.Create();
+            using RectangularViewfinder rectangular = RectangularViewfinder.Create(RectangularViewfinderStyle.Rounded);
             return new UiColor(rectangular.Color, Resource.String._default);
         });
 
         private static readonly Lazy<UiColor> defaultDisabledColor = new Lazy<UiColor>(() =>
         {
-            using RectangularViewfinder rectangular = RectangularViewfinder.Create();
+            using RectangularViewfinder rectangular = RectangularViewfinder.Create(RectangularViewfinderStyle.Rounded);
             return new UiColor(rectangular.DisabledColor, Resource.String._default);
         });
 

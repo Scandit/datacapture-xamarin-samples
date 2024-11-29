@@ -65,30 +65,19 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mode.cs" />
+    <Compile Include="Result\Presenters\CommonResultPresenter.cs" />
     <Compile Include="Scan\CameraPermissionFragment.cs" />
     <Compile Include="Scan\ScanFragment.cs" />
     <Compile Include="Scan\ScanViewModel.cs" />
-    <Compile Include="Result\Presenters\AAMVABarcodeResultPresenter.cs" />
-    <Compile Include="Result\Presenters\ArgentinaIdResultPresenter.cs" />
-    <Compile Include="Result\Presenters\ColombiaIdBarcodeResultPresenter.cs" />
-    <Compile Include="Result\Presenters\CombinedResultPresenter.cs" />
     <Compile Include="Result\Presenters\IResultPresenter.cs" />
-    <Compile Include="Result\Presenters\MRZResultPresenter.cs" />
-    <Compile Include="Result\Presenters\ResultPresenterFactory.cs" />
-    <Compile Include="Result\Presenters\SouthAfricaDLResultPresenter.cs" />
-    <Compile Include="Result\Presenters\SouthAfricaIdResultPresenter.cs" />
-    <Compile Include="Result\Presenters\USUniformedServicesResultPresenter.cs" />
-    <Compile Include="Result\Presenters\VizResultPresenter.cs" />
     <Compile Include="Result\ResultEntry.cs" />
     <Compile Include="Result\ResultFragment.cs" />
     <Compile Include="Result\ResultListAdapter.cs" />
     <Compile Include="Result\ResultUiState.cs" />
     <Compile Include="Result\ResultViewModel.cs" />
-    <Compile Include="Extensions\CapturedIdExtentions.cs" />
     <Compile Include="Scan\IScanViewModelListener.cs" />
     <Compile Include="Data\DataCaptureManager.cs" />
     <Compile Include="Scan\AlertDialogFragment.cs" />
-    <Compile Include="Result\Presenters\UsVisaVizResultPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -187,8 +176,8 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.2.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.28.1" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.28.1" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.28.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

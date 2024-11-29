@@ -37,10 +37,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Overlays
             get => new[]
             {
                 new OverlayStyleEntry(
-                    BarcodeCaptureOverlayStyle.Legacy,
-                    settingsManager.OverlayStyle == BarcodeCaptureOverlayStyle.Legacy
-                ),
-                new OverlayStyleEntry(
                     BarcodeCaptureOverlayStyle.Frame,
                     settingsManager.OverlayStyle == BarcodeCaptureOverlayStyle.Frame
                 ),

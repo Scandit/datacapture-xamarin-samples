@@ -35,13 +35,13 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
         private ViewfinderSettingsViewModel viewModel;
 
         private RecyclerView recyclerViewfinderTypes;
-        private View cardRectangular, cardSpecifications, cardAnimation, cardMeasures, cardLaserline, cardAimer;
+        private View cardRectangular, cardSpecifications, cardAnimation, cardMeasures, cardAimer;
         private View containerHeight, containerWidth, containerSizeSpec, containerHeightAspect,
-                     containerWidthAspect, containerColor, containerRectangularDisabledColor, containerEnabledColor, containerDisabledColor,
-                     containerLaserlineStyle, containerLaserlineWidth, containerRectangularStyle, containerRectangularLineStyle,
+                     containerWidthAspect, containerColor, containerRectangularDisabledColor,
+                     containerRectangularStyle, containerRectangularLineStyle,
                      containerShorterDimension, containerShorterDimensionAspect, containerAimerFrameColor, containerAimerDotColor;
         private TextView textType, textColor, textRectangularDisabledColor, textSizeSpecification, textWidth, textHeight,
-                         textEnabledColor, textDisabledColor, textLaserlineStyle, textLaserlineWidth, textRectangularStyle, textAimerFrameColor,
+                         textEnabledColor, textDisabledColor, textRectangularStyle, textAimerFrameColor,
                          textAimerDotColor, textRectangularLineStyle;
         private EditText editHeightAspect, editWidthAspect, editShorterDimension, editLongerDimensionAspect, editRectangularDimming;
         private Switch switchRectangularAnimation, switchRectangularLooping;
@@ -75,7 +75,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardSpecifications = view.FindViewById<View>(Resource.Id.card_size_specification);
             this.cardAnimation = view.FindViewById<View>(Resource.Id.card_animation);
             this.cardMeasures = view.FindViewById<View>(Resource.Id.card_measures);
-            this.cardLaserline = view.FindViewById<View>(Resource.Id.card_laserline);
             this.cardAimer = view.FindViewById<View>(Resource.Id.card_aimer);
 
             this.textType = view.FindViewById<TextView>(Resource.Id.text_viewfinder_type);
@@ -106,14 +105,8 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.containerShorterDimension = view.FindViewById(Resource.Id.container_shorter_dimension);
             this.containerShorterDimensionAspect = view.FindViewById(Resource.Id.container_longer_dimension_aspect);
 
-            this.containerLaserlineWidth = view.FindViewById<View>(Resource.Id.container_laserline_width);
-            this.textLaserlineWidth = view.FindViewById<TextView>(Resource.Id.text_laserline_width);
-            this.containerLaserlineStyle = view.FindViewById(Resource.Id.container_laserline_style);
-            this.textLaserlineStyle = view.FindViewById<TextView>(Resource.Id.text_laserline_style);
             this.textEnabledColor = view.FindViewById<TextView>(Resource.Id.text_enabled_color);
             this.textDisabledColor = view.FindViewById<TextView>(Resource.Id.text_disabled_color);
-            this.containerEnabledColor = view.FindViewById<View>(Resource.Id.container_enabled_color);
-            this.containerDisabledColor = view.FindViewById<View>(Resource.Id.container_disabled_color);
 
             this.containerAimerFrameColor = view.FindViewById<View>(Resource.Id.container_aimer_frame_color);
             this.containerAimerDotColor = view.FindViewById<View>(Resource.Id.container_aimer_dot_color);
@@ -232,26 +225,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.switchRectangularLooping.CheckedChange += (object sender, CompoundButton.CheckedChangeEventArgs args) =>
             {
                 this.viewModel.SetRectangularLoopingEnabled(args.IsChecked);
-            };
-
-            this.containerLaserlineStyle.Click += (object sender, EventArgs args) =>
-            {
-                this.BuildAndShowLaserlineStyleMenu();
-            };
-
-            this.containerLaserlineWidth.Click += (object sender, EventArgs args) =>
-            {
-                this.MoveToFragment(ViewfinderLaserlineWidthMeasureFragment.Create(), true, null);
-            };
-
-            this.containerEnabledColor.Click += (object sender, EventArgs args) =>
-            {
-                this.BuildAndShowEnabledColorMenu();
-            };
-
-            this.containerDisabledColor.Click += (object sender, EventArgs args) =>
-            {
-                this.BuildAndShowDisabledColorMenu();
             };
 
             this.containerAimerFrameColor.Click += (object sender, EventArgs args) =>
@@ -394,15 +367,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.RefreshRectangularLooping(viewfinder.Looping);
         }
 
-        private void RefreshLaserlineViewfinderData(ViewfinderTypeLaserline viewfinder)
-        {
-            this.textType.Text = this.Context.GetString(viewfinder.DisplayNameResourceId);
-            this.textLaserlineStyle.Text = viewfinder.Style.Name();
-            this.textLaserlineWidth.Text = viewfinder.Width.GetStringWithUnit(this.Context);
-            this.textEnabledColor.Text = this.Context.GetString(viewfinder.EnabledColor.DisplayNameResourceId);
-            this.textDisabledColor.Text = this.Context.GetString(viewfinder.DisabledColor.DisplayNameResourceId);
-        }
-
         private void RefreshHeight(FloatWithUnit height)
         {
             switch (SettingsManager.Instance.CurrentViewfinder)
@@ -507,10 +471,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 this.SetupForRectangularViewfinder(rectangular);
             }
-            else if (viewfinderType is ViewfinderTypeLaserline laserline)
-            {
-                this.SetupForLaserlineViewfinder(laserline);
-            }
             else if (viewfinderType is ViewfinderTypeAimer aimer)
             {
                 this.SetupForAimerViewfinder(aimer);
@@ -524,7 +484,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardAnimation.Visibility = ViewStates.Gone;
             this.cardSpecifications.Visibility = ViewStates.Gone;
             this.cardMeasures.Visibility = ViewStates.Gone;
-            this.cardLaserline.Visibility = ViewStates.Gone;
             this.cardAimer.Visibility = ViewStates.Gone;
         }
 
@@ -535,7 +494,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardAnimation.Visibility = ViewStates.Visible;
             this.cardSpecifications.Visibility = ViewStates.Visible;
             this.cardMeasures.Visibility = ViewStates.Visible;
-            this.cardLaserline.Visibility = ViewStates.Gone;
             this.cardAimer.Visibility = ViewStates.Gone;
 
             SizeSpecification spec = viewfinder.SizeSpecification;
@@ -579,19 +537,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.RefreshRectangularViewfinderData(viewfinder);
         }
 
-        private void SetupForLaserlineViewfinder(ViewfinderTypeLaserline viewfinder)
-        {
-            this.textType.Visibility = ViewStates.Visible;
-            this.cardRectangular.Visibility = ViewStates.Gone;
-            this.cardAnimation.Visibility = ViewStates.Gone;
-            this.cardSpecifications.Visibility = ViewStates.Gone;
-            this.cardMeasures.Visibility = ViewStates.Gone;
-            this.cardLaserline.Visibility = ViewStates.Visible;
-            this.cardAimer.Visibility = ViewStates.Gone;
-
-            this.RefreshLaserlineViewfinderData(viewfinder);
-        }
-
         private void SetupForAimerViewfinder(ViewfinderTypeAimer viewfinder)
         {
             this.textType.Visibility = ViewStates.Visible;
@@ -599,7 +544,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             this.cardAnimation.Visibility = ViewStates.Gone;
             this.cardSpecifications.Visibility = ViewStates.Gone;
             this.cardMeasures.Visibility = ViewStates.Gone;
-            this.cardLaserline.Visibility = ViewStates.Gone;
             this.cardAimer.Visibility = ViewStates.Visible;
 
             this.RefreshAimerViewfinderData(viewfinder);
@@ -712,48 +656,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             menu.Show();
         }
 
-        private void BuildAndShowEnabledColorMenu()
-        {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerEnabledColor, GravityFlags.End);
-
-            var availableColors = ViewfinderTypeLaserline.EnabledColors.GetAllForStyle(this.viewModel.LaserlineViewfinderStyle);
-            for (int i = 0; i < availableColors.Count; i++)
-            {
-                UiColor color = availableColors[i];
-                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
-            }
-
-            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
-            {
-                int selectedColor = args.Item.ItemId;
-                this.viewModel.SetLaserlineViewfinderEnabledColor(availableColors[selectedColor]);
-                this.ShowHideSubSettings();
-            };
-
-            menu.Show();
-        }
-
-        private void BuildAndShowDisabledColorMenu()
-        {
-            using PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerDisabledColor, GravityFlags.End);
-
-            var availableColors = ViewfinderTypeLaserline.DisabledColors.GetAllForStyle(this.viewModel.LaserlineViewfinderStyle);
-            for (int i = 0; i < availableColors.Count; i++)
-            {
-                UiColor color = availableColors[i];
-                menu.Menu.Add(0, i, i, this.Context.GetString(color.DisplayNameResourceId));
-            }
-
-            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
-            {
-                int selectedColor = args.Item.ItemId;
-                this.viewModel.SetLaserlineViewfinderDisabledColor(availableColors[selectedColor]);
-                this.ShowHideSubSettings();
-            };
-
-            menu.Show();
-        }
-
         private void BuildAndShowAimerFrameColorMenu()
         {
             PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerAimerFrameColor, GravityFlags.End);
@@ -788,29 +690,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
             {
                 int selectedColor = args.Item.ItemId;
                 this.viewModel.SetAimerViewfinderDotColor(ViewfinderTypeAimer.DotColors.Colors[selectedColor]);
-                this.ShowHideSubSettings();
-            };
-
-            menu.Show();
-        }
-
-        private void BuildAndShowLaserlineStyleMenu()
-        {
-            PopupMenu menu = new PopupMenu(this.RequireContext(), this.containerLaserlineStyle, GravityFlags.End);
-
-            LaserlineViewfinderStyle[] values = LaserlineViewfinderStyle.Values();
-            for (int i = 0; i < values.Length; i++)
-            {
-                LaserlineViewfinderStyle style = values[i];
-                menu.Menu.Add(0, i, i, style.Name());
-            }
-
-            menu.MenuItemClick += (object sender, PopupMenu.MenuItemClickEventArgs args) =>
-            {
-                int selectedStyle = args.Item.ItemId;
-                this.viewModel.SetLaserlineViewfinderStyle(
-                    LaserlineViewfinderStyle.Values()[selectedStyle]
-                );
                 this.ShowHideSubSettings();
             };
 

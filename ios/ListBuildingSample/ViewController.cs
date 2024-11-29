@@ -62,13 +62,13 @@ namespace ListBuildingSample
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            this.sparkScanView.ViewWillAppear();
+            this.sparkScanView.PrepareScanning();
         }
 
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
-            this.sparkScanView.ViewWillDisappear();
+            this.sparkScanView.StopScanning();
         }
 
         public override void DidReceiveMemoryWarning()

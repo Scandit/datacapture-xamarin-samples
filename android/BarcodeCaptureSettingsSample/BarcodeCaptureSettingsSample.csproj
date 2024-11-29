@@ -150,8 +150,6 @@
     <Compile Include="Settings\Views\ScanAreas\ScanAreaSettingsViewModel.cs" />
     <Compile Include="Settings\Views\ScanAreas\Top\ScanAreaTopMarginFragment.cs" />
     <Compile Include="Settings\Views\ScanAreas\Top\ScanAreaTopMarginViewModel.cs" />
-    <Compile Include="Settings\Views\Viewfinder\Types\LaserLineWidth\ViewfinderLaserlineWidthMeasureFragment.cs" />
-    <Compile Include="Settings\Views\Viewfinder\Types\LaserLineWidth\ViewfinderLaserlineWidthViewModel.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\RectangleHeight\ViewfinderRectangleHeightMeasureFragment.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\RectangleHeight\ViewfinderRectangleHeightViewModel.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\RectangleWidth\ViewfinderRectangleWidthMeasureFragment.cs" />
@@ -159,7 +157,6 @@
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderType.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeAimer.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeAdapter.cs" />
-    <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeLaserline.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeNone.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeRectangular.cs" />
     <Compile Include="Settings\Views\Viewfinder\Types\ViewfinderTypeViewModel.cs" />
@@ -305,8 +302,8 @@
     <AndroidResource Include="Resources\menu\settings_menu.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.28.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.28.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_code_duplicate_filter_settings.xml">

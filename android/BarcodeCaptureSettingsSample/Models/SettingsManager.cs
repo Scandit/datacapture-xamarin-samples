@@ -126,8 +126,8 @@ namespace BarcodeCaptureSettingsSample
             }
         }
 
-        public FloatWithUnit RectangularViewfinderWidth { get; set; }
-        public FloatWithUnit RectangularViewfinderHeight { get; set; }
+        public FloatWithUnit RectangularViewfinderWidth { get; set; } = new FloatWithUnit(0.80f, MeasureUnit.Fraction);
+        public FloatWithUnit RectangularViewfinderHeight { get; set; } = new FloatWithUnit(0.32f, MeasureUnit.Fraction);
         public FloatWithUnit RectangularViewfinderShorterDimension { get; set; }
         public float RectangularViewfinderWidthAspect { get; set; }
         public float RectangularViewfinderHeightAspect { get; set; }
@@ -135,16 +135,11 @@ namespace BarcodeCaptureSettingsSample
         public UiColor RectangularViewfinderDisabledColor { get; set; } = ViewfinderTypeRectangular.DefaultDisabledColor;
         public SizeSpecification RectangularViewfinderSizeSpecification { get; set; } = SizeSpecification.WidthAndHeight;
         public float RectangularViewfinderLongerDimensionAspect { get; set; }
-        public RectangularViewfinderStyle RectangularViewfinderStyle { get; set; } = RectangularViewfinderStyle.Legacy;
+        public RectangularViewfinderStyle RectangularViewfinderStyle { get; set; } = RectangularViewfinderStyle.Rounded;
         public RectangularViewfinderLineStyle RectangularViewfinderLineStyle { get; set; } = RectangularViewfinderLineStyle.Light;
         public float RectangularViewfinderDimming { get; set; } = 0.0f;
         public bool RectangularViewfinderAnimation { get; set; } = false;
         public bool RectangularViewfinderLooping { get; set; } = false;
-
-        public LaserlineViewfinderStyle LaserlineViewfinderStyle { get; set; } = LaserlineViewfinderStyle.Legacy;
-        public FloatWithUnit LaserlineViewfinderWidth { get; set; } = new FloatWithUnit(0.75f, MeasureUnit.Fraction);
-        public UiColor LaserlineViewfinderEnabledColor { get; set; } = ViewfinderTypeLaserline.DefaultEnabledColor;
-        public UiColor LaserlineViewfinderDisabledColor { get; set; } = ViewfinderTypeLaserline.DefaultDisabledColor;
 
         public UiColor AimerViewfinderFrameColor { get; set; } = ViewfinderTypeAimer.FrameColors.Default;
         public UiColor AimerViewfinderDotColor { get; set; } = ViewfinderTypeAimer.DotColors.Default;
@@ -464,11 +459,6 @@ namespace BarcodeCaptureSettingsSample
 
             // Create a new overlay with the barcode capture from above, and retrieve the default brush.
             this.BarcodeCaptureOverlay = BarcodeCaptureOverlay.Create(this.BarcodeCapture, null, BarcodeCaptureOverlayStyle.Frame);
-
-            // Create a temporary RectangularViewfinder instance to get default values for width and height.
-            using RectangularViewfinder tempRectangularViewfinder = RectangularViewfinder.Create();
-            this.RectangularViewfinderWidth = tempRectangularViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Width;
-            this.RectangularViewfinderHeight = tempRectangularViewfinder.SizeWithUnitAndAspect.WidthAndHeight.Height;
         }
 
         public async Task ApplyBarcodeCaptureSettingsAsync()

@@ -82,104 +82,31 @@ namespace IdCaptureExtendedSample
         }
 
         #region IIdCaptureListener
-        public void OnIdCaptured(IdCapture capture, IdCaptureSession session, IFrameData frameData)
+        public void OnIdCaptured(IdCapture capture, CapturedId capturedId)
         {
-            try
+            // Pause the IdCapture to not capture while showing the result.
+            this.IdCapture.Enabled = false;
+
+            // Show the result
+            DispatchQueue.MainQueue.DispatchAsync(() =>
             {
-                CapturedId capturedId = session.NewlyCapturedId;
-
-                // Viz documents support multiple sides scanning.
-                // In case the back side is supported and not yet captured we inform the user about the feature.
-                if (capturedId.Viz != null &&
-                    capturedId.Viz.BackSideCaptureSupported &&
-                    capturedId.Viz.CapturedSides == SupportedSides.FrontOnly)
-                {
-                    return;
-                }
-
-                // Pause the IdCapture to not capture while showing the result.
-                this.IdCapture.Enabled = false;
-
-                // Show the result
-                DispatchQueue.MainQueue.DispatchAsync(() =>
-                {
-                    this.Display(capturedId: capturedId);
-                });
-            }
-            finally
-            {
-                // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
-                // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
-                frameData?.Dispose();
-            }
+                this.Display(capturedId: capturedId);
+            });
         }
 
-        public void OnIdLocalized(IdCapture capture, IdCaptureSession session, IFrameData frameData)
+        public void OnIdRejected(IdCapture capture, CapturedId capturedId, RejectionReason rejection)
         {
-            // Implement to handle a personal identification document or its part localized within
-            // a frame. A document or its part is considered localized when it's detected in a frame,
-            // but its data is not yet extracted.
+            // Implement to handle documents recognized in a frame, but rejected.
+            // A document or its part is considered rejected when (a) it's valid, but not enabled in the settings,
+            // (b) it's a barcode of a correct symbology or a Machine Readable Zone (MRZ),
+            // but the data is encoded in an unexpected/incorrect format.
 
-            // In this sample we are not interested in this callback.
-
-            // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
-            // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
-            frameData?.Dispose();
-        }
-
-        public void OnIdRejected(IdCapture capture, IdCaptureSession session, IFrameData frameData)
-        {
-            try
-            {
-                // Implement to handle documents recognized in a frame, but rejected.
-                // A document or its part is considered rejected when (a) it's valid, but not enabled in the settings,
-                // (b) it's a barcode of a correct symbology or a Machine Readable Zone (MRZ),
-                // but the data is encoded in an unexpected/incorrect format.
-
-                // Pause the IdCapture to not capture while showing the result.
-                this.IdCapture.Enabled = false;
-                this.ShowResult(title: string.Empty, message: "Document not supported", completion: () => {
-                    // Resume the idCapture.
-                    this.IdCapture.Enabled = true;
-                });
-            }
-            finally
-            {
-                // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
-                // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
-                frameData?.Dispose();
-            }
-        }
-
-        public void OnErrorEncountered(IdCapture capture, NSError error, IdCaptureSession session, IFrameData frameData)
-        {
-            try
-            {
-                // Implement to handle an error encountered during the capture process.
-                // The error message can be retrieved from the Error localizedDescription.
-                this.ShowResult(title: "Error", message: GetErrorMessage(error));
-            }
-            finally
-            {
-                // Dispose the frame when you have finished processing it. If the frame is not properly disposed,
-                // different issues could arise, e.g. a frozen, non-responsive, or "severely stuttering" video feed.
-                frameData?.Dispose();
-            }
-        }
-
-        public void OnIdCaptureTimedOut(IdCapture idCapture, IdCaptureSession session, IFrameData frameData)
-        {
-            // In this sample we are not interested in this callback.
-        }
-
-        public void OnObservationStarted(IdCapture idCapture)
-        {
-            // In this sample we are not interested in this callback.
-        }
-
-        public void OnObservationStopped(IdCapture idCapture)
-        {
-            // In this sample we are not interested in this callback.
+            // Pause the IdCapture to not capture while showing the result.
+            this.IdCapture.Enabled = false;
+            this.ShowResult(title: string.Empty, message: "Document not supported", completion: () => {
+                // Resume the idCapture.
+                this.IdCapture.Enabled = true;
+            });
         }
         #endregion
 
@@ -250,19 +177,6 @@ namespace IdCaptureExtendedSample
         {
             var resultView = new ResultViewController(capturedId);
             this.NavigationController?.PushViewController(resultView, animated: true);
-        }
-
-        private static string GetErrorMessage(NSError error)
-        {
-            int errCode = (int)error.Code;
-            StringBuilder messageBuilder = new StringBuilder(((IdCaptureErrorCode)errCode).ToString());
-
-            if (!string.IsNullOrEmpty(error.LocalizedDescription))
-            {
-                messageBuilder.Append($": {error.LocalizedDescription}");
-            }
-
-            return messageBuilder.ToString();
         }
     }
 }

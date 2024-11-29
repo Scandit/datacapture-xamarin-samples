@@ -20,7 +20,8 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 {
     public class RectangularViewfinderColor : Enumeration
     {
-        public static readonly RectangularViewfinderColor Default = new RectangularViewfinderColor(0, "Default", RectangularViewfinder.Create().Color);
+        public static readonly RectangularViewfinderColor Default =
+            new RectangularViewfinderColor(0, "Default", RectangularViewfinder.Create(RectangularViewfinderStyle.Rounded).Color);
         public static readonly RectangularViewfinderColor Blue = new RectangularViewfinderColor(1, "Blue", UIColor.Blue);
         public static readonly RectangularViewfinderColor Black = new RectangularViewfinderColor(2, "Black", UIColor.Black);
 

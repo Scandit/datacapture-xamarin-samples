@@ -19,7 +19,6 @@ using System.Threading;
 using MatrixScanCountSimpleSample.Data;
 using Scandit.DataCapture.Barcode.Count.Capture;
 using Scandit.DataCapture.Barcode.Data;
-using Scandit.DataCapture.Barcode.Tracking.Data;
 
 namespace MatrixScanCountSimpleSample
 {
@@ -28,7 +27,7 @@ namespace MatrixScanCountSimpleSample
         private static readonly Lazy<BarcodeManager> instance = new Lazy<BarcodeManager>(
             () => new BarcodeManager(), LazyThreadSafetyMode.PublicationOnly);
 
-        private List<TrackedBarcode> scannedBarcodes;
+        private List<Barcode> scannedBarcodes;
         private List<Barcode> additionalBarcodes;
         private BarcodeCount barcodeCount;
 
@@ -45,7 +44,7 @@ namespace MatrixScanCountSimpleSample
         public void UpdateWithSession(BarcodeCountSession session)
         {
             // Update lists of barcodes with the contents of the current session.
-            this.scannedBarcodes = session.RecognizedBarcodes.Values.ToList();
+            this.scannedBarcodes = session.RecognizedBarcodes.ToList();
             this.additionalBarcodes = session.AdditionalBarcodes.ToList();
         }
 
@@ -57,9 +56,9 @@ namespace MatrixScanCountSimpleSample
                 // after coming back from background.
                 List<Barcode> barcodesToSave = new List<Barcode>();
 
-                foreach (TrackedBarcode barcode in this.scannedBarcodes)
+                foreach (Barcode barcode in this.scannedBarcodes)
                 {
-                    barcodesToSave.Add(barcode.Barcode);
+                    barcodesToSave.Add(barcode);
                 }
 
                 barcodesToSave.AddRange(this.additionalBarcodes);
@@ -92,10 +91,10 @@ namespace MatrixScanCountSimpleSample
 
             if (this.scannedBarcodes != null && this.scannedBarcodes.Any())
             {
-                // Add the inner Barcode objects of each scanned TrackedBarcode to the results map.
-                foreach (TrackedBarcode trackedBarcode in this.scannedBarcodes)
+                // Add the inner Barcode objects of each scanned Barcode to the results map.
+                foreach (Barcode barcode in this.scannedBarcodes)
                 {
-                    copyToResult(trackedBarcode.Barcode);
+                    copyToResult(barcode);
                 }
             }
 

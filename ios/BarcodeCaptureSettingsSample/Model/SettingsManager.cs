@@ -67,12 +67,6 @@ namespace BarcodeCaptureSettingsSample.Model
 
         private RectangularViewfinderAnimation rectangularViewfinderAnimation = null;
 
-        private LaserlineViewfinderEnabledColor laserlineViewfinderEnabledColor = LaserlineViewfinderEnabledColor.Default;
-
-        private LaserlineViewfinderAnimatedEnabledColor laserlineViewfinderAnimatedEnabledColor = LaserlineViewfinderAnimatedEnabledColor.Default;
-
-        private LaserlineViewfinderDisabledColor laserlineViewfinderDisabledColor = LaserlineViewfinderDisabledColor.Default;
-
         private AimerViewfinderFrameColor aimerViewfinderFrameColor = AimerViewfinderFrameColor.Default;
 
         private AimerViewfinderDotColor aimerViewfinderDotColor = AimerViewfinderDotColor.Default;
@@ -558,7 +552,7 @@ namespace BarcodeCaptureSettingsSample.Model
             }
         }
 
-        public RectangularViewfinderStyleType RectangularViewfinderStyleType { get; set; } = RectangularViewfinderStyleType.Legacy;
+        public RectangularViewfinderStyleType RectangularViewfinderStyleType { get; set; } = RectangularViewfinderStyleType.Rounded;
 
         public RectangularViewfinderLineStyleType RectangularViewfinderLineStyleType { get; set; } = RectangularViewfinderLineStyleType.Light;
 
@@ -569,38 +563,6 @@ namespace BarcodeCaptureSettingsSample.Model
             {
                 this.rectangularViewfinderAnimation = value;
                 (this.ViewfinderKind.Viewfinder as RectangularViewfinder).Animation = this.rectangularViewfinderAnimation;
-            }
-        }
-
-        public LaserlineViewfinderStyleType LaserlineViewfinderStyleType { get; set; } = LaserlineViewfinderStyleType.Legacy;
-
-        public LaserlineViewfinderEnabledColor LaserlineViewfinderEnabledColor
-        {
-            get => this.laserlineViewfinderEnabledColor;
-            set
-            {
-                this.laserlineViewfinderEnabledColor = value;
-                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderEnabledColor.UIColor;
-            }
-        }
-
-        public LaserlineViewfinderAnimatedEnabledColor LaserlineViewfinderAnimatedEnabledColor
-        {
-            get => this.laserlineViewfinderAnimatedEnabledColor;
-            set
-            {
-                this.laserlineViewfinderAnimatedEnabledColor = value;
-                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).EnabledColor = this.LaserlineViewfinderAnimatedEnabledColor.UIColor;
-            }
-        }
-
-        public LaserlineViewfinderDisabledColor LaserlineViewfinderDisabledColor
-        {
-            get => this.laserlineViewfinderDisabledColor;
-            set
-            {
-                this.laserlineViewfinderDisabledColor = value;
-                (this.ViewfinderKind.Viewfinder as LaserlineViewfinder).DisabledColor = this.LaserlineViewfinderDisabledColor.UIColor;
             }
         }
 

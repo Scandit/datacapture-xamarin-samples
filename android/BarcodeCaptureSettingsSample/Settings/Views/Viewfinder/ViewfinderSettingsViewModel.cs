@@ -29,7 +29,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
         {
             ViewfinderTypeNone.FromCurrentViewFinder(this.settingsManager.CurrentViewfinder),
             ViewfinderTypeRectangular.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager),
-            ViewfinderTypeLaserline.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager),
             ViewfinderTypeAimer.FromCurrentViewfinderAndSettings(this.settingsManager.CurrentViewfinder, this.settingsManager)
         };
 
@@ -51,13 +50,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
                 this.settingsManager.RectangularViewfinderLineStyle = rectangular.LineStyle;
                 this.settingsManager.RectangularViewfinderAnimation = rectangular.Animation;
                 this.settingsManager.RectangularViewfinderLooping = rectangular.Looping;
-            }
-            else if (viewfinderType is ViewfinderTypeLaserline laserline)
-            {
-                this.settingsManager.LaserlineViewfinderStyle = laserline.Style;
-                this.settingsManager.LaserlineViewfinderWidth = laserline.Width;
-                this.settingsManager.LaserlineViewfinderEnabledColor = laserline.EnabledColor;
-                this.settingsManager.LaserlineViewfinderDisabledColor = laserline.DisabledColor;
             }
             else if (viewfinderType is ViewfinderTypeAimer aimer)
             {
@@ -190,37 +182,6 @@ namespace BarcodeCaptureSettingsSample.Settings.Views.Viewfinder
                 this.SetViewfinderType(currentViewfinder);
             }
             settingsManager.RectangularViewfinderLooping = enabled;
-        }
-
-        public void SetLaserlineViewfinderStyle(LaserlineViewfinderStyle style)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeLaserline)
-            {
-                ((ViewfinderTypeLaserline)currentViewfinder).Style = style;
-                currentViewfinder.ResetDefaults();
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetLaserlineViewfinderEnabledColor(UiColor color)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeLaserline)
-            {
-                ((ViewfinderTypeLaserline)currentViewfinder).EnabledColor = color;
-                this.SetViewfinderType(currentViewfinder);
-            }
-        }
-
-        public void SetLaserlineViewfinderDisabledColor(UiColor color)
-        {
-            ViewfinderType currentViewfinder = this.GetCurrentViewfinderType();
-            if (currentViewfinder is ViewfinderTypeLaserline)
-            {
-                ((ViewfinderTypeLaserline)currentViewfinder).DisabledColor = color;
-                this.SetViewfinderType(currentViewfinder);
-            }
         }
 
         public void SetAimerViewfinderFrameColor(UiColor color)

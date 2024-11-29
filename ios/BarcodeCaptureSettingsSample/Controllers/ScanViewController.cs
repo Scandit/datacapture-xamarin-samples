@@ -87,7 +87,7 @@ namespace BarcodeCaptureSettingsSample.Controllers
             // stopped asynchronously and will take some time to
             // completely turn off. Until it is completely stopped,
             // it is still possible to receive further results, hence
-            // it's a good idea to first disable barcode tracking as well.
+            // it's a good idea to first disable barcode batch as well.
             this.BarcodeCapture.Enabled = false;
             this.Camera?.SwitchToDesiredStateAsync(FrameSourceState.Off);
         }

@@ -29,11 +29,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             {
                 new Section(new []
                 {
-                    BoolOptionRow.Create("Legacy",
-                        () => SettingsManager.Instance.Overlay.Style == BarcodeCaptureOverlayStyle.Legacy,
-                        _ => SettingsManager.Instance.OverlayStyle = BarcodeCaptureOverlayStyle.Legacy,
-                        this.DataSourceListener
-                    ),
                     BoolOptionRow.Create("Frame",
                         () => SettingsManager.Instance.Overlay.Style == BarcodeCaptureOverlayStyle.Frame,
                         _ => SettingsManager.Instance.OverlayStyle = BarcodeCaptureOverlayStyle.Frame,

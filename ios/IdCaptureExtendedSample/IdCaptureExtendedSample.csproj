@@ -114,9 +114,7 @@
         <Folder Include="Resources\" />
         <Folder Include="ModeCollection\" />
         <Folder Include="Result\" />
-        <Folder Include="Result\Presenters\" />
         <Folder Include="Result\CellProviders\" />
-        <Folder Include="Extensions\" />
     </ItemGroup>
     <ItemGroup>
         <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -129,6 +127,7 @@
     <ItemGroup>
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
+        <Compile Include="Result\Presenters\CommonResultPresenter.cs" />
         <Compile Include="ViewController.cs" />
         <Compile Include="ViewController.designer.cs">
             <DependentUpon>ViewController.cs</DependentUpon>
@@ -152,25 +151,10 @@
         <Compile Include="Result\CellProviders\ICellProvider.cs" />
         <Compile Include="Result\CellProviders\SimpleTextCellProvider.cs" />
         <Compile Include="Result\CellProviders\ImageCellProvider.cs" />
-        <Compile Include="Extensions\CaptureResultTypeExtensions.cs" />
-        <Compile Include="Extensions\CapturedIdExtentions.cs" />
-        <Compile Include="Extensions\DocumentTypeExtensions.cs" />
-        <Compile Include="Result\Presenters\CombinedResultPresenter.cs" />
-        <Compile Include="Result\Presenters\AAMVABarcodeResultPresenter.cs" />
-        <Compile Include="Result\Presenters\ArgentinaIdResultPresenter.cs" />
-        <Compile Include="Result\Presenters\ColombiaIdBarcodeResultPresenter.cs" />
-        <Compile Include="Result\Presenters\MRZResultPresenter.cs" />
-        <Compile Include="Result\Presenters\SouthAfricaDLResultPresenter.cs" />
-        <Compile Include="Result\Presenters\SouthAfricaIdResultPresenter.cs" />
-        <Compile Include="Result\Presenters\USUniformedServicesResultPresenter.cs" />
-        <Compile Include="Result\Presenters\VizResultPresenter.cs" />
-        <Compile Include="Extensions\SupportedSidesExtensions.cs" />
-        <Compile Include="Result\Presenters\ResultPresenterFactory.cs" />
-        <Compile Include="Result\Presenters\UsVisaVizResultPresenter.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.28.1" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="6.28.1" />    <PackageReference Include="Scandit.DataCapture.TextCapture.Xamarin" Version="6.28.1" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.0" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="7.0.0" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

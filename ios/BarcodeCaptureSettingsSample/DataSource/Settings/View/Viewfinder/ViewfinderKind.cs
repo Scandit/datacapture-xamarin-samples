@@ -22,8 +22,8 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
     public class ViewfinderKind : Enumeration
     {
         public static readonly ViewfinderKind None = new ViewfinderKind(0, "None", null);
-        public static ViewfinderKind Rectangular = new ViewfinderKind(1, "Rectangular", RectangularViewfinder.Create());
-        public static ViewfinderKind Laserline = new ViewfinderKind(2, "Laserline", LaserlineViewfinder.Create());
+        public static ViewfinderKind Rectangular =
+            new ViewfinderKind(1, "Rectangular", RectangularViewfinder.Create(RectangularViewfinderStyle.Rounded));
         public static readonly ViewfinderKind Aimer = new ViewfinderKind(3, "Aimer", AimerViewfinder.Create());
 
         public static ViewfinderKind UpdateRectangularStyle(RectangularViewfinderStyleType styleType)
@@ -76,20 +76,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
             }
 
             return Rectangular;
-        }
-
-        public static ViewfinderKind UpdateLaserlineStyle(LaserlineViewfinderStyleType styleType)
-        {
-            if (styleType.Style != ((LaserlineViewfinder)Laserline.Viewfinder).Style)
-            {
-                Laserline = new ViewfinderKind(2, "Laserline", LaserlineViewfinder.Create(styleType.Style));
-
-                SettingsManager.Instance.LaserlineViewfinderEnabledColor = LaserlineViewfinderEnabledColor.Default;
-                SettingsManager.Instance.LaserlineViewfinderAnimatedEnabledColor = LaserlineViewfinderAnimatedEnabledColor.Default;
-                SettingsManager.Instance.LaserlineViewfinderDisabledColor = LaserlineViewfinderDisabledColor.Default;
-            }
-
-            return Laserline;
         }
 
         public ViewfinderKind(int key, string value, IViewfinder viewfinder) : base(key, value)

@@ -147,7 +147,7 @@ namespace IdCaptureExtendedSample.Scan
         {
             this.modeNavigation = root.FindViewById<BottomNavigationView>(Resource.Id.bottom_bar);
             this.Select(this.mode);
-        }        
+        }
 
         private void ResumeFrameSource()
         {
@@ -166,7 +166,7 @@ namespace IdCaptureExtendedSample.Scan
             // Switch camera off to stop streaming frames.
             // The camera is stopped asynchronously and will take some time to completely turn off.
             // Until it is completely stopped, it is still possible to receive further results, hence
-            // it's a good idea to first disable barcode tracking as well.
+            // it's a good idea to first disable barcode batch as well.
             this.viewModel.PauseScanning();
             this.viewModel.StopFrameSource();
         }

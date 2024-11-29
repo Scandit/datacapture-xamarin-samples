@@ -19,7 +19,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 {
     public class RectangularViewfinderStyleType : Enumeration
     {
-        public static readonly RectangularViewfinderStyleType Legacy = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Legacy);
         public static readonly RectangularViewfinderStyleType Square = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Square);
         public static readonly RectangularViewfinderStyleType Rounded = new RectangularViewfinderStyleType(RectangularViewfinderStyle.Rounded);
 

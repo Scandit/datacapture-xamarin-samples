@@ -120,8 +120,6 @@
     <Compile Include="DataSource\Settings\View\Overlay\NamedBrush.cs" />
     <Compile Include="DataSource\Settings\View\Overlay\OverlayDataSource.cs" />
     <Compile Include="DataSource\Settings\View\PointOfInterestDataSource.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderDisabledColor.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderEnabledColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderDisabledColor.cs" />
     <Compile Include="Main.cs" />
@@ -261,7 +259,6 @@
     <Compile Include="DataSource\Settings\View\Viewfinder\AimerViewfinderFrameColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\AimerViewfinderDotColor.cs" />
     <Compile Include="DataSource\Settings\View\Viewfinder\RectangularViewfinderLineStyleType.cs" />
-    <Compile Include="DataSource\Settings\View\Viewfinder\LaserlineViewfinderStyleType.cs" />
     <Compile Include="Controllers\Settings\View\GesturesSettingsViewController.cs" />
     <Compile Include="Controllers\Settings\View\GesturesSettingsViewController.designer.cs">
       <DependentUpon>GesturesSettingsViewController.cs</DependentUpon>
@@ -269,8 +266,8 @@
     <Compile Include="DataSource\Settings\View\GesturesDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="6.28.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="6.28.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png">

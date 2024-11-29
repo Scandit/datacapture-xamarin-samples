@@ -30,8 +30,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 
         private readonly Section rectangularSizeType;
 
-        private Section laserlineSettings;
-
         private readonly Section aimerSettings;
 
         private readonly FloatWithUnitRow rectangularWidth;
@@ -94,7 +92,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
 
             this.rectangularSettings = this.CreateRectangularSettings();
             this.rectangularSizeType = this.CreateRectangularSizeType();
-            this.laserlineSettings = this.CreateLaserlineSettings();
             this.aimerSettings = this.CreateAimerSettings();
             this.viewfinderType = this.CreateTypeSection();
         }
@@ -205,77 +202,12 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                     this.DataSourceListener
                 ),
                 BoolOptionRow.Create(
-                    "Laserline",
-                    () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline,
-                    (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Laserline,
-                    this.DataSourceListener
-                ),
-                BoolOptionRow.Create(
                     "Aimer",
                     () => SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Aimer,
                     (_) => SettingsManager.Instance.ViewfinderKind = ViewfinderKind.Aimer,
                     this.DataSourceListener
                 )
             }, "Type");
-        }
-
-        private Section CreateLaserlineSettings()
-        {
-             return new Section(new Row[] 
-             {
-                 ChoiceRow<LaserlineViewfinderStyleType>.Create(
-                    "Style",
-                    Enumeration.GetAll<LaserlineViewfinderStyleType>().ToArray(),
-                    () => SettingsManager.Instance.LaserlineViewfinderStyleType,
-                    newStyle =>
-                    {
-                        SettingsManager.Instance.LaserlineViewfinderStyleType = newStyle;
-                        SettingsManager.Instance.ViewfinderKind = ViewfinderKind.UpdateLaserlineStyle(newStyle);
-                        this.laserlineSettings = this.CreateLaserlineSettings();
-                    },
-                    this.DataSourceListener),
-                 FloatWithUnitRow.Create(
-                     "Width",
-                     () => (SettingsManager.Instance.ViewfinderKind.Viewfinder as LaserlineViewfinder).Width,
-                     unit => (SettingsManager.Instance.ViewfinderKind.Viewfinder as LaserlineViewfinder).Width = unit,
-                     this.DataSourceListener
-                 ),
-                 this.LaserlineViewfinderEnabledColorRow(),
-                 ChoiceRow<LaserlineViewfinderDisabledColor>.Create(
-                     "Disabled Color",
-                     Enumeration.GetAll<LaserlineViewfinderDisabledColor>().ToArray(),
-                     () => SettingsManager.Instance.LaserlineViewfinderDisabledColor,
-                     color => SettingsManager.Instance.LaserlineViewfinderDisabledColor = color,
-                     this.DataSourceListener
-                 )
-             }, "Laserline");
-        }
-
-        private Row LaserlineViewfinderEnabledColorRow()
-        {
-            Row enabledColorRow;
-            if (Equals(SettingsManager.Instance.LaserlineViewfinderStyleType, LaserlineViewfinderStyleType.Animated))
-            {
-                enabledColorRow = ChoiceRow<LaserlineViewfinderAnimatedEnabledColor>.Create(
-                    "Enabled Color",
-                    Enumeration.GetAll<LaserlineViewfinderAnimatedEnabledColor>().ToArray(),
-                    () => SettingsManager.Instance.LaserlineViewfinderAnimatedEnabledColor,
-                    color => SettingsManager.Instance.LaserlineViewfinderAnimatedEnabledColor = color,
-                    this.DataSourceListener
-                );
-            }
-            else
-            {
-                enabledColorRow = ChoiceRow<LaserlineViewfinderEnabledColor>.Create(
-                    "Enabled Color",
-                    Enumeration.GetAll<LaserlineViewfinderEnabledColor>().ToArray(),
-                    () => SettingsManager.Instance.LaserlineViewfinderEnabledColor,
-                    color => SettingsManager.Instance.LaserlineViewfinderEnabledColor = color,
-                    this.DataSourceListener
-                );
-            }
-
-            return enabledColorRow;
         }
 
         private Section CreateAimerSettings()
@@ -330,10 +262,6 @@ namespace BarcodeCaptureSettingsSample.DataSource.Settings.View.Viewfinder
                     {
                         sections.Add(new Section(new Row[]{this.rectangularShorterDimension, this.rectangularLongerDimensioApsect }));
                     }
-                }
-                else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Laserline)
-                {
-                    sections.Add(this.laserlineSettings);
                 }
                 else if (SettingsManager.Instance.ViewfinderKind == ViewfinderKind.Aimer)
                 {

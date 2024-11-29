@@ -30,7 +30,7 @@ using Scandit.DataCapture.Core.UI.Gesture;
 
 namespace BarcodeCaptureSettingsSample.Scanning
 {
-    public class BarcodeScanFragment : CameraPermissionFragment, IBarcodeScanViewModelListener 
+    public class BarcodeScanFragment : CameraPermissionFragment, IBarcodeScanViewModelListener
     {
         private const int snackbarAutoDissmissInterval = 500;
         private readonly Timer continuousResultTimer;
@@ -66,7 +66,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             };
         }
 
-        public static BarcodeScanFragment Create() 
+        public static BarcodeScanFragment Create()
         {
             return new BarcodeScanFragment();
         }
@@ -75,7 +75,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
 
         public bool ShowingSnackbar => this.snackbar?.IsShown ?? false;
 
-        public override void OnCreate(Bundle savedInstanceState) 
+        public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             this.HasOptionsMenu = true;
@@ -193,7 +193,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             this.dataCaptureView.ScanAreaMargins = settings.ScanAreaMargins;
             this.dataCaptureView.LogoAnchor = settings.LogoAnchor;
             this.dataCaptureView.LogoOffset = new PointWithUnit(settings.AnchorXOffset, settings.AnchorYOffset);
-            
+
             if (settings.TorchButtonEnabled)
             {
                 this.dataCaptureView.AddControl(new TorchSwitchControl(this.RequireContext()));
@@ -227,7 +227,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             // Switch camera off to stop streaming frames.
             // The camera is stopped asynchronously and will take some time to completely turn off.
             // Until it is completely stopped, it is still possible to receive further results, hence
-            // it's a good idea to first disable barcode tracking as well.
+            // it's a good idea to first disable barcode batch as well.
             this.viewModel.PauseScanning();
             this.viewModel.StopFrameSource();
         }
@@ -258,7 +258,7 @@ namespace BarcodeCaptureSettingsSample.Scanning
             return this.BuildBaseDialog(text)
                        .SetPositiveButton(
                            Resource.String.ok,
-                           new EventHandler<DialogClickEventArgs>((object sender, DialogClickEventArgs args) => 
+                           new EventHandler<DialogClickEventArgs>((object sender, DialogClickEventArgs args) =>
                            {
                                this.viewModel.ResumeScanning();
                            }))

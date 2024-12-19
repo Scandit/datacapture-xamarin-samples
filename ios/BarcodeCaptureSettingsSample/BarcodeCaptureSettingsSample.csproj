@@ -266,8 +266,8 @@
     <Compile Include="DataSource\Settings\View\GesturesDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.0" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.0.0" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.0.1" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-121.png">

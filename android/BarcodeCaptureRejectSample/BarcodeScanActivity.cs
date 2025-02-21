@@ -168,9 +168,10 @@ namespace BarcodeCaptureRejectSample
             // does not stop the camera, the camera continues to stream frames until it is turned off.
             barcodeCapture.Enabled = false;
 
-            // If you are not disabling barcode capture here and want to continue scanning, consider
-            // setting the codeDuplicateFilter when creating the barcode capture settings to around 500
-            // or even -1 if you do not want codes to be scanned more than once.
+            // If you don't want the codes to be scanned more than once, consider setting the codeDuplicateFilter when
+            // creating the barcode capture settings to -1.
+            // You can set any other value (e.g. 500) to set a fixed timeout and override the smart behaviour enabled
+            // by default.
 
             // Get the human readable name of the symbology and assemble the result to be shown.
             using (var description = SymbologyDescription.Create(barcode.Symbology))

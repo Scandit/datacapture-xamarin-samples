@@ -145,8 +145,8 @@
         <Compile Include="TableSource.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.1.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.1.1" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.1.2" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.1.2" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

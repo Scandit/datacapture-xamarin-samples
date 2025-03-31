@@ -7,47 +7,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "android", "android", "{A64B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ios", "ios", "{E5B23BF9-E688-46EB-9B7A-1C6ACBB84596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureRejectSample", "android\BarcodeCaptureRejectSample\BarcodeCaptureRejectSample.csproj", "{B569E6D2-EBD7-47CE-87E0-F208E01BD675}"
+
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureSimpleSample", "android\01_Single_Scanning_Samples\02_Barcode_Scanning_with_Low_Level_API\BarcodeCaptureSimpleSample\BarcodeCaptureSimpleSample.csproj", "{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "android\01_Single_Scanning_Samples\02_Barcode_Scanning_with_Low_Level_API\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureExtendedSample", "android\02_ID_Scanning_Samples\IdCaptureExtendedSample\IdCaptureExtendedSample.csproj", "{8038800D-1B4A-4CC8-A357-399A11FF2807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "android\02_ID_Scanning_Samples\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanBubblesSample", "android\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanBubblesSample\MatrixScanBubblesSample.csproj", "{8F73153B-11AA-4E0D-851F-6F31043485E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanRejectSample", "android\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanRejectSample\MatrixScanRejectSample.csproj", "{61E211D4-896B-4A76-9297-15493D8F6A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanSimpleSample", "android\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanSimpleSample\MatrixScanSimpleSample.csproj", "{D57204BA-4EAA-425F-8EF3-0231E6999F44}"
 EndProject
 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureSimpleSample", "android\BarcodeCaptureSimpleSample\BarcodeCaptureSimpleSample.csproj", "{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "android\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureExtendedSample", "android\IdCaptureExtendedSample\IdCaptureExtendedSample.csproj", "{8038800D-1B4A-4CC8-A357-399A11FF2807}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "android\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9BE18E27-8AE0-4683-93E6-F60709DBF8F4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanBubblesSample", "android\MatrixScanBubblesSample\MatrixScanBubblesSample.csproj", "{8F73153B-11AA-4E0D-851F-6F31043485E5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanRejectSample", "android\MatrixScanRejectSample\MatrixScanRejectSample.csproj", "{61E211D4-896B-4A76-9297-15493D8F6A16}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanSimpleSample", "android\MatrixScanSimpleSample\MatrixScanSimpleSample.csproj", "{D57204BA-4EAA-425F-8EF3-0231E6999F44}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureRejectSample", "ios\BarcodeCaptureRejectSample\BarcodeCaptureRejectSample.csproj", "{4689641E-397A-4C19-B7FE-487D50A2BB16}"
-EndProject
 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureSimpleSample", "ios\BarcodeCaptureSimpleSample\BarcodeCaptureSimpleSample.csproj", "{101E3060-8799-4119-8A7A-4F86A01C0C84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeCaptureSimpleSample", "ios\01_Single_Scanning_Samples\02_Barcode_Scanning_with_Low_Level_API\BarcodeCaptureSimpleSample\BarcodeCaptureSimpleSample.csproj", "{101E3060-8799-4119-8A7A-4F86A01C0C84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "ios\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSelectionSimpleSample", "ios\01_Single_Scanning_Samples\02_Barcode_Scanning_with_Low_Level_API\BarcodeSelectionSimpleSample\BarcodeSelectionSimpleSample.csproj", "{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureExtendedSample", "ios\IdCaptureExtendedSample\IdCaptureExtendedSample.csproj", "{C2E767EF-DFBA-4FA1-BBBE-707ADBBADCBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureExtendedSample", "ios\02_ID_Scanning_Samples\IdCaptureExtendedSample\IdCaptureExtendedSample.csproj", "{C2E767EF-DFBA-4FA1-BBBE-707ADBBADCBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "ios\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9D55C192-4444-4553-900E-7B4E65D38E62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdCaptureSimpleSample", "ios\02_ID_Scanning_Samples\IdCaptureSimpleSample\IdCaptureSimpleSample.csproj", "{9D55C192-4444-4553-900E-7B4E65D38E62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanBubblesSample", "ios\MatrixScanBubblesSample\MatrixScanBubblesSample.csproj", "{827A6BE7-A629-4FEA-BFBB-5F29FC0E0DA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanBubblesSample", "ios\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanBubblesSample\MatrixScanBubblesSample.csproj", "{827A6BE7-A629-4FEA-BFBB-5F29FC0E0DA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanRejectSample", "ios\MatrixScanRejectSample\MatrixScanRejectSample.csproj", "{1453A63F-A53A-4EBA-8784-1F411370D8D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanRejectSample", "ios\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanRejectSample\MatrixScanRejectSample.csproj", "{1453A63F-A53A-4EBA-8784-1F411370D8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanSimpleSample", "ios\MatrixScanSimpleSample\MatrixScanSimpleSample.csproj", "{868936C8-94E1-493A-BF62-3AD06F63E3D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanSimpleSample", "ios\03_Advanced_Batch_Scanning_Samples\01_Batch_Scanning_and_AR_Info_Lookup\MatrixScanSimpleSample\MatrixScanSimpleSample.csproj", "{868936C8-94E1-493A-BF62-3AD06F63E3D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListBuildingSample", "ios\ListBuildingSample\ListBuildingSample.csproj", "{1DCAA964-622D-40CE-B0A1-E06F40ED55EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListBuildingSample", "ios\01_Single_Scanning_Samples\01_Barcode_Scanning_with_Pre_Built_UI\ListBuildingSample\ListBuildingSample.csproj", "{1DCAA964-622D-40CE-B0A1-E06F40ED55EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListBuildingSample", "android\ListBuildingSample\ListBuildingSample.csproj", "{DD5E1B34-60AC-4DEB-A90E-6377DD53711D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListBuildingSample", "android\01_Single_Scanning_Samples\01_Barcode_Scanning_with_Pre_Built_UI\ListBuildingSample\ListBuildingSample.csproj", "{DD5E1B34-60AC-4DEB-A90E-6377DD53711D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanCountSimpleSample", "android\MatrixScanCountSimpleSample\MatrixScanCountSimpleSample.csproj", "{222C475A-2B56-4178-AFB5-2699B1D6BB65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanCountSimpleSample", "android\03_Advanced_Batch_Scanning_Samples\02_Counting_and_Receiving\MatrixScanCountSimpleSample\MatrixScanCountSimpleSample.csproj", "{222C475A-2B56-4178-AFB5-2699B1D6BB65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanCountSimpleSample", "ios\MatrixScanCountSimpleSample\MatrixScanCountSimpleSample.csproj", "{5B3DFF64-7984-497B-86DE-5CAE2CCF60FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixScanCountSimpleSample", "ios\03_Advanced_Batch_Scanning_Samples\02_Counting_and_Receiving\MatrixScanCountSimpleSample\MatrixScanCountSimpleSample.csproj", "{5B3DFF64-7984-497B-86DE-5CAE2CCF60FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,18 +57,18 @@ Global
 		Release|iPhone = Release|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675}.Release|iPhone.Build.0 = Release|Any CPU
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -167,18 +165,18 @@ Global
 		{D57204BA-4EAA-425F-8EF3-0231E6999F44}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{D57204BA-4EAA-425F-8EF3-0231E6999F44}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{D57204BA-4EAA-425F-8EF3-0231E6999F44}.Release|iPhone.Build.0 = Release|Any CPU
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Debug|iPhone.Build.0 = Debug|iPhone
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|iPhone.ActiveCfg = Release|iPhone
-		{4689641E-397A-4C19-B7FE-487D50A2BB16}.Release|iPhone.Build.0 = Release|iPhone
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -331,7 +329,7 @@ Global
 		SolutionGuid = {62A3D0EC-7638-41F7-9692-4862CEC982AE}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B569E6D2-EBD7-47CE-87E0-F208E01BD675} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
+		
 		
 		{3BC0AC7E-3B3B-4D3F-9CC0-B2BDECC460A6} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
 		{0C1D75FA-8AD8-4A36-B0BE-1BC0B940B943} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
@@ -340,7 +338,7 @@ Global
 		{8F73153B-11AA-4E0D-851F-6F31043485E5} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
 		{61E211D4-896B-4A76-9297-15493D8F6A16} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
 		{D57204BA-4EAA-425F-8EF3-0231E6999F44} = {A64B2B87-7DEA-4785-9AC6-BFD855E69F84}
-		{4689641E-397A-4C19-B7FE-487D50A2BB16} = {E5B23BF9-E688-46EB-9B7A-1C6ACBB84596}
+		
 		
 		{101E3060-8799-4119-8A7A-4F86A01C0C84} = {E5B23BF9-E688-46EB-9B7A-1C6ACBB84596}
 		{5ED6F34B-1F2A-4F0C-B2FD-AEFED7DA3305} = {E5B23BF9-E688-46EB-9B7A-1C6ACBB84596}

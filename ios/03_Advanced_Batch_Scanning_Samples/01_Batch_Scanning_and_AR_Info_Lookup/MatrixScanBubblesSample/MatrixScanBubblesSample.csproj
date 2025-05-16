@@ -96,63 +96,41 @@
     <Compile Include="Overlay\StockOverlay.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.2.2" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.2.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Assets.xcassets\Contents.json">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-121.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-120.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-76.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-1024.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-152.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-180.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-81.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-80.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-167.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\icon-40.png">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\AppIcon.appiconset\Contents.json">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\FreezeOff.imageset\FreezeOff.pdf">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\FreezeOff.imageset\Contents.json">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\Freeze.imageset\Freeze.pdf">
-      <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Assets.xcassets\Freeze.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Assets.xcassets\StockCount.imageset\Report stock count 60x60.pdf">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Resources\Assets.xcassets\StockCount.imageset\Contents.json">
-      <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -130,7 +130,7 @@ namespace ListBuildingSample
         private void SetupSparkScanFeedback()
         {
             this.errorFeedback = new SparkScanBarcodeErrorFeedback(
-                message: "This code should not have been scanned",
+                message: "Wrong barcode",
                 resumeCapturingDelay: TimeSpan.FromSeconds(60));
 
             this.successFeedback = new SparkScanBarcodeSuccessFeedback();

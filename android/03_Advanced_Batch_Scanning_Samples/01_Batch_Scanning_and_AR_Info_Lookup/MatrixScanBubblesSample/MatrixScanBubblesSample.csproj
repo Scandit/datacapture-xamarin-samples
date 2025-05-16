@@ -98,18 +98,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\circle.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\stock_count_with_background.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable-hdpi\freeze_disabled.png">
       <SubType>
       </SubType>
@@ -117,12 +105,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-hdpi\freeze_enabled.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable-hdpi\stock_count.png">
       <SubType>
       </SubType>
       <Generator>
@@ -140,12 +122,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-ldpi\stock_count.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable-mdpi\freeze_disabled.png">
       <SubType>
       </SubType>
@@ -153,12 +129,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-mdpi\freeze_enabled.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable-mdpi\stock_count.png">
       <SubType>
       </SubType>
       <Generator>
@@ -176,12 +146,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xhdpi\stock_count.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxhdpi\freeze_disabled.png">
       <SubType>
       </SubType>
@@ -194,12 +158,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxhdpi\stock_count.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\freeze_disabled.png">
       <SubType>
       </SubType>
@@ -207,12 +165,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\freeze_enabled.png">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\stock_count.png">
       <SubType>
       </SubType>
       <Generator>
@@ -260,8 +212,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.2.2" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.2.2" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.3.0" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

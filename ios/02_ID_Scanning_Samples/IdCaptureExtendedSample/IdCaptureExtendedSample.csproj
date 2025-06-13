@@ -153,8 +153,8 @@
         <Compile Include="Result\CellProviders\ImageCellProvider.cs" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.0" />
-    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="7.3.0" />
+      <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.1" />
+    <PackageReference Include="Scandit.DataCapture.IdCapture.Xamarin" Version="7.3.1" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -96,8 +96,8 @@
     <Compile Include="Overlay\StockOverlay.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.3.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.4.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Assets.xcassets\Contents.json">

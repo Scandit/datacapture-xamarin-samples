@@ -103,14 +103,14 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.8.22" />
+    <PackageReference Include="Xamarin.Kotlin.StdLib" Version="1.9.23" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.5" />
     <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.2.1.8" />
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.3.1" />
-    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.3.1" />
+    <PackageReference Include="Scandit.DataCapture.Core.Xamarin" Version="7.4.0" />
+    <PackageReference Include="Scandit.DataCapture.Barcode.Xamarin" Version="7.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
